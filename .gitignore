@@ -1,0 +1,6 @@
+.env
+work/
+work2/
+docker_run_old.sh
+run_old.sh
+.DS_Store
