@@ -65,13 +65,21 @@ RUN --mount=type=secret,id=lakefs_access_key,required=true \
         export LAKECTL_CREDENTIALS_ACCESS_KEY_ID="$(cat /run/secrets/lakefs_access_key)"; \
         export LAKECTL_CREDENTIALS_SECRET_ACCESS_KEY="$(cat /run/secrets/lakefs_secret_key)"; \
         export LAKECTL_SERVER_ENDPOINT_URL="${LAKEFS_ENDPOINT}"; \
+        mkdir -p "${KASKADE_ROOT}/work/input" "${KASKADE_ROOT}/work/output"; \
         lakectl \
             fs download \
-            lakefs://sandbox/main/RAW/work/ \
-            "${KASKADE_ROOT}/work" \
+            lakefs://sandbox/main/RAW/work/input/ \
+            "${KASKADE_ROOT}/work/input" \
             --recursive \
             --no-progress \
-            || { echo "lakectl download FAILED"; exit 1; }; \
+            || { echo "lakectl download FAILED (input)"; exit 1; }; \
+        lakectl \
+            fs download \
+            lakefs://sandbox/main/RAW/work/output/ \
+            "${KASKADE_ROOT}/work/output" \
+            --recursive \
+            --no-progress \
+            || { echo "lakectl download FAILED (output)"; exit 1; }; \
     else \
         echo "work/input und work/output sind bereits vorhanden."; \
     fi
