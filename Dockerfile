@@ -62,22 +62,16 @@ RUN --mount=type=secret,id=lakefs_access_key,required=true \
         echo "work-Ordner fehlt oder ist unvollständig; lade ihn aus lakeFS herunter."; \
         rm -rf "${KASKADE_ROOT}/work"; \
         mkdir -p "${KASKADE_ROOT}/work"; \
-        printf '%s\n' \
-            'server:' \
-            "  endpoint_url: ${LAKEFS_ENDPOINT}" \
-            'credentials:' \
-            "  access_key_id: $(cat /run/secrets/lakefs_access_key)" \
-            "  secret_access_key: $(cat /run/secrets/lakefs_secret_key)" \
-            > /tmp/lakectl.yaml; \
-	lakectl \
-	    --config /tmp/lakectl.yaml \
-	    fs download \
-	    lakefs://sandbox/main/RAW/work/ \
-	    "${KASKADE_ROOT}/work" \
-	    --recursive \
-	    --no-progress \
-	    || { echo "lakectl download FAILED"; rm -f /tmp/lakectl.yaml; exit 1; }; \
-	rm -f /tmp/lakectl.yaml; \
+        export LAKECTL_CREDENTIALS_ACCESS_KEY_ID="$(cat /run/secrets/lakefs_access_key)"; \
+        export LAKECTL_CREDENTIALS_SECRET_ACCESS_KEY="$(cat /run/secrets/lakefs_secret_key)"; \
+        export LAKECTL_SERVER_ENDPOINT_URL="${LAKEFS_ENDPOINT}"; \
+        lakectl \
+            fs download \
+            lakefs://sandbox/main/RAW/work/ \
+            "${KASKADE_ROOT}/work" \
+            --recursive \
+            --no-progress \
+            || { echo "lakectl download FAILED"; exit 1; }; \
     else \
         echo "work/input und work/output sind bereits vorhanden."; \
     fi
