@@ -1,0 +1,103 @@
+##
+## Define your paths to include files, libraries etc.
+##
+
+##
+## The path to the KASKADE7 source directory
+##
+KASKADE7 = /root/kaskade7_master/kaskade7_test
+#PYTHON = $(HOME)/.local/include/python3.11
+#PYTHONLIB = $(HOME)/.local/lib
+PYTHON = $(HOME)/python-3.11/include/python3.11
+PYTHONLIB = $(HOME)/python-3.11/lib
+
+USE_MPI = 0
+
+KASKADEINC = -I$(KASKADE7) -I$(PYTHON)
+KASKADELIB = -L$(KASKADE7)/libs -L$(PYTHONLIB) -lkaskade -lgomp -ltirpc #-lpython3.11 #-lpython3.9 
+
+##
+## Read all the path and configuration data for the necessary third-party libraries
+##
+#include $(KASKADE7)/work/input/installed/Makefile.Local
+include /data/numerik/software/KaskadeDependencies/Kaskade7.5Dependencies-10.2/installed/Makefile.Local
+
+# This path is for the next version of Kaskade with Dune 2.7 - requires some adaptations in the Kaskade code
+#include /data/numerik/software/KaskadeDependencies/Kaskade7.4Dependencies-9.2/installed/Makefile.Local
+
+BOOSTLIB = -lboost_program_options -lboost_timer -lboost_thread -lboost_chrono -lpthread -lboost_system
+NUMALIB = -lnuma
+
+##
+## General include list for all the installed and required packages
+##
+INCLUDE = $(DUNEINC) $(UGINC) $(FUSIONINC) $(BOOSTINC) $(UMFPACKINC) $(MUMPSINC) $(HYPREINC) $(KASKADEINC)
+
+
+##
+## Direct solver libraries available.
+##
+DIRECTSOLVERLIB = $(UMFPACKLIB) $(MUMPSLIB)
+ifdef SUPERLUINC
+  DIRECTSOLVERLIB += $(SUPERLULIB)
+endif
+
+ifdef PARDISOINC
+  DIRECTSOLVERLIB += $(PARDISOLIB)
+endif
+
+
+##
+## archive command
+##
+AR = ar sU
+
+##
+## common compiler flags
+##
+COMMONFLAGS = -std=c++17 -DHAVE_NUMA -DHAVE_LIBAMIRA=1 $(HAVE_UG)
+
+##
+## warnings
+##
+WFLAGS = -w -ftemplate-depth=1000 #-ftemplate-depth=5000
+#-DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated-declarations -Wno-deprecated -Wno-unused-variable -Wno-reorder
+#-Wno-unused-variable -Wno-reorder
+
+##
+## compiler flags for debug builds
+##
+#DEBUGFLAGS = -DDEBUG #-g
+DEBUGFLAGS =
+
+##
+## compiler flags for production builds
+##
+OPTFLAGS = -fopenmp -fmessage-length=0 -funroll-loops -O2 -DNDEBUG #-march=native
+# OPTFLAGS = -fmessage-length=0 -funroll-loops -O1 -DNDEBUG
+# OPTFLAGS =
+
+##
+## compiler flags for impatient programmers
+##
+QUICKCOMPILEFLAGS = 
+#-O0
+##
+## flags for gccmakedep
+##
+MAKEDEPENDFLAGS = -DZIBHTC  -D__cplusplus=201401L
+
+##
+## flags for linking
+##
+LINKFLAGS = $(patsubst %, -Xlinker -rpath=%, $(LD_RUN_PATH))
+
+###################################################################################################
+# Define the standard compiler flags to be used. You can combine any of the above flag variables.
+
+FLAGS = $(COMMONFLAGS) $(WFLAGS) $(OPTFLAGS) 
+FLAGS += -I/opt/yaml-cpp-kaskade/include ##new
+#$(DEBUGFLAGS) opt nicht mit debug!
+#FLAGS = $(COMMONFLAGS) $(WFLAGS) $(DEBUGFLAGS)
+
+

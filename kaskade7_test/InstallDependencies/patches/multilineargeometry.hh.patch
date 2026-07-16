@@ -1,0 +1,30 @@
+--- multilineargeometry.hh-original	2019-01-17 11:26:25.813546987 +0100
++++ multilineargeometry.hh-new	2019-01-17 12:33:50.359615820 +0100
+@@ -684,7 +684,7 @@
+              const ctype &rf, GlobalCoordinate &y )
+   {
+     const ctype xn = df*x[ dim-1 ];
+-    const ctype cxn = ctype( 1 ) - xn;
++    ctype cxn = ctype( 1 ) - xn;
+ 
+     if( Impl::isPrism( toUnsignedInt(topologyId), mydimension, mydimension-dim ) )
+     {
+@@ -697,10 +697,14 @@
+     {
+       assert( Impl::isPyramid( toUnsignedInt(topologyId), mydimension, mydimension-dim ) );
+       // apply (1-xn) times mapping for bottom (with argument x/(1-xn))
+-      if( cxn > Traits::tolerance() || cxn < -Traits::tolerance() )
+-        global< add >( topologyId, std::integral_constant< int, dim-1 >(), cit, df/cxn, x, rf*cxn, y );
+-      else
+-        global< add >( topologyId, std::integral_constant< int, dim-1 >(), cit, df, x, ctype( 0 ), y );
++      if( cxn < Traits::tolerance() && cxn > -Traits::tolerance() )
++      {
++        if (cxn > 0)
++          cxn = Traits::tolerance();
++        else
++          cxn = -Traits::tolerance();
++      }
++      global< add >( topologyId, std::integral_constant< int, dim-1 >(), cit, df/cxn, x, rf*cxn, y );
+       // apply xn times the tip
+       y.axpy( rf*xn, *cit );
+       ++cit;

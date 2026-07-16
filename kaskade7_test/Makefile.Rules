@@ -1,0 +1,20 @@
+
+# Compile C++ files into object files, saving the error messages into gccerr.txt
+%.o: %.cpp %.d
+	$(CXX) $(FLAGS) $(INCLUDE) $(CLANGINC) $< -c -o $@ 2> gccerr.txt 
+
+# Create dependency file for a source file. Add the dependency file itself to the target list,
+# such that it gets rebuilt if any of the header files changes. See Peter Miller: "Recursive make
+# considered harmful".
+%.d: %.cpp  $(KASKADE7)/tools/remove_install_deps
+	$(KASKADE7)/tools/gccmakedep -f $@ $(INCLUDE) $(MAKEDEPENDFLAGS) $<
+	if [ -x $(KASKADE7)/tools/remove_install_deps$(KASKADE7)/tools/remove_install_deps ]; then $@ $(KASKADE7); fi
+	sed -e 's|\(.*\)\.o:|\1.o \1.d:|' $@ > $@.extended
+	mv $@.extended $@
+
+# Update object files in libraries. There's a predefined rule for that, but we need to 
+# use our own $(AR) command to pass the U flag to ar - otherwise no build time stamp
+# is included in the library (as of Ubuntu 18.04).
+(%.o): %.o
+	$(AR)cr $@ $%
+

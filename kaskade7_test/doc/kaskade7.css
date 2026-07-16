@@ -1,0 +1,5 @@
+/* Kaskade 7 tweaks for HTML output */
+
+body, table, div, p, dl {
+	font: 400 18px/21px Roboto,sans-serif;
+}

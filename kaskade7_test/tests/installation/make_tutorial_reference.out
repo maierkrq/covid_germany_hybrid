@@ -1,0 +1,2444 @@
+cd tutorial/laplacian; make; export DYLD_LIBRARY_PATH=/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib; ./laplace
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/laplacian“ wird betreten
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include  laplace.cpp -c -o laplace.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 laplace.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -o laplace
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/laplacian“ wird verlassen
+Start Laplacian tutorial program
+graphical output finished, data in VTK format is written into file temperature.vtu 
+End Laplacian tutorial program
+cd tutorial/stationary_heattransfer; make; export DYLD_LIBRARY_PATH=/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib; ./heat; ./heat3d
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/stationary_heattransfer“ wird betreten
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/ALUGrid-1.52/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/ALUGrid-1.52/include/serial -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/alberta-3.0.1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/alberta-3.0.1/include/alberta -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/taucs-2.0/include  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include -I/usr/include/atlas  ht.cpp -c -o ht.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 ht.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o \
+/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/lib -litsol \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/taucs-2.0/lib -ltaucs \
+  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -o heat
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 -DSPACEDIM=3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/ALUGrid-1.52/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/ALUGrid-1.52/include/serial -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/alberta-3.0.1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/alberta-3.0.1/include/alberta -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/taucs-2.0/include  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include -I/usr/include/atlas  ht.cpp -c -o ht3d.o 2> gccerr.txt
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 ht3d.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o \
+/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/lib -litsol \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/taucs-2.0/lib -ltaucs \
+  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -o heat3d
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/stationary_heattransfer“ wird verlassen
+Start heat transfer tutorial program (with SpaceDimension=2)
+Default parameters read from /nfs/datanumerik/weimann/test/projects/Kaskade7.3/default.json
+original mesh shall be refined : 5 times
+discretization order           : 2
+output level (verbosity)       : 1
+
+Grid: 4096 triangles, 
+      6208 edges, 
+      2113 points
+computing time for generation of initial mesh:  0.058839s wall, 0.050000s user + 0.010000s system = 0.060000s CPU (102.0%)
+
+the diffusion constant kappa is   : 1
+the mass coefficient q is         : 1
+
+no of variables = 1
+no of equations = 1
+number of degrees of freedom = 8321
+number of nonzero elements in the stiffness matrix: 94721
+
+#tasks:4 
+computing time for assemble:  0.052240s wall, 0.050000s user + 0.000000s system = 0.050000s CPU (95.7%)
+
+Entered 'direct'
+computing time for direct solve:  0.054958s wall, 0.050000s user + 0.000000s system = 0.050000s CPU (91.0%)
+
+L2norm(solution) = 0.176456
+graphical output finished, data in VTK format is written into file temperature2.vtu 
+graphical output finished, data in AMIRA format is written into file temperature2.am 
+computing time for output:  0.111530s wall, 0.070000s user + 0.000000s system = 0.070000s CPU (62.8%)
+
+total computing time:  0.322856s wall, 0.260000s user + 0.020000s system = 0.280000s CPU (86.7%)
+
+End heat transfer tutorial program
+Start heat transfer tutorial program (with SpaceDimension=3)
+Default parameters read from /nfs/datanumerik/weimann/test/projects/Kaskade7.3/default.json
+original mesh shall be refined : 2 times
+discretization order           : 2
+output level (verbosity)       : 1
+
+Grid: 12288 tetrahedra, 
+      25344 triangles, 
+      15544 edges, 
+      2489 points
+computing time for generation of initial mesh:  0.207022s wall, 0.210000s user + 0.000000s system = 0.210000s CPU (101.4%)
+
+the diffusion constant kappa is   : 1
+the mass coefficient q is         : 1
+
+no of variables = 1
+no of equations = 1
+number of degrees of freedom = 18033
+number of nonzero elements in the stiffness matrix: 489153
+
+#tasks:4 
+computing time for assemble:  0.480467s wall, 0.480000s user + 0.000000s system = 0.480000s CPU (99.9%)
+
+Entered 'direct'
+computing time for direct solve:  1.420978s wall, 1.350000s user + 0.060000s system = 1.410000s CPU (99.2%)
+
+L2norm(solution) = 0.176454
+graphical output finished, data in VTK format is written into file temperature3.vtu 
+graphical output finished, data in AMIRA format is written into file temperature3.am 
+computing time for output:  0.674467s wall, 0.600000s user + 0.020000s system = 0.620000s CPU (91.9%)
+
+total computing time:  2.903745s wall, 2.780000s user + 0.100000s system = 2.880000s CPU (99.2%)
+
+End heat transfer tutorial program
+cd tutorial/geomgrid; make; export DYLD_LIBRARY_PATH=/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib; ./geomgrid  --radius 10
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/geomgrid“ wird betreten
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include  geomgrid.cpp -c -o geomgrid.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -g geomgrid.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o \
+/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/superlu-4.3/lib -lsuperlu \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/lib -litsol \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE \
+  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -o geomgrid
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/geomgrid“ wird verlassen
+Start GeometryGrid tutorial program
+original mesh shall be refined : 5 times
+discretization order           : 2
+output level (verbosity)       : 1
+Grid: 4096 triangles, 
+      6208 edges, 
+      2113 points
+computing time for generation of initial mesh:  0.059309s wall, 0.060000s user + 0.000000s system = 0.060000s CPU (101.2%)
+
+no of variables = 1
+no of equations = 1
+number of degrees of freedom = 8321
+number of nonzero elements in the stiffness matrix: 94721
+
+computing time for assemble:  0.040334s wall, 0.040000s user + 0.000000s system = 0.040000s CPU (99.2%)
+computing time for direct solve:  0.055395s wall, 0.050000s user + 0.010000s system = 0.060000s CPU (108.3%)
+L2norm(solution) = 255.656
+graphical output finished, data in VTK format is written into file temperature.vtu
+computing time for output:  0.082799s wall, 0.050000s user + 0.000000s system = 0.050000s CPU (60.4%)
+
+total computing time:  0.279648s wall, 0.240000s user + 0.020000s system = 0.260000s CPU (93.0%)
+End GeometryGrid tutorial program
+cd tutorial/artificial_1d_testProblem; make; export DYLD_LIBRARY_PATH=/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib; ./atp --graphicalOutput 0; 
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/artificial_1d_testProblem“ wird betreten
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include  atp.cpp -c -o atp.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" atp.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -o atp
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/artificial_1d_testProblem“ wird verlassen
+Start atp transfer tutorial program
+refinements of original mesh : 5
+discretization order         : 2
+fsign = -1
+Grid: 65 points 
+
+Newton iteration starts:
+iter   ||correction||            ||F||  assemble time  linsolve time
+   1      2.01523e+00      7.70295e-02         0.010s         0.000s 
+   2      7.47559e-01      1.19630e-01         0.000s         0.000s 
+   3      2.04801e-01      2.15142e-02         0.000s         0.000s 
+   4      2.09756e-02      2.06233e-03         0.000s         0.000s 
+   5      1.43216e-04      1.45274e-04         0.000s         0.000s 
+   6      8.54325e-09      1.41897e-04         0.000s         0.000s 
+total computing time:  0.010251s wall, 0.010000s user + 0.000000s system = 0.010000s CPU (97.6%)
+
+End atp transfer tutorial program
+cd tutorial/Embedded_errorEstimation; make; export DYLD_LIBRARY_PATH=/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib; ./heat
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/Embedded_errorEstimation“ wird betreten
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/taucs-2.0/include  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include  peaksource.cpp -c -o peaksource.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1  peaksource.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o \
+/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/lib -litsol \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/taucs-2.0/lib -ltaucs \
+  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -pg -o heat
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/Embedded_errorEstimation“ wird verlassen
+Start heat transfer tutorial program using embedded error estimation
+Default parameters read from /nfs/datanumerik/weimann/test/projects/Kaskade7.3/default.json
+original mesh shall be refined : 5 times
+discretization order         : 2
+output level (verbosity)     : 1
+discretization is symmetric
+
+Grid: 4096 triangles, 
+      6208 edges, 
+      2113 points
+no of variables = 1
+no of equations = 1
+init mesh: nnz = 94721, dof = 8321
+
+Accuracy: atol = 1e-05,  rtol = 1e-05
+   ||solution||^2 = 5.896e-05 
+     ||errors||^2 = 1.119e-08 
+
+GRIDMANAGER: mesh is refined from 4096 cells to 5408 cells
+after refinement: 5408 cells, 2769 vertices.
+new mesh: nnz = 124897, dof = 10945
+   ||solution||^2 = 5.897e-05 
+     ||errors||^2 = 7.702e-10 
+
+GRIDMANAGER: mesh is refined from 5408 cells to 7154 cells
+after refinement: 7154 cells, 3642 vertices.
+new mesh: nnz = 165055, dof = 14437
+   ||solution||^2 = 5.897e-05 
+     ||errors||^2 = 1.213e-10 
+
+GRIDMANAGER: mesh is refined from 7154 cells to 9496 cells
+after refinement: 9496 cells, 4813 vertices.
+new mesh: nnz = 218921, dof = 19121
+   ||solution||^2 = 5.897e-05 
+     ||errors||^2 = 6.079e-11 
+new mesh: nnz = 218921, dof = 19121
+total computing time:  1.793371s wall, 1.710000s user + 0.120000s system = 1.830000s CPU (102.0%)
+
+End heat transfer (peak source) tutorial program
+cd tutorial/HB_errorEstimation; make; export DYLD_LIBRARY_PATH=/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib; ./heat; ./heat3d --file cube.am
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/HB_errorEstimation“ wird betreten
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O1    -std=c++1y  -DHAVE_NUMA  -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/taucs-2.0/include  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include  heat.cpp -c -o heat.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O1    -std=c++1y  -DHAVE_NUMA  -DHAVE_LIBAMIRA=1 heat.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o \
+/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/lib -litsol \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/taucs-2.0/lib -ltaucs \
+  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -pg -o heat
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O1    -std=c++1y  -DHAVE_NUMA  -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/taucs-2.0/include  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include  heat3d.cpp -c -o heat3d.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O1    -std=c++1y  -DHAVE_NUMA  -DHAVE_LIBAMIRA=1 heat3d.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o \
+/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/lib -litsol \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/taucs-2.0/lib -ltaucs \
+  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -pg -o heat3d
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/HB_errorEstimation“ wird verlassen
+Start heat transfer tutorial program using HB error estimation (SpaceDimension=2)
+Default parameters read from default.json
+original mesh shall be refined : 5 times
+discretization order           : 1
+max. adaptive refine steps     : 10
+output level (verbosity)       : 1
+
+Solver type is iterative
+Note: direct solver MUMPS/PARADISO or ICC preconditioner ===> onlyLowerTriangle is set to true!
+
+
+Grid: 4096 triangles, 
+      6208 edges, 
+      2113 points
+no of variables = 1
+no of equations = 1
+
+Accuracy: rTol = 0.001, aTol = 0.001
+Minimal number of cells to refine in an adaptive step: 20 % of all
+
+max. number of iterations in iterative solver = 1000
+requested accuracy in iterate solver = 1e-10
+
+   preconditioned cascadic multigrid solver II is used
+step = 0: 2113 points,   ||estim. err|| = 1.543e-02
+   output written to file graph/peak-grid000
+
+GRIDMANAGER: mesh is refined from 4096 cells to 6608 cells
+after refinement: 6608 cells, 3369 vertices.
+   preconditioned cascadic multigrid solver II is used
+step = 1: 3369 points,   ||estim. err|| = 7.849e-03
+   output written to file graph/peak-grid001
+
+GRIDMANAGER: mesh is refined from 6608 cells to 10672 cells
+after refinement: 10672 cells, 5401 vertices.
+   preconditioned cascadic multigrid solver II is used
+step = 2: 5401 points,   ||estim. err|| = 4.214e-03
+   output written to file graph/peak-grid002
+
+GRIDMANAGER: mesh is refined from 10672 cells to 22488 cells
+after refinement: 22488 cells, 11309 vertices.
+   preconditioned cascadic multigrid solver II is used
+step = 3: 11309 points,   ||estim. err|| = 2.536e-03
+   output written to file graph/peak-grid003
+
+GRIDMANAGER: mesh is refined from 22488 cells to 37032 cells
+after refinement: 37032 cells, 18581 vertices.
+   preconditioned cascadic multigrid solver II is used
+step = 4: 18581 points,   ||estim. err|| = 1.965e-03
+   output written to file graph/peak-grid004
+
+GRIDMANAGER: mesh is refined from 37032 cells to 83064 cells
+after refinement: 83064 cells, 41597 vertices.
+   preconditioned cascadic multigrid solver II is used
+step = 5: 41597 points,   ||estim. err|| = 1.241e-03
+   output written to file graph/peak-grid005
+
+GRIDMANAGER: mesh is refined from 83064 cells to 136352 cells
+after refinement: 136352 cells, 68241 vertices.
+   preconditioned cascadic multigrid solver II is used
+step = 6: 68241 points,   ||estim. err|| = 9.874e-04
+   output written to file graph/peak-grid006
+
+GRIDMANAGER: mesh is refined from 136352 cells to 260904 cells
+after refinement: 260904 cells, 130517 vertices.
+   preconditioned cascadic multigrid solver II is used
+step = 7: 130517 points,   ||estim. err|| = 7.081e-04
+   output written to file graph/peak-grid007
+
+GRIDMANAGER: mesh is refined from 260904 cells to 424304 cells
+after refinement: 424304 cells, 212217 vertices.
+   preconditioned cascadic multigrid solver II is used
+step = 8: 212217 points,   ||estim. err|| = 5.391e-04
+   output written to file graph/peak-grid008
+||estim. error|| is smaller than requested
+total computing time:  157.255417s wall, 162.640000s user + 1.110000s system = 163.750000s CPU (104.1%)
+
+End heat transfer (peak source) tutorial program
+Start heat transfer tutorial program using HB error estimation (SpaceDimension=3)
+Default parameters read from default.json
+New parameter file added cube.am
+original mesh shall be refined : 2 times
+discretization order           : 1
+max. adaptive refine steps     : 2
+output level (verbosity)       : 1
+
+Solver type is iterative
+Note: direct solver MUMPS/PARADISO or ICC preconditioner ===> onlyLowerTriangle is set to true!
+
+
+Grid: 12288 tetrahedra, 
+      25344 triangles, 
+      15544 edges, 
+      2489 points
+no of variables = 1
+no of equations = 1
+Accuracy: rTol = 0.002, aTol = 0.002
+Minimal number of cells to refine in an adaptive step: 20 % of all
+
+max. number of iterations in iterative solver = 1000
+requested accuracy in iterate solver = 1e-10
+
+   preconditioned cascadic multigrid solver II is used
+step = 0: 2489 points,   ||estim. err|| = 4.429e-03
+   output written to file graph3d/peak-grid000
+
+GRIDMANAGER: mesh is refined from 12288 cells to 42614 cells
+after refinement: 42614 cells, 7823 vertices.
+   preconditioned cascadic multigrid solver II is used
+step = 1: 7823 points,   ||estim. err|| = 2.732e-03
+   output written to file graph3d/peak-grid001
+
+GRIDMANAGER: mesh is refined from 42614 cells to 133546 cells
+after refinement: 133546 cells, 23588 vertices.
+   preconditioned cascadic multigrid solver II is used
+step = 2: 23588 points,   ||estim. err|| = 1.514e-03
+   output written to file graph3d/peak-grid002
+||estim. error|| is smaller than requested
+total computing time:  73.115891s wall, 74.290000s user + 0.260000s system = 74.550000s CPU (102.0%)
+
+End peak source problem
+cd tutorial/sst_pollution; make sst sst_nleqErr sst_giant; \
+export DYLD_LIBRARY_PATH=/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib; \
+./sst --parallel 0; ./sst_nleqErr --parallel 0; ./sst_giant --parallel 0
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/sst_pollution“ wird betreten
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0/Spacy-master/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include  sst.cpp -c -o sst.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" sst.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o \
+/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/lib -litsol \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE \
+  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -o sst
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0/Spacy-master/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include  sst_nleqErr.cpp -c -o sst_nleqErr.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" sst_nleqErr.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o \
+/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/lib -litsol \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE \
+  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -o sst_nleqErr
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0/Spacy-master/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include  sst_giant.cpp -c -o sst_giant.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" sst_giant.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o \
+/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/lib -litsol \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE \
+  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -o sst_giant
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/sst_pollution“ wird verlassen
+Start sst transfer tutorial program with ordinary Newton iteration
+refinements of original mesh   : 5
+discretization order           : 2
+tolerance for Newton iteration : 1e-10
+
+Grid: 4096 triangles, 
+      6208 edges, 
+      2113 points
+nvars=4, neq=4, size=33284, nnz=1515536
+
+Newton iteration starts:
+iter  scaled ||corr||            ||F||    itsol: eps     result  steps      rate        time
+   1      4.54321e-01      7.95331e+00         1e-12  converged     79  0.698867       1.68s 
+   2      8.94705e-02      7.23169e+03         1e-12  converged     46  0.541878        1.2s 
+   3      2.93629e-04      3.26604e+01         1e-12  converged     49  0.567794       1.34s 
+   4      2.48716e-08      2.02951e-03         1e-12  converged     47  0.542346       1.34s 
+   5      2.04772e-13      1.88405e-11         1e-12  converged     88  0.726419        2.2s 
+
+                                                 calls   
+100% all                                             0   7.649065s wall, 10.250000s user + 0.670000s system = 10.920000s CPU (142.8%)
+    0% time for grid creation and refinement         1   0.059905s wall, 0.060000s user + 0.000000s system = 0.060000s CPU (100.2%)
+   12% time for VTK output                           6   0.954813s wall, 0.770000s user + 0.030000s system = 0.800000s CPU (83.8%)
+   11% time for assemble                             5   0.881360s wall, 0.880000s user + 0.000000s system = 0.880000s CPU (99.8%)
+   16% time for preconditioner setup                 5   1.287046s wall, 1.220000s user + 0.050000s system = 1.270000s CPU (98.7%)
+   47% time for BiCGSTABSolver solver                5   3.600158s wall, 6.320000s user + 0.530000s system = 6.850000s CPU (190.3%)
+
+End sst transfer tutorial program
+Start sst transfer tutorial program with exact damped Newton iteration 
+Start sst transfer tutorial program
+refinements of original mesh   : 5
+discretization order           : 2
+tolerance for Newton iteration : 1e-10
+
+Grid: 4096 triangles, 
+      6208 edges, 
+      2113 points
+
+ nleqErr - Version 2.0
+
+ Problem dimension: n = 33284
+
+ Prescribed relative precision: 1e-10
+ The problem is specified as being highly nonlinear
+ The standard monotonicity test will be applied
+ The maximum permitted number of iteration steps is: 50
+ nvars=4, neq=4, nnz=1515536
+
+|            Newton iteration                 |iterative linear solver|
+ iter      normScl(dx)      norm(fk)    lambda   res  niter      rate  
+
+    0      2.52625e+00   2.68711e+07   0.01000  conv     31   0.40186
+    0  *   2.50122e+00   2.66024e+07   0.01000  conv     31   0.40186
+    0  *   1.85184e+00   1.28835e+07   0.52055  conv     31   0.40650
+    1      2.28210e+00   1.28835e+07   0.52055  conv     32   0.41395
+    1  *   1.89867e+00   1.01690e+07   0.21070  conv     32   0.41406
+    2      1.52607e+00   1.01690e+07   0.21070  conv     32   0.41440
+    2  *   1.11077e+00   5.78366e+06   0.43125  conv     31   0.40943
+    3      1.43507e+00   5.78366e+06   0.43125  conv     32   0.40329
+    3  *   1.09063e+00   3.77074e+06   0.34804  conv     30   0.38929
+    4      1.29880e+00   3.77074e+06   0.34804  conv     30   0.39040
+    4  *   9.61671e-01   2.26316e+06   0.39982  conv     30   0.38276
+    5      1.39939e+00   2.26316e+06   0.39982  conv     30   0.39019
+    5  *   1.10322e+00   1.56654e+06   0.30782  conv     29   0.38405
+    6      1.54619e+00   1.56654e+06   0.30782  conv     31   0.40953
+    6  *   1.25633e+00   1.14798e+06   0.26720  conv     33   0.43214
+    7      1.67193e+00   1.14798e+06   0.26720  conv     33   0.42248
+    7  *   1.37429e+00   8.59414e+05   0.25139  conv     33   0.41633
+    8      1.73448e+00   8.59414e+05   0.25139  conv     33   0.43112
+    8  *   1.42646e+00   6.44166e+05   0.25050  conv     33   0.43280
+    9      1.74720e+00   6.44166e+05   0.25050  conv     32   0.42107
+    9  *   1.43200e+00   4.80522e+05   0.25411  conv     31   0.40937
+   10      1.72166e+00   4.80522e+05   0.25411  conv     32   0.41356
+   10  *   1.40159e+00   3.54697e+05   0.26197  conv     32   0.41451
+   11      1.67317e+00   3.54697e+05   0.26197  conv     32   0.41324
+   11  *   1.35027e+00   2.58277e+05   0.27203  conv     32   0.41475
+   12      1.60896e+00   2.58277e+05   0.27203  conv     30   0.39722
+   12  *   1.28410e+00   1.84795e+05   0.28485  conv     33   0.42367
+   13      1.53215e+00   1.84795e+05   0.28485  conv     35   0.44751
+   13  *   1.20519e+00   1.29256e+05   0.30115  conv     36   0.45862
+   14      1.43694e+00   1.29256e+05   0.30115  conv     36   0.46287
+   14  *   1.10553e+00   8.73847e+04   0.32509  conv     40   0.49812
+   15      1.30524e+00   8.73847e+04   0.32509  conv     44   0.53349
+   15  *   9.62656e-01   5.54340e+04   0.36812  conv     42   0.51048
+   16      1.10037e+00   5.54340e+04   0.36812  conv     43   0.52043
+   16  *   7.30461e-01   3.00049e+04   0.46576  conv     44   0.53048
+   17      7.70774e-01   3.00049e+04   0.46576  conv     44   0.52823
+   17  *   3.36117e-01   8.18070e+03   0.76506  conv     44   0.52955
+   18      2.87006e-01   8.18070e+03   0.76506  conv     44   0.53367
+   18  *   2.10867e-02   8.71248e+02   1.00000  conv     46   0.53707
+   19      1.45326e-02   8.71248e+02   1.00000  conv     47   0.54980
+   19  *   1.07293e-05   8.68887e-01   1.00000  conv     50   0.57181
+   20      9.26857e-06   8.68887e-01   1.00000  conv     48   0.55391
+   20  *   3.14738e-11   1.78444e-06   1.00000  conv     57   0.60713
+
+ solution of nonlinear system obtained within 20 Newton iteration steps
+ using 21 Jacobian assemblies and 43 function assemblies
+                                           calls   
+100% all                                       0   31.002023s wall, 45.000000s user + 2.870000s system = 47.870000s CPU (154.4%)
+   13% time for assemble                      43   4.335762s wall, 4.370000s user + 0.030000s system = 4.400000s CPU (101.5%)
+   17% time for preconditioner setup          21   5.461951s wall, 5.430000s user + 0.040000s system = 5.470000s CPU (100.1%)
+   60% time for linear solver BiCGSTAB        43   18.664368s wall, 32.990000s user + 2.710000s system = 35.700000s CPU (191.3%)
+    4% time for writing output data           21   1.508264s wall, 1.040000s user + 0.050000s system = 1.090000s CPU (72.3%)
+
+computing time for nonlinear solver:  31.002315s wall, 45.000000s user + 2.870000s system = 47.870000s CPU (154.4%)
+
+ The total number of iterative linear solver steps done is 1551
+total computing time:  31.359873s wall, 45.280000s user + 2.880000s system = 48.160000s CPU (153.6%)
+
+End sst transfer tutorial program
+Start sst transfer tutorial program with inexact damped Newton iteration 
+Start sst transfer tutorial program
+refinements of original mesh   : 5
+discretization order           : 2
+tolerance for Newton iteration : 1e-10
+
+Grid: 4096 triangles, 
+      6208 edges, 
+      2113 points
+
+ GiantGbit - Version 2.0
+
+ Problem dimension: n = 33284
+
+ Prescribed relative precision: 1e-10
+ The problem is specified as being highly nonlinear
+ The standard monotonicity test will be applied
+ The maximum permitted number of iteration steps is: 50
+ nvars=4, neq=4, nnz=1515536
+
+ iter     normScl(dx)      norm(fk)   tolPrescr   precision itlin    lambda
+
+    0      2.52623e+00   2.68711e+07   2.94e-02   2.90e-02    46   0.01000000
+    0  *   2.50122e+00   2.66024e+07   3.03e-02   7.72e-04    34   0.01000000
+    0  *   1.87810e+00   9.99043e+06   3.03e-02   1.70e-02    21   0.62820941
+    1      2.61331e+00   9.99043e+06   2.94e-02   5.97e-03    32   0.62820941
+    1  *   2.10260e+00   7.35795e+06   3.03e-02   1.43e-03    20   0.26350050
+    2      1.64691e+00   7.35795e+06   2.94e-02   1.81e-02    20   0.26350050
+    2  *   1.22150e+00   4.41306e+06   3.03e-02   1.74e-03    21   0.40022103
+    3      1.44944e+00   4.41306e+06   2.94e-02   2.15e-02    15   0.40022103
+    3  *   1.07647e+00   2.60695e+06   3.03e-02   4.74e-03     8   0.40917769
+    4      1.42352e+00   2.60695e+06   2.94e-02   2.76e-02    14   0.40917769
+    4  *   1.08220e+00   1.59311e+06   3.03e-02   4.49e-03    11   0.38844167
+    5      1.64117e+00   1.59311e+06   2.94e-02   1.50e-02    11   0.38844167
+    5  *   1.31383e+00   1.09440e+06   3.03e-02   3.46e-03    11   0.31305337
+    6      1.82756e+00   1.09440e+06   2.94e-02   1.68e-02    11   0.31305337
+    6  *   1.50165e+00   8.06051e+05   3.03e-02   1.56e-03    11   0.26347069
+    7      1.85123e+00   8.06051e+05   2.94e-02   2.16e-02    11   0.26347069
+    7  *   1.52089e+00   5.94095e+05   3.03e-02   1.51e-03    11   0.26306282
+    8      1.82967e+00   5.94095e+05   2.94e-02   2.64e-02    11   0.26306282
+    8  *   1.49763e+00   4.35357e+05   3.03e-02   2.03e-03    11   0.26734225
+    9      1.77502e+00   4.35357e+05   2.94e-02   2.90e-02    13   0.26734225
+    9  *   1.44239e+00   3.15373e+05   3.03e-02   1.93e-03    11   0.27579611
+   10      1.70883e+00   3.15373e+05   2.94e-02   2.10e-02    20   0.27579611
+   10  *   1.37408e+00   2.24646e+05   3.03e-02   1.00e-03    11   0.28796724
+   11      1.61807e+00   2.24646e+05   2.94e-02   1.28e-02    21   0.28796724
+   11  *   1.29063e+00   1.55642e+05   3.03e-02   2.09e-03    20   0.30755620
+   12      1.53138e+00   1.55642e+05   2.94e-02   8.58e-03    21   0.30755620
+   12  *   1.20855e+00   1.07693e+05   3.03e-02   2.27e-03    29   0.30885528
+   13      1.39936e+00   1.07693e+05   2.94e-02   1.18e-02    21   0.30885528
+   13  *   1.06748e+00   7.02734e+04   3.03e-02   3.27e-03    21   0.34910881
+   14      1.24416e+00   7.02734e+04   2.94e-02   2.38e-02    20   0.34910881
+   14  *   8.89934e-01   4.22911e+04   3.03e-02   1.76e-03    11   0.40225788
+   15      9.81968e-01   4.22911e+04   2.94e-02   1.49e-02    18   0.40225788
+   15  *   5.84000e-01   1.91646e+04   3.03e-02   6.76e-03     8   0.56239408
+   16      5.69696e-01   1.91646e+04   1.00e-03   7.52e-04    43   0.56239408
+   16  *   1.26062e-01   2.67625e+03   3.03e-02   8.59e-03     9   1.00000000
+   17      8.46136e-02   2.67625e+03   1.00e-03   3.11e-04    33   1.00000000
+   17  *   4.26559e-04   3.18164e+01   3.03e-02   2.74e-02    10   1.00000000
+   18      3.67318e-04   3.18164e+01   1.00e-03   9.83e-04    26   1.00000000
+   18  *   1.07198e-06   1.79526e-03   3.03e-02   1.53e-02    21   1.00000000
+   19      1.08434e-06   1.79526e-03   1.00e-03   3.23e-04    58   1.00000000
+   19  *   1.11544e-09   6.64241e-08   3.03e-02   1.52e-02    21   1.00000000
+   20      1.15827e-09   6.64241e-08   1.00e-03   2.71e-04    54   1.00000000
+   20  *   4.05181e-13   1.54239e-11   3.03e-02   1.68e-02    23   1.00000000
+
+ solution of nonlinear system obtained within 20 Newton iteration steps
+ using 21 Jacobian assemblies and 43 function assemblies
+                                          calls   
+100% all                                      0   20.650698s wall, 25.240000s user + 1.180000s system = 26.420000s CPU (127.9%)
+   20% time for assemble                     43   4.232804s wall, 4.280000s user + 0.030000s system = 4.310000s CPU (101.8%)
+   26% time for preconditioner setup         21   5.478748s wall, 5.410000s user + 0.030000s system = 5.440000s CPU (99.3%)
+   41% time for linear solver gbit           48   8.602416s wall, 13.410000s user + 0.990000s system = 14.400000s CPU (167.4%)
+     34% time for matrix times vector      1046   3.006850s wall, 7.880000s user + 0.890000s system = 8.770000s CPU (291.7%)
+     39% time for preconditioner           1046   3.423324s wall, 3.280000s user + 0.100000s system = 3.380000s CPU (98.7%)
+    6% time for writing output data          21   1.342500s wall, 1.050000s user + 0.070000s system = 1.120000s CPU (83.4%)
+
+computing time for nonlinear solver:  20.651005s wall, 25.240000s user + 1.180000s system = 26.420000s CPU (127.9%)
+
+ The total number of iterative linear solver steps done is 873
+total computing time:  21.018456s wall, 25.560000s user + 1.180000s system = 26.740000s CPU (127.2%)
+
+End sst transfer tutorial program
+cd tutorial/stokes; make; export DYLD_LIBRARY_PATH=/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib; \
+./stokes --solver.direct MUMPS; \
+./stokes --solver.direct UMFPACK; \
+./stokes --solver.direct UMFPACK3264; \
+./stokes --solver.direct SUPERLU;
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/stokes“ wird betreten
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3  stokes.cpp -c -o stokes.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 stokes.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+          -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -o stokes
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/stokes“ wird verlassen
+Default parameters read from default.json
+Parameter solver.direct=UMFPACK3264 changed to MUMPS
+Start stokes tutorial programm.
+original mesh shall be refined : 5 times
+discretization order           : 2
+direct solver                  : MUMPS
+computing time for generation of initial mesh:  0.060952s wall, 0.060000s user + 0.000000s system = 0.060000s CPU (98.4%)
+overall degrees of freedom: 18755
+(structurally) nonzero elements: 535816
+computing time for assemble:  0.051292s wall, 0.050000s user + 0.000000s system = 0.050000s CPU (97.5%)
+computing time for directsolve:  0.483594s wall, 0.280000s user + 0.200000s system = 0.480000s CPU (99.3%)
+graphical output finished, data in VTK format is written into file stokes.vtu 
+computing time for output:  0.102453s wall, 0.080000s user + 0.000000s system = 0.080000s CPU (78.1%)
+
+total computing time:  0.731655s wall, 0.510000s user + 0.220000s system = 0.730000s CPU (99.8%)
+
+End stokes tutorial program
+Default parameters read from default.json
+Parameter solver.direct=UMFPACK3264 changed to UMFPACK
+Start stokes tutorial programm.
+original mesh shall be refined : 5 times
+discretization order           : 2
+direct solver                  : UMFPACK
+computing time for generation of initial mesh:  0.034095s wall, 0.040000s user + 0.000000s system = 0.040000s CPU (117.3%)
+overall degrees of freedom: 18755
+(structurally) nonzero elements: 535816
+computing time for assemble:  0.039107s wall, 0.040000s user + 0.000000s system = 0.040000s CPU (102.3%)
+computing time for directsolve:  0.487271s wall, 0.450000s user + 0.030000s system = 0.480000s CPU (98.5%)
+graphical output finished, data in VTK format is written into file stokes.vtu 
+computing time for output:  0.095921s wall, 0.080000s user + 0.010000s system = 0.090000s CPU (93.8%)
+
+total computing time:  0.685344s wall, 0.640000s user + 0.050000s system = 0.690000s CPU (100.7%)
+
+End stokes tutorial program
+Default parameters read from default.json
+Parameter solver.direct=UMFPACK3264 changed to UMFPACK3264
+Start stokes tutorial programm.
+original mesh shall be refined : 5 times
+discretization order           : 2
+direct solver                  : UMFPACK3264
+computing time for generation of initial mesh:  0.034644s wall, 0.040000s user + 0.000000s system = 0.040000s CPU (115.5%)
+overall degrees of freedom: 18755
+(structurally) nonzero elements: 535816
+computing time for assemble:  0.040824s wall, 0.040000s user + 0.000000s system = 0.040000s CPU (98.0%)
+computing time for directsolve:  0.508931s wall, 0.450000s user + 0.060000s system = 0.510000s CPU (100.2%)
+graphical output finished, data in VTK format is written into file stokes.vtu 
+computing time for output:  0.107281s wall, 0.080000s user + 0.000000s system = 0.080000s CPU (74.6%)
+
+total computing time:  0.719996s wall, 0.640000s user + 0.070000s system = 0.710000s CPU (98.6%)
+
+End stokes tutorial program
+Default parameters read from default.json
+Parameter solver.direct=UMFPACK3264 changed to SUPERLU
+Start stokes tutorial programm.
+original mesh shall be refined : 5 times
+discretization order           : 2
+direct solver                  : SUPERLU
+computing time for generation of initial mesh:  0.057982s wall, 0.060000s user + 0.000000s system = 0.060000s CPU (103.5%)
+overall degrees of freedom: 18755
+(structurally) nonzero elements: 535816
+computing time for assemble:  0.052235s wall, 0.050000s user + 0.010000s system = 0.060000s CPU (114.9%)
+computing time for directsolve:  1.370694s wall, 1.320000s user + 0.050000s system = 1.370000s CPU (99.9%)
+graphical output finished, data in VTK format is written into file stokes.vtu 
+computing time for output:  0.105615s wall, 0.060000s user + 0.020000s system = 0.080000s CPU (75.7%)
+
+total computing time:  1.620037s wall, 1.520000s user + 0.100000s system = 1.620000s CPU (100.0%)
+
+End stokes tutorial program
+cd tutorial/elastomechanics; make; export DYLD_LIBRARY_PATH=/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib; ./elastomechanics; 
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/elastomechanics“ wird betreten
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/taucs-2.0/include  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include -I.  elastomechanics.cpp -c -o elastomechanics.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 elastomechanics.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o \
+/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/lib -litsol \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/taucs-2.0/lib -ltaucs \
+  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -o elastomechanics
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/elastomechanics“ wird verlassen
+Start elastomechanics tutorial program
+refinements of original mesh : 3
+discretization order         : 1
+                                                           calls   
+100% all                                                       0   0.886077s wall, 0.860000s user + 0.030000s system = 0.890000s CPU (100.4%)
+   99% total computing time                                    1   0.886000s wall, 0.860000s user + 0.030000s system = 0.890000s CPU (100.5%)
+     26% computing time for grid creation & refinement         1   0.236883s wall, 0.240000s user + 0.000000s system = 0.240000s CPU (101.3%)
+     15% computing time for assemble                           1   0.140071s wall, 0.150000s user + 0.020000s system = 0.170000s CPU (121.4%)
+     46% computing time for solve                              1   0.410443s wall, 0.390000s user + 0.010000s system = 0.400000s CPU (97.5%)
+      9% computing time for file i/o                           1   0.088005s wall, 0.070000s user + 0.000000s system = 0.070000s CPU (79.5%)
+End elastomechanics tutorial program
+cd tutorial/instationary_heattransfer; make; export DYLD_LIBRARY_PATH=/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib; ./ms;
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/instationary_heattransfer“ wird betreten
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libpsurface-git/include  movingsource.cpp -c -o movingsource.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 movingsource.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o \
+/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/lib -litsol \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE \
+  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -o ms
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/instationary_heattransfer“ wird verlassen
+Start moving source tutorial program
+Grid: 16384 24704 8321
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 9.063e-11 
+ eq 0: dof = 33025 pts in mesh = 8321
+ eq 0: dof = 33025 pts in mesh = 8321
+t=0, dt=0.1, err=6.34915, factor=0.529741, red=0, dof=33025
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 8.399e-11 
+ eq 0: dof = 33025 pts in mesh = 8321
+ eq 0: dof = 33025 pts in mesh = 8321
+t=0, dt=0.0529741, err=1.79185, factor=0.726804, red=1, dof=33025
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 7.944e-11 
+ eq 0: dof = 33025 pts in mesh = 8321
+ eq 0: dof = 33025 pts in mesh = 8321
+t=0, dt=0.0385018, err=1.00848, factor=0.839124, red=2, dof=33025
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 7.657e-11 
+ eq 0: dof = 33025 pts in mesh = 8321
+ eq 0: dof = 33025 pts in mesh = 8321
+t=0, dt=0.0323077, err=0.760191, factor=0.900558, red=3, dof=33025
+t= 0, dt = 0.0323077, factor = 0.900558, red=4
+coarsening solution norms2: 0.0125875 
+
+GRIDMANAGER: mesh is refined from 16384 cells to 4446 cells
+after refinement: 4446 cells, 2288 vertices.
+9021 values written to graph/outScaledGrid001
+ eq 0: dof = 9021 pts in mesh = 2288
+   ||solution||^2 = 1.259e-02 
+     ||errors||^2 = 7.047e-10 
+
+GRIDMANAGER: mesh is refined from 4446 cells to 5884 cells
+after refinement: 5884 cells, 3007 vertices.
+ eq 0: dof = 11897 pts in mesh = 3007
+   ||solution||^2 = 1.259e-02 
+     ||errors||^2 = 5.493e-10 
+
+GRIDMANAGER: mesh is refined from 5884 cells to 8328 cells
+after refinement: 8328 cells, 4229 vertices.
+ eq 0: dof = 16785 pts in mesh = 4229
+   ||solution||^2 = 1.259e-02 
+     ||errors||^2 = 1.942e-10 
+ eq 0: dof = 16785 pts in mesh = 4229
+ eq 0: dof = 16785 pts in mesh = 4229
+t=0.0323077, dt=0.029095, err=0.64824, factor=0.937149, red=0, dof=16785
+t= 0.0323077, dt = 0.029095, factor = 0.937149, red=1
+coarsening solution norms2: 0.0125825 
+
+GRIDMANAGER: mesh is refined from 8328 cells to 3575 cells
+after refinement: 3575 cells, 1823 vertices.
+7220 values written to graph/outScaledGrid003
+ eq 0: dof = 7220 pts in mesh = 1823
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.821e-10 
+ eq 0: dof = 7220 pts in mesh = 1823
+ eq 0: dof = 7220 pts in mesh = 1823
+t=0.0614027, dt=0.0272663, err=0.593281, factor=0.958137, red=0, dof=7220
+t= 0.0614027, dt = 0.0272663, factor = 0.958137, red=1
+coarsening solution norms2: 0.0125803 
+
+GRIDMANAGER: mesh is refined from 3575 cells to 1812 cells
+after refinement: 1812 cells, 929 vertices.
+3669 values written to graph/outScaledGrid005
+ eq 0: dof = 3669 pts in mesh = 929
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 1.051e-09 
+
+GRIDMANAGER: mesh is refined from 1812 cells to 2402 cells
+after refinement: 2402 cells, 1226 vertices.
+ eq 0: dof = 4853 pts in mesh = 1226
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 6.800e-10 
+
+GRIDMANAGER: mesh is refined from 2402 cells to 3417 cells
+after refinement: 3417 cells, 1735 vertices.
+ eq 0: dof = 6886 pts in mesh = 1735
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.503e-10 
+
+GRIDMANAGER: mesh is refined from 3417 cells to 4818 cells
+after refinement: 4818 cells, 2437 vertices.
+ eq 0: dof = 9691 pts in mesh = 2437
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.999e-10 
+ eq 0: dof = 9691 pts in mesh = 2437
+ eq 0: dof = 9691 pts in mesh = 2437
+t=0.0886691, dt=0.0261249, err=0.559858, factor=0.972127, red=0, dof=9691
+t= 0.0886691, dt = 0.0261249, factor = 0.972127, red=1
+coarsening solution norms2: 0.0125793 
+
+GRIDMANAGER: mesh is refined from 4818 cells to 2768 cells
+after refinement: 2768 cells, 1408 vertices.
+5583 values written to graph/outScaledGrid007
+ eq 0: dof = 5583 pts in mesh = 1408
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 3.102e-10 
+ eq 0: dof = 5583 pts in mesh = 1408
+ eq 0: dof = 5583 pts in mesh = 1408
+t=0.114794, dt=0.0253967, err=0.537678, factor=0.982001, red=0, dof=5583
+t= 0.114794, dt = 0.0253967, factor = 0.982001, red=1
+coarsening solution norms2: 0.012578 
+
+GRIDMANAGER: mesh is refined from 2768 cells to 1693 cells
+after refinement: 1693 cells, 868 vertices.
+3428 values written to graph/outScaledGrid009
+ eq 0: dof = 3428 pts in mesh = 868
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 1.043e-09 
+
+GRIDMANAGER: mesh is refined from 1693 cells to 2280 cells
+after refinement: 2280 cells, 1163 vertices.
+ eq 0: dof = 4605 pts in mesh = 1163
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 6.916e-10 
+
+GRIDMANAGER: mesh is refined from 2280 cells to 3326 cells
+after refinement: 3326 cells, 1686 vertices.
+ eq 0: dof = 6697 pts in mesh = 1686
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.960e-10 
+
+GRIDMANAGER: mesh is refined from 3326 cells to 4695 cells
+after refinement: 4695 cells, 2374 vertices.
+ eq 0: dof = 9442 pts in mesh = 2374
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 3.796e-10 
+ eq 0: dof = 9442 pts in mesh = 2374
+ eq 0: dof = 9442 pts in mesh = 2374
+t=0.140191, dt=0.0249396, err=0.525958, factor=0.987426, red=0, dof=9442
+t= 0.140191, dt = 0.0249396, factor = 0.987426, red=1
+coarsening solution norms2: 0.0125785 
+
+GRIDMANAGER: mesh is refined from 4695 cells to 2954 cells
+after refinement: 2954 cells, 1501 vertices.
+5955 values written to graph/outScaledGrid011
+ eq 0: dof = 5955 pts in mesh = 1501
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.293e-10 
+ eq 0: dof = 5955 pts in mesh = 1501
+ eq 0: dof = 5955 pts in mesh = 1501
+t=0.16513, dt=0.024626, err=0.517302, factor=0.991531, red=0, dof=5955
+t= 0.16513, dt = 0.024626, factor = 0.991531, red=1
+coarsening solution norms2: 0.0125773 
+
+GRIDMANAGER: mesh is refined from 2954 cells to 1853 cells
+after refinement: 1853 cells, 948 vertices.
+3748 values written to graph/outScaledGrid013
+ eq 0: dof = 3748 pts in mesh = 948
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 7.807e-10 
+
+GRIDMANAGER: mesh is refined from 1853 cells to 2500 cells
+after refinement: 2500 cells, 1273 vertices.
+ eq 0: dof = 5045 pts in mesh = 1273
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 6.616e-10 
+
+GRIDMANAGER: mesh is refined from 2500 cells to 3674 cells
+after refinement: 3674 cells, 1860 vertices.
+ eq 0: dof = 7393 pts in mesh = 1860
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.236e-10 
+
+GRIDMANAGER: mesh is refined from 3674 cells to 5145 cells
+after refinement: 5145 cells, 2598 vertices.
+ eq 0: dof = 10340 pts in mesh = 2598
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 3.402e-10 
+ eq 0: dof = 10340 pts in mesh = 2598
+ eq 0: dof = 10340 pts in mesh = 2598
+t=0.189756, dt=0.0244175, err=0.511011, factor=0.994569, red=0, dof=10340
+t= 0.189756, dt = 0.0244175, factor = 0.994569, red=1
+coarsening solution norms2: 0.0125768 
+
+GRIDMANAGER: mesh is refined from 5145 cells to 3084 cells
+after refinement: 3084 cells, 1567 vertices.
+6217 values written to graph/outScaledGrid015
+ eq 0: dof = 6217 pts in mesh = 1567
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.576e-10 
+ eq 0: dof = 6217 pts in mesh = 1567
+ eq 0: dof = 6217 pts in mesh = 1567
+t=0.214174, dt=0.0242848, err=0.507859, factor=0.996109, red=0, dof=6217
+t= 0.214174, dt = 0.0242848, factor = 0.996109, red=1
+coarsening solution norms2: 0.0125765 
+
+GRIDMANAGER: mesh is refined from 3084 cells to 1792 cells
+after refinement: 1792 cells, 917 vertices.
+3625 values written to graph/outScaledGrid017
+ eq 0: dof = 3625 pts in mesh = 917
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 8.902e-10 
+
+GRIDMANAGER: mesh is refined from 1792 cells to 2421 cells
+after refinement: 2421 cells, 1232 vertices.
+ eq 0: dof = 4884 pts in mesh = 1232
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 7.439e-10 
+
+GRIDMANAGER: mesh is refined from 2421 cells to 3516 cells
+after refinement: 3516 cells, 1780 vertices.
+ eq 0: dof = 7075 pts in mesh = 1780
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 5.523e-10 
+
+GRIDMANAGER: mesh is refined from 3516 cells to 5038 cells
+after refinement: 5038 cells, 2544 vertices.
+ eq 0: dof = 10125 pts in mesh = 2544
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 3.838e-10 
+ eq 0: dof = 10125 pts in mesh = 2544
+ eq 0: dof = 10125 pts in mesh = 2544
+t=0.238459, dt=0.0241904, err=0.505521, factor=0.997259, red=0, dof=10125
+t= 0.238459, dt = 0.0241904, factor = 0.997259, red=1
+coarsening solution norms2: 0.0125759 
+
+GRIDMANAGER: mesh is refined from 5038 cells to 3032 cells
+after refinement: 3032 cells, 1539 vertices.
+6109 values written to graph/outScaledGrid019
+ eq 0: dof = 6109 pts in mesh = 1539
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.609e-10 
+ eq 0: dof = 6109 pts in mesh = 1539
+ eq 0: dof = 6109 pts in mesh = 1539
+t=0.262649, dt=0.024124, err=0.503299, factor=0.998357, red=0, dof=6109
+t= 0.262649, dt = 0.024124, factor = 0.998357, red=1
+coarsening solution norms2: 0.0125759 
+
+GRIDMANAGER: mesh is refined from 3032 cells to 1822 cells
+after refinement: 1822 cells, 932 vertices.
+3685 values written to graph/outScaledGrid021
+ eq 0: dof = 3685 pts in mesh = 932
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 8.743e-10 
+
+GRIDMANAGER: mesh is refined from 1822 cells to 2422 cells
+after refinement: 2422 cells, 1233 vertices.
+ eq 0: dof = 4887 pts in mesh = 1233
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 6.715e-10 
+
+GRIDMANAGER: mesh is refined from 2422 cells to 3540 cells
+after refinement: 3540 cells, 1793 vertices.
+ eq 0: dof = 7125 pts in mesh = 1793
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.610e-10 
+
+GRIDMANAGER: mesh is refined from 3540 cells to 5022 cells
+after refinement: 5022 cells, 2536 vertices.
+ eq 0: dof = 10093 pts in mesh = 2536
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 3.672e-10 
+ eq 0: dof = 10093 pts in mesh = 2536
+ eq 0: dof = 10093 pts in mesh = 2536
+t=0.286773, dt=0.0240844, err=0.502618, factor=0.998695, red=0, dof=10093
+t= 0.286773, dt = 0.0240844, factor = 0.998695, red=1
+coarsening solution norms2: 0.012575 
+
+GRIDMANAGER: mesh is refined from 5022 cells to 3112 cells
+after refinement: 3112 cells, 1580 vertices.
+6271 values written to graph/outScaledGrid023
+ eq 0: dof = 6271 pts in mesh = 1580
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.163e-10 
+ eq 0: dof = 6271 pts in mesh = 1580
+ eq 0: dof = 6271 pts in mesh = 1580
+t=0.310857, dt=0.024053, err=0.501574, factor=0.999214, red=0, dof=6271
+t= 0.310857, dt = 0.024053, factor = 0.999214, red=1
+coarsening solution norms2: 0.0125747 
+
+GRIDMANAGER: mesh is refined from 3112 cells to 1841 cells
+after refinement: 1841 cells, 942 vertices.
+3724 values written to graph/outScaledGrid025
+ eq 0: dof = 3724 pts in mesh = 942
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 8.017e-10 
+
+GRIDMANAGER: mesh is refined from 1841 cells to 2460 cells
+after refinement: 2460 cells, 1253 vertices.
+ eq 0: dof = 4965 pts in mesh = 1253
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 6.244e-10 
+
+GRIDMANAGER: mesh is refined from 2460 cells to 3586 cells
+after refinement: 3586 cells, 1818 vertices.
+ eq 0: dof = 7221 pts in mesh = 1818
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 4.327e-10 
+
+GRIDMANAGER: mesh is refined from 3586 cells to 5041 cells
+after refinement: 5041 cells, 2547 vertices.
+ eq 0: dof = 10134 pts in mesh = 2547
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 3.396e-10 
+ eq 0: dof = 10134 pts in mesh = 2547
+ eq 0: dof = 10134 pts in mesh = 2547
+t=0.33491, dt=0.0240341, err=0.500515, factor=0.999742, red=0, dof=10134
+t= 0.33491, dt = 0.0240341, factor = 0.999742, red=1
+coarsening solution norms2: 0.0125767 
+
+GRIDMANAGER: mesh is refined from 5041 cells to 3012 cells
+after refinement: 3012 cells, 1531 vertices.
+6073 values written to graph/outScaledGrid027
+ eq 0: dof = 6073 pts in mesh = 1531
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.071e-10 
+ eq 0: dof = 6073 pts in mesh = 1531
+ eq 0: dof = 6073 pts in mesh = 1531
+t=0.358944, dt=0.0240279, err=0.499692, factor=1.00015, red=0, dof=6073
+t= 0.358944, dt = 0.0240279, factor = 1.00015, red=1
+coarsening solution norms2: 0.0125763 
+
+GRIDMANAGER: mesh is refined from 3012 cells to 1767 cells
+after refinement: 1767 cells, 905 vertices.
+3576 values written to graph/outScaledGrid029
+ eq 0: dof = 3576 pts in mesh = 905
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 8.188e-10 
+
+GRIDMANAGER: mesh is refined from 1767 cells to 2396 cells
+after refinement: 2396 cells, 1221 vertices.
+ eq 0: dof = 4837 pts in mesh = 1221
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 6.221e-10 
+
+GRIDMANAGER: mesh is refined from 2396 cells to 3493 cells
+after refinement: 3493 cells, 1772 vertices.
+ eq 0: dof = 7036 pts in mesh = 1772
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.646e-10 
+
+GRIDMANAGER: mesh is refined from 3493 cells to 4953 cells
+after refinement: 4953 cells, 2504 vertices.
+ eq 0: dof = 9960 pts in mesh = 2504
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.977e-10 
+ eq 0: dof = 9960 pts in mesh = 2504
+ eq 0: dof = 9960 pts in mesh = 2504
+t=0.382972, dt=0.0240316, err=0.499902, factor=1.00005, red=0, dof=9960
+t= 0.382972, dt = 0.0240316, factor = 1.00005, red=1
+coarsening solution norms2: 0.0125774 
+
+GRIDMANAGER: mesh is refined from 4953 cells to 3021 cells
+after refinement: 3021 cells, 1536 vertices.
+6092 values written to graph/outScaledGrid031
+ eq 0: dof = 6092 pts in mesh = 1536
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.049e-10 
+ eq 0: dof = 6092 pts in mesh = 1536
+ eq 0: dof = 6092 pts in mesh = 1536
+t=0.407004, dt=0.0240328, err=0.499814, factor=1.00009, red=0, dof=6092
+t= 0.407004, dt = 0.0240328, factor = 1.00009, red=1
+coarsening solution norms2: 0.0125765 
+
+GRIDMANAGER: mesh is refined from 3021 cells to 1798 cells
+after refinement: 1798 cells, 920 vertices.
+3637 values written to graph/outScaledGrid033
+ eq 0: dof = 3637 pts in mesh = 920
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 8.420e-10 
+
+GRIDMANAGER: mesh is refined from 1798 cells to 2413 cells
+after refinement: 2413 cells, 1230 vertices.
+ eq 0: dof = 4872 pts in mesh = 1230
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 6.815e-10 
+
+GRIDMANAGER: mesh is refined from 2413 cells to 3488 cells
+after refinement: 3488 cells, 1770 vertices.
+ eq 0: dof = 7027 pts in mesh = 1770
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.256e-10 
+
+GRIDMANAGER: mesh is refined from 3488 cells to 4994 cells
+after refinement: 4994 cells, 2526 vertices.
+ eq 0: dof = 10045 pts in mesh = 2526
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.853e-10 
+ eq 0: dof = 10045 pts in mesh = 2526
+ eq 0: dof = 10045 pts in mesh = 2526
+t=0.431037, dt=0.024035, err=0.499557, factor=1.00022, red=0, dof=10045
+t= 0.431037, dt = 0.024035, factor = 1.00022, red=1
+coarsening solution norms2: 0.0125755 
+
+GRIDMANAGER: mesh is refined from 4994 cells to 2946 cells
+after refinement: 2946 cells, 1500 vertices.
+5945 values written to graph/outScaledGrid035
+ eq 0: dof = 5945 pts in mesh = 1500
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.487e-10 
+ eq 0: dof = 5945 pts in mesh = 1500
+ eq 0: dof = 5945 pts in mesh = 1500
+t=0.455072, dt=0.0240403, err=0.500552, factor=0.999724, red=0, dof=5945
+t= 0.455072, dt = 0.0240403, factor = 0.999724, red=1
+coarsening solution norms2: 0.0125752 
+
+GRIDMANAGER: mesh is refined from 2946 cells to 1745 cells
+after refinement: 1745 cells, 894 vertices.
+3532 values written to graph/outScaledGrid037
+ eq 0: dof = 3532 pts in mesh = 894
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 1.020e-09 
+
+GRIDMANAGER: mesh is refined from 1745 cells to 2334 cells
+after refinement: 2334 cells, 1191 vertices.
+ eq 0: dof = 4715 pts in mesh = 1191
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 7.307e-10 
+
+GRIDMANAGER: mesh is refined from 2334 cells to 3343 cells
+after refinement: 3343 cells, 1697 vertices.
+ eq 0: dof = 6736 pts in mesh = 1697
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.767e-10 
+
+GRIDMANAGER: mesh is refined from 3343 cells to 4779 cells
+after refinement: 4779 cells, 2420 vertices.
+ eq 0: dof = 9618 pts in mesh = 2420
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.896e-10 
+ eq 0: dof = 9618 pts in mesh = 2420
+ eq 0: dof = 9618 pts in mesh = 2420
+t=0.479112, dt=0.0240337, err=0.499701, factor=1.00015, red=0, dof=9618
+t= 0.479112, dt = 0.0240337, factor = 1.00015, red=1
+coarsening solution norms2: 0.0125767 
+
+GRIDMANAGER: mesh is refined from 4779 cells to 3000 cells
+after refinement: 3000 cells, 1528 vertices.
+6055 values written to graph/outScaledGrid039
+ eq 0: dof = 6055 pts in mesh = 1528
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.060e-10 
+ eq 0: dof = 6055 pts in mesh = 1528
+ eq 0: dof = 6055 pts in mesh = 1528
+t=0.503146, dt=0.0240373, err=0.500102, factor=0.999949, red=0, dof=6055
+t= 0.503146, dt = 0.0240373, factor = 0.999949, red=1
+coarsening solution norms2: 0.0125761 
+
+GRIDMANAGER: mesh is refined from 3000 cells to 1765 cells
+after refinement: 1765 cells, 904 vertices.
+3572 values written to graph/outScaledGrid041
+ eq 0: dof = 3572 pts in mesh = 904
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 1.057e-09 
+
+GRIDMANAGER: mesh is refined from 1765 cells to 2339 cells
+after refinement: 2339 cells, 1193 vertices.
+ eq 0: dof = 4724 pts in mesh = 1193
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 6.778e-10 
+
+GRIDMANAGER: mesh is refined from 2339 cells to 3379 cells
+after refinement: 3379 cells, 1715 vertices.
+ eq 0: dof = 6808 pts in mesh = 1715
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.531e-10 
+
+GRIDMANAGER: mesh is refined from 3379 cells to 4816 cells
+after refinement: 4816 cells, 2437 vertices.
+ eq 0: dof = 9689 pts in mesh = 2437
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.978e-10 
+ eq 0: dof = 9689 pts in mesh = 2437
+ eq 0: dof = 9689 pts in mesh = 2437
+t=0.527183, dt=0.0240361, err=0.499441, factor=1.00028, red=0, dof=9689
+t= 0.527183, dt = 0.0240361, factor = 1.00028, red=1
+coarsening solution norms2: 0.0125758 
+
+GRIDMANAGER: mesh is refined from 4816 cells to 2920 cells
+after refinement: 2920 cells, 1487 vertices.
+5893 values written to graph/outScaledGrid043
+ eq 0: dof = 5893 pts in mesh = 1487
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.342e-10 
+ eq 0: dof = 5893 pts in mesh = 1487
+ eq 0: dof = 5893 pts in mesh = 1487
+t=0.551219, dt=0.0240428, err=0.500153, factor=0.999923, red=0, dof=5893
+t= 0.551219, dt = 0.0240428, factor = 0.999923, red=1
+coarsening solution norms2: 0.0125765 
+
+GRIDMANAGER: mesh is refined from 2920 cells to 1750 cells
+after refinement: 1750 cells, 895 vertices.
+3539 values written to graph/outScaledGrid045
+ eq 0: dof = 3539 pts in mesh = 895
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 1.043e-09 
+
+GRIDMANAGER: mesh is refined from 1750 cells to 2314 cells
+after refinement: 2314 cells, 1178 vertices.
+ eq 0: dof = 4669 pts in mesh = 1178
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 6.598e-10 
+
+GRIDMANAGER: mesh is refined from 2314 cells to 3359 cells
+after refinement: 3359 cells, 1703 vertices.
+ eq 0: dof = 6764 pts in mesh = 1703
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.549e-10 
+
+GRIDMANAGER: mesh is refined from 3359 cells to 4721 cells
+after refinement: 4721 cells, 2387 vertices.
+ eq 0: dof = 9494 pts in mesh = 2387
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 3.147e-10 
+ eq 0: dof = 9494 pts in mesh = 2387
+ eq 0: dof = 9494 pts in mesh = 2387
+t=0.575262, dt=0.024041, err=0.500708, factor=0.999646, red=0, dof=9494
+t= 0.575262, dt = 0.024041, factor = 0.999646, red=1
+coarsening solution norms2: 0.0125776 
+
+GRIDMANAGER: mesh is refined from 4721 cells to 2858 cells
+after refinement: 2858 cells, 1454 vertices.
+5765 values written to graph/outScaledGrid047
+ eq 0: dof = 5765 pts in mesh = 1454
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.529e-10 
+ eq 0: dof = 5765 pts in mesh = 1454
+ eq 0: dof = 5765 pts in mesh = 1454
+t=0.599303, dt=0.0240324, err=0.500567, factor=0.999716, red=0, dof=5765
+t= 0.599303, dt = 0.0240324, factor = 0.999716, red=1
+coarsening solution norms2: 0.0125781 
+
+GRIDMANAGER: mesh is refined from 2858 cells to 1733 cells
+after refinement: 1733 cells, 887 vertices.
+3506 values written to graph/outScaledGrid049
+ eq 0: dof = 3506 pts in mesh = 887
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 9.778e-10 
+
+GRIDMANAGER: mesh is refined from 1733 cells to 2322 cells
+after refinement: 2322 cells, 1183 vertices.
+ eq 0: dof = 4687 pts in mesh = 1183
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 6.352e-10 
+
+GRIDMANAGER: mesh is refined from 2322 cells to 3329 cells
+after refinement: 3329 cells, 1687 vertices.
+ eq 0: dof = 6702 pts in mesh = 1687
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.560e-10 
+
+GRIDMANAGER: mesh is refined from 3329 cells to 4705 cells
+after refinement: 4705 cells, 2378 vertices.
+ eq 0: dof = 9460 pts in mesh = 2378
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 3.060e-10 
+ eq 0: dof = 9460 pts in mesh = 2378
+ eq 0: dof = 9460 pts in mesh = 2378
+t=0.623335, dt=0.0240256, err=0.500322, factor=0.999839, red=0, dof=9460
+t= 0.623335, dt = 0.0240256, factor = 0.999839, red=1
+coarsening solution norms2: 0.0125764 
+
+GRIDMANAGER: mesh is refined from 4705 cells to 2847 cells
+after refinement: 2847 cells, 1447 vertices.
+5740 values written to graph/outScaledGrid051
+ eq 0: dof = 5740 pts in mesh = 1447
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.962e-10 
+ eq 0: dof = 5740 pts in mesh = 1447
+ eq 0: dof = 5740 pts in mesh = 1447
+t=0.647361, dt=0.0240218, err=0.500191, factor=0.999905, red=0, dof=5740
+t= 0.647361, dt = 0.0240218, factor = 0.999905, red=1
+coarsening solution norms2: 0.0125765 
+
+GRIDMANAGER: mesh is refined from 2847 cells to 1797 cells
+after refinement: 1797 cells, 919 vertices.
+3634 values written to graph/outScaledGrid053
+ eq 0: dof = 3634 pts in mesh = 919
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 9.031e-10 
+
+GRIDMANAGER: mesh is refined from 1797 cells to 2389 cells
+after refinement: 2389 cells, 1216 vertices.
+ eq 0: dof = 4820 pts in mesh = 1216
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 7.405e-10 
+
+GRIDMANAGER: mesh is refined from 2389 cells to 3510 cells
+after refinement: 3510 cells, 1777 vertices.
+ eq 0: dof = 7063 pts in mesh = 1777
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.672e-10 
+
+GRIDMANAGER: mesh is refined from 3510 cells to 5033 cells
+after refinement: 5033 cells, 2541 vertices.
+ eq 0: dof = 10114 pts in mesh = 2541
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 3.323e-10 
+ eq 0: dof = 10114 pts in mesh = 2541
+ eq 0: dof = 10114 pts in mesh = 2541
+t=0.671383, dt=0.0240195, err=0.500474, factor=0.999763, red=0, dof=10114
+t= 0.671383, dt = 0.0240195, factor = 0.999763, red=1
+coarsening solution norms2: 0.0125763 
+
+GRIDMANAGER: mesh is refined from 5033 cells to 3156 cells
+after refinement: 3156 cells, 1602 vertices.
+6359 values written to graph/outScaledGrid055
+ eq 0: dof = 6359 pts in mesh = 1602
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.006e-10 
+ eq 0: dof = 6359 pts in mesh = 1602
+ eq 0: dof = 6359 pts in mesh = 1602
+t=0.695402, dt=0.0240138, err=0.500207, factor=0.999896, red=0, dof=6359
+t= 0.695402, dt = 0.0240138, factor = 0.999896, red=1
+coarsening solution norms2: 0.0125757 
+
+GRIDMANAGER: mesh is refined from 3156 cells to 1879 cells
+after refinement: 1879 cells, 961 vertices.
+3800 values written to graph/outScaledGrid057
+ eq 0: dof = 3800 pts in mesh = 961
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 8.272e-10 
+
+GRIDMANAGER: mesh is refined from 1879 cells to 2520 cells
+after refinement: 2520 cells, 1282 vertices.
+ eq 0: dof = 5083 pts in mesh = 1282
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 6.745e-10 
+
+GRIDMANAGER: mesh is refined from 2520 cells to 3649 cells
+after refinement: 3649 cells, 1848 vertices.
+ eq 0: dof = 7344 pts in mesh = 1848
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.838e-10 
+
+GRIDMANAGER: mesh is refined from 3649 cells to 5178 cells
+after refinement: 5178 cells, 2614 vertices.
+ eq 0: dof = 10405 pts in mesh = 2614
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 3.135e-10 
+ eq 0: dof = 10405 pts in mesh = 2614
+ eq 0: dof = 10405 pts in mesh = 2614
+t=0.719416, dt=0.0240113, err=0.500299, factor=0.999851, red=0, dof=10405
+t= 0.719416, dt = 0.0240113, factor = 0.999851, red=1
+coarsening solution norms2: 0.0125756 
+
+GRIDMANAGER: mesh is refined from 5178 cells to 3097 cells
+after refinement: 3097 cells, 1572 vertices.
+6240 values written to graph/outScaledGrid059
+ eq 0: dof = 6240 pts in mesh = 1572
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.707e-10 
+ eq 0: dof = 6240 pts in mesh = 1572
+ eq 0: dof = 6240 pts in mesh = 1572
+t=0.743427, dt=0.0240077, err=0.500278, factor=0.999861, red=0, dof=6240
+t= 0.743427, dt = 0.0240077, factor = 0.999861, red=1
+coarsening solution norms2: 0.0125755 
+
+GRIDMANAGER: mesh is refined from 3097 cells to 1797 cells
+after refinement: 1797 cells, 920 vertices.
+3636 values written to graph/outScaledGrid061
+ eq 0: dof = 3636 pts in mesh = 920
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 8.955e-10 
+
+GRIDMANAGER: mesh is refined from 1797 cells to 2426 cells
+after refinement: 2426 cells, 1235 vertices.
+ eq 0: dof = 4895 pts in mesh = 1235
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 7.343e-10 
+
+GRIDMANAGER: mesh is refined from 2426 cells to 3511 cells
+after refinement: 3511 cells, 1778 vertices.
+ eq 0: dof = 7066 pts in mesh = 1778
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.918e-10 
+
+GRIDMANAGER: mesh is refined from 3511 cells to 4995 cells
+after refinement: 4995 cells, 2523 vertices.
+ eq 0: dof = 10040 pts in mesh = 2523
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.041e-10 
+ eq 0: dof = 10040 pts in mesh = 2523
+ eq 0: dof = 10040 pts in mesh = 2523
+t=0.767435, dt=0.0240044, err=0.500069, factor=0.999965, red=0, dof=10040
+t= 0.767435, dt = 0.0240044, factor = 0.999965, red=1
+coarsening solution norms2: 0.0125754 
+
+GRIDMANAGER: mesh is refined from 4995 cells to 3032 cells
+after refinement: 3032 cells, 1541 vertices.
+6113 values written to graph/outScaledGrid063
+ eq 0: dof = 6113 pts in mesh = 1541
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 3.079e-10 
+ eq 0: dof = 6113 pts in mesh = 1541
+ eq 0: dof = 6113 pts in mesh = 1541
+t=0.791439, dt=0.0240035, err=0.499924, factor=1.00004, red=0, dof=6113
+t= 0.791439, dt = 0.0240035, factor = 1.00004, red=1
+coarsening solution norms2: 0.012575 
+
+GRIDMANAGER: mesh is refined from 3032 cells to 1780 cells
+after refinement: 1780 cells, 911 vertices.
+3601 values written to graph/outScaledGrid065
+ eq 0: dof = 3601 pts in mesh = 911
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 8.886e-10 
+
+GRIDMANAGER: mesh is refined from 1780 cells to 2392 cells
+after refinement: 2392 cells, 1218 vertices.
+ eq 0: dof = 4827 pts in mesh = 1218
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 7.826e-10 
+
+GRIDMANAGER: mesh is refined from 2392 cells to 3540 cells
+after refinement: 3540 cells, 1792 vertices.
+ eq 0: dof = 7123 pts in mesh = 1792
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 5.517e-10 
+
+GRIDMANAGER: mesh is refined from 3540 cells to 4991 cells
+after refinement: 4991 cells, 2519 vertices.
+ eq 0: dof = 10028 pts in mesh = 2519
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 3.893e-10 
+ eq 0: dof = 10028 pts in mesh = 2519
+ eq 0: dof = 10028 pts in mesh = 2519
+t=0.815443, dt=0.0240045, err=0.499411, factor=1.00029, red=0, dof=10028
+t= 0.815443, dt = 0.0240045, factor = 1.00029, red=1
+coarsening solution norms2: 0.0125751 
+
+GRIDMANAGER: mesh is refined from 4991 cells to 3001 cells
+after refinement: 3001 cells, 1524 vertices.
+6048 values written to graph/outScaledGrid067
+ eq 0: dof = 6048 pts in mesh = 1524
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.342e-10 
+ eq 0: dof = 6048 pts in mesh = 1524
+ eq 0: dof = 6048 pts in mesh = 1524
+t=0.839447, dt=0.0240115, err=0.500087, factor=0.999957, red=0, dof=6048
+t= 0.839447, dt = 0.0240115, factor = 0.999957, red=1
+coarsening solution norms2: 0.0125749 
+
+GRIDMANAGER: mesh is refined from 3001 cells to 1778 cells
+after refinement: 1778 cells, 910 vertices.
+3597 values written to graph/outScaledGrid069
+ eq 0: dof = 3597 pts in mesh = 910
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 7.712e-10 
+
+GRIDMANAGER: mesh is refined from 1778 cells to 2404 cells
+after refinement: 2404 cells, 1225 vertices.
+ eq 0: dof = 4853 pts in mesh = 1225
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 6.632e-10 
+
+GRIDMANAGER: mesh is refined from 2404 cells to 3524 cells
+after refinement: 3524 cells, 1786 vertices.
+ eq 0: dof = 7095 pts in mesh = 1786
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 4.558e-10 
+
+GRIDMANAGER: mesh is refined from 3524 cells to 5026 cells
+after refinement: 5026 cells, 2540 vertices.
+ eq 0: dof = 10105 pts in mesh = 2540
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 3.196e-10 
+ eq 0: dof = 10105 pts in mesh = 2540
+ eq 0: dof = 10105 pts in mesh = 2540
+t=0.863459, dt=0.0240105, err=0.500372, factor=0.999814, red=0, dof=10105
+t= 0.863459, dt = 0.0240105, factor = 0.999814, red=1
+coarsening solution norms2: 0.0125747 
+
+GRIDMANAGER: mesh is refined from 5026 cells to 3078 cells
+after refinement: 3078 cells, 1564 vertices.
+6205 values written to graph/outScaledGrid071
+ eq 0: dof = 6205 pts in mesh = 1564
+   ||solution||^2 = 1.257e-02 
+     ||errors||^2 = 2.238e-10 
+ eq 0: dof = 6205 pts in mesh = 1564
+ eq 0: dof = 6205 pts in mesh = 1564
+t=0.887469, dt=0.024006, err=0.49926, factor=1.00037, red=0, dof=6205
+t= 0.887469, dt = 0.024006, factor = 1.00037, red=1
+coarsening solution norms2: 0.0125755 
+
+GRIDMANAGER: mesh is refined from 3078 cells to 1796 cells
+after refinement: 1796 cells, 920 vertices.
+3635 values written to graph/outScaledGrid073
+ eq 0: dof = 3635 pts in mesh = 920
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 8.339e-10 
+
+GRIDMANAGER: mesh is refined from 1796 cells to 2420 cells
+after refinement: 2420 cells, 1233 vertices.
+ eq 0: dof = 4885 pts in mesh = 1233
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 7.337e-10 
+
+GRIDMANAGER: mesh is refined from 2420 cells to 3540 cells
+after refinement: 3540 cells, 1796 vertices.
+ eq 0: dof = 7131 pts in mesh = 1796
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.117e-10 
+
+GRIDMANAGER: mesh is refined from 3540 cells to 4975 cells
+after refinement: 4975 cells, 2517 vertices.
+ eq 0: dof = 10008 pts in mesh = 2517
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 3.009e-10 
+ eq 0: dof = 10008 pts in mesh = 2517
+ eq 0: dof = 10008 pts in mesh = 2517
+t=0.911476, dt=0.0240149, err=0.498782, factor=1.00061, red=0, dof=10008
+t= 0.911476, dt = 0.0240149, factor = 1.00061, red=1
+coarsening solution norms2: 0.0125755 
+
+GRIDMANAGER: mesh is refined from 4975 cells to 2991 cells
+after refinement: 2991 cells, 1521 vertices.
+6032 values written to graph/outScaledGrid075
+ eq 0: dof = 6032 pts in mesh = 1521
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 2.186e-10 
+ eq 0: dof = 6032 pts in mesh = 1521
+ eq 0: dof = 6032 pts in mesh = 1521
+t=0.93549, dt=0.0240296, err=0.499767, factor=1.00012, red=0, dof=6032
+t= 0.93549, dt = 0.0240296, factor = 1.00012, red=1
+coarsening solution norms2: 0.0125759 
+
+GRIDMANAGER: mesh is refined from 2991 cells to 1755 cells
+after refinement: 1755 cells, 899 vertices.
+3552 values written to graph/outScaledGrid077
+ eq 0: dof = 3552 pts in mesh = 899
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 9.658e-10 
+
+GRIDMANAGER: mesh is refined from 1755 cells to 2342 cells
+after refinement: 2342 cells, 1194 vertices.
+ eq 0: dof = 4729 pts in mesh = 1194
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 6.748e-10 
+
+GRIDMANAGER: mesh is refined from 2342 cells to 3390 cells
+after refinement: 3390 cells, 1720 vertices.
+ eq 0: dof = 6829 pts in mesh = 1720
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 4.147e-10 
+
+GRIDMANAGER: mesh is refined from 3390 cells to 4802 cells
+after refinement: 4802 cells, 2428 vertices.
+ eq 0: dof = 9657 pts in mesh = 2428
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 3.219e-10 
+ eq 0: dof = 9657 pts in mesh = 2428
+ eq 0: dof = 9657 pts in mesh = 2428
+t=0.95952, dt=0.0240324, err=0.499832, factor=1.00008, red=0, dof=9657
+t= 0.95952, dt = 0.0240324, factor = 1.00008, red=1
+coarsening solution norms2: 0.0125754 
+
+GRIDMANAGER: mesh is refined from 4802 cells to 2971 cells
+after refinement: 2971 cells, 1512 vertices.
+5994 values written to graph/outScaledGrid079
+ eq 0: dof = 5994 pts in mesh = 1512
+   ||solution||^2 = 1.258e-02 
+     ||errors||^2 = 1.984e-10 
+ eq 0: dof = 5994 pts in mesh = 1512
+ eq 0: dof = 5994 pts in mesh = 1512
+t=0.983552, dt=0.0164476, err=0.314206, factor=1.12315, red=0, dof=5994
+t= 0.983552, dt = 0.0164476, factor = 1.12315, red=1
+coarsening solution norms2: 0.0125696 
+
+GRIDMANAGER: mesh is refined from 2971 cells to 1725 cells
+after refinement: 1725 cells, 884 vertices.
+3492 values written to graph/outScaledGrid081
+
+Limex time: 11.7s matrix assembly
+            8.72s rhs assembly
+            5.31s preconditioner assembly
+            0s factorization
+            0s init solution
+            23.41s solution
+            8.27s estimate
+used cpu time: 63.58s
+End moving source tutorial program
+cd tutorial/instationary_NavierStokes; make; export DYLD_LIBRARY_PATH=/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib; ./navierStokes
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/instationary_NavierStokes“ wird betreten
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/taucs-2.0/include  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libpsurface-git/include  navierStokes.cpp -c -o navierStokes.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 navierStokes.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+          -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/lib -litsol -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -o navierStokes
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/instationary_NavierStokes“ wird verlassen
+Default parameters read from /nfs/datanumerik/weimann/test/projects/Kaskade7.3/default.json
+Start Navier-Stokes tutorial programm.
+
+density rho     = 1
+viscosity mu    = 0.01
+
+order of extrapolation in Limex : 0
+original mesh shall be refined  : 6 times
+discretization order in space   : 2
+
+Initial grid: trs=16384 eds=24704 pts=8321
+
+nvars = 2
+  neq = 2
+start time = 0
+final time = 800
+step size = 0.02
+maxTimeSteps = 51
+
+aTolT = 1e+30
+rTolT = 1e+30
+aTolX = 1e+12
+rTolX = 1e+12
+
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 0.000e+00 0.000e+00 
+     ||errors||^2 = 1.711e-05 1.105e-03 
+t= 0 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-000
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 5.972e-03 3.741e+01 
+     ||errors||^2 = 2.779e-06 1.197e-04 
+t= 0.02 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-001
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 9.714e-03 6.000e+01 
+     ||errors||^2 = 1.931e-07 3.621e-05 
+t= 0.04 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-002
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 1.266e-02 4.610e+01 
+     ||errors||^2 = 3.958e-08 3.616e-07 
+t= 0.06 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-003
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 1.504e-02 4.571e+01 
+     ||errors||^2 = 1.358e-08 1.393e-07 
+t= 0.08 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-004
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 1.704e-02 4.557e+01 
+     ||errors||^2 = 5.991e-09 6.907e-08 
+t= 0.1 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-005
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 1.879e-02 4.553e+01 
+     ||errors||^2 = 3.101e-09 3.982e-08 
+t= 0.12 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-006
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 2.035e-02 4.553e+01 
+     ||errors||^2 = 1.791e-09 2.542e-08 
+t= 0.14 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-007
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 2.176e-02 4.556e+01 
+     ||errors||^2 = 1.122e-09 1.746e-08 
+t= 0.16 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-008
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 2.305e-02 4.560e+01 
+     ||errors||^2 = 7.465e-10 1.268e-08 
+t= 0.18 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-009
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 2.424e-02 4.565e+01 
+     ||errors||^2 = 5.212e-10 9.596e-09 
+t= 0.2 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-010
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 2.535e-02 4.570e+01 
+     ||errors||^2 = 3.782e-10 7.512e-09 
+t= 0.22 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-011
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 2.639e-02 4.575e+01 
+     ||errors||^2 = 2.832e-10 6.043e-09 
+t= 0.24 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-012
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 2.736e-02 4.580e+01 
+     ||errors||^2 = 2.178e-10 4.971e-09 
+t= 0.26 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-013
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 2.828e-02 4.586e+01 
+     ||errors||^2 = 1.712e-10 4.165e-09 
+t= 0.28 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-014
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 2.915e-02 4.591e+01 
+     ||errors||^2 = 1.372e-10 3.545e-09 
+t= 0.3 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-015
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 2.998e-02 4.596e+01 
+     ||errors||^2 = 1.117e-10 3.057e-09 
+t= 0.32 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-016
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.077e-02 4.601e+01 
+     ||errors||^2 = 9.233e-11 2.666e-09 
+t= 0.34 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-017
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.153e-02 4.605e+01 
+     ||errors||^2 = 7.726e-11 2.347e-09 
+t= 0.36 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-018
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.225e-02 4.610e+01 
+     ||errors||^2 = 6.538e-11 2.084e-09 
+t= 0.38 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-019
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.294e-02 4.614e+01 
+     ||errors||^2 = 5.587e-11 1.864e-09 
+t= 0.4 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-020
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.361e-02 4.619e+01 
+     ||errors||^2 = 4.816e-11 1.677e-09 
+t= 0.42 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-021
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.425e-02 4.623e+01 
+     ||errors||^2 = 4.185e-11 1.517e-09 
+t= 0.44 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-022
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.486e-02 4.627e+01 
+     ||errors||^2 = 3.663e-11 1.380e-09 
+t= 0.46 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-023
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.546e-02 4.631e+01 
+     ||errors||^2 = 3.226e-11 1.260e-09 
+t= 0.48 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-024
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.603e-02 4.635e+01 
+     ||errors||^2 = 2.858e-11 1.155e-09 
+t= 0.5 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-025
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.659e-02 4.638e+01 
+     ||errors||^2 = 2.546e-11 1.063e-09 
+t= 0.52 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-026
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.712e-02 4.642e+01 
+     ||errors||^2 = 2.279e-11 9.816e-10 
+t= 0.54 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-027
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.764e-02 4.645e+01 
+     ||errors||^2 = 2.049e-11 9.088e-10 
+t= 0.56 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-028
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.815e-02 4.648e+01 
+     ||errors||^2 = 1.849e-11 8.437e-10 
+t= 0.58 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-029
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.864e-02 4.652e+01 
+     ||errors||^2 = 1.676e-11 7.851e-10 
+t= 0.6 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-030
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.911e-02 4.655e+01 
+     ||errors||^2 = 1.523e-11 7.323e-10 
+t= 0.62 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-031
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 3.957e-02 4.658e+01 
+     ||errors||^2 = 1.390e-11 6.843e-10 
+t= 0.64 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-032
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.002e-02 4.661e+01 
+     ||errors||^2 = 1.271e-11 6.408e-10 
+t= 0.66 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-033
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.046e-02 4.663e+01 
+     ||errors||^2 = 1.166e-11 6.010e-10 
+t= 0.68 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-034
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.088e-02 4.666e+01 
+     ||errors||^2 = 1.073e-11 5.647e-10 
+t= 0.7 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-035
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.129e-02 4.669e+01 
+     ||errors||^2 = 9.888e-12 5.313e-10 
+t= 0.72 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-036
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.170e-02 4.671e+01 
+     ||errors||^2 = 9.136e-12 5.005e-10 
+t= 0.74 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-037
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.209e-02 4.674e+01 
+     ||errors||^2 = 8.459e-12 4.722e-10 
+t= 0.76 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-038
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.247e-02 4.676e+01 
+     ||errors||^2 = 7.847e-12 4.460e-10 
+t= 0.78 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-039
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.285e-02 4.678e+01 
+     ||errors||^2 = 7.293e-12 4.217e-10 
+t= 0.8 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-040
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.321e-02 4.680e+01 
+     ||errors||^2 = 6.790e-12 3.991e-10 
+t= 0.82 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-041
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.357e-02 4.683e+01 
+     ||errors||^2 = 6.331e-12 3.781e-10 
+t= 0.84 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-042
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.391e-02 4.685e+01 
+     ||errors||^2 = 5.913e-12 3.586e-10 
+t= 0.86 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-043
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.425e-02 4.687e+01 
+     ||errors||^2 = 5.530e-12 3.403e-10 
+t= 0.88 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-044
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.459e-02 4.689e+01 
+     ||errors||^2 = 5.179e-12 3.232e-10 
+t= 0.9 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-045
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.491e-02 4.691e+01 
+     ||errors||^2 = 4.856e-12 3.072e-10 
+t= 0.92 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-046
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.523e-02 4.692e+01 
+     ||errors||^2 = 4.559e-12 2.922e-10 
+t= 0.94 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-047
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.554e-02 4.694e+01 
+     ||errors||^2 = 4.285e-12 2.781e-10 
+t= 0.96 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-048
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.584e-02 4.696e+01 
+     ||errors||^2 = 4.032e-12 2.648e-10 
+t= 0.98 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-049
+ eq 0: dof = 33025 pts in mesh = 8321
+   ||solution||^2 = 4.614e-02 4.698e+01 
+     ||errors||^2 = 3.798e-12 2.523e-10 
+t= 1 dt = 0.02 factor = 1 red=0
+   74371 values written to graph/navierStokes-order2-pEx1-tau1e-2-Re100-050
+
+Limex time: 24.29s matrix assembly
+            0s rhs assembly
+            25.28s preconditioner assembly
+            0s factorization
+            0.05s init solution
+            285.81s solution
+            5.79s estimate
+*** maxSteps reached ***
+total computing time:  273.511379s wall, 323.420000s user + 4.450000s system = 327.870000s CPU (119.9%)
+
+End Navier-Stokes tutorial program
+cd tutorial/cardio; make; export DYLD_LIBRARY_PATH=/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib; ./aliev --maxSteps 30
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/cardio“ wird betreten
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/dune -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/include/ug -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/include -I/nfs/datanumerik/weimann/test/projects/Kaskade7.3 -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/include  -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/include -I/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libpsurface-git/include  aliev.cpp -c -o aliev.o 2> gccerr.txt 
+"/nfs/datanumerik/archiv/software/linux64/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++" -DINDEXSET_HAS_ITERATORS -Wall -Wno-non-virtual-dtor -Wno-sign-compare -Wno-deprecated  -fmessage-length=0 -funroll-loops -DNDEBUG -O2    -std=c++1y  -DHAVE_NUMA -DHAVE_LIBAMIRA=1 aliev.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/umfpack_solve.o /nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/mumps_solve.o \
+/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs/superlu_solve.o -L/nfs/datanumerik/weimann/test/projects/Kaskade7.3/libs -lkaskade \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -ldunegrid -ldunecommon -ldunegeometry -ldunegridglue -ldunealugrid  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/dune-2.5.0/lib -lugS3 -lugS2 -lugL3 -lugL2  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -Wl,-rpath,/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/boost-1.59.0/lib -lboost_signals -lboost_program_options -lboost_system -lboost_timer -lboost_thread -lboost_chrono \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/umfpack-5.4.0/lib -lumfpack -lamd \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/mumps-4.10.0/lib -ldmumps -lmpiseq -lmumps_common -lpord -lpthread \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/itsol-1/lib -litsol \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/hypre-2.6.0b/lib -lHYPRE \
+  \
+  \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/libamira/lib -lamiramesh \
+ -L/nfs/datanumerik/archiv/software/linux64/clang-3.9.0-x86_64-linux-gnu/lapack/lib -llapacke -lcblas -llapack_atlas -latlas -lf77blas -L/usr/lib/lapack -llapack -Bstatic -L/usr/lib64 -Wl,-rpath,/usr/lib64 -lgfortran -L/usr/lib/x86_64-linux-gnu -lnuma -o aliev
+make[1]: Verzeichnis „/nfs/datanumerik/weimann/test/projects/Kaskade7.3/tutorial/cardio“ wird verlassen
+Default parameters read from /nfs/datanumerik/weimann/test/projects/Kaskade7.3/default.json
+New parameter maxSteps added 30
+Start cardiac tutorial program
+Start Aliev-Panfilov integration
+
+Grid: 2400 tetrahedra, 
+      5280 triangles, 
+      3641 edges, 
+      762 points
+checkpoint: 1.01 1.01 1.01
+ eq 0: dof = 221129 pts in mesh = 29925
+   ||solution||^2 = 0.000e+00 0.000e+00 
+     ||errors||^2 = 0.000e+00 0.000e+00 
+ eq 0: dof = 221129 pts in mesh = 29925
+ eq 0: dof = 221129 pts in mesh = 29925
+0.001 0.001 0.000340468 0 442258 
+t= 0.001 dt = 0.001 factor = 1.33 red=1
+442258 values written to graph/aliev-slab-uv-001
+checkpoint: 0.001    -1.34659e-31
+coarsening solution norms2: 4.96727e-08 2.67193e-18 
+
+GRIDMANAGER: mesh is refined from 153600 cells to 19200 cells
+after refinement: 19200 cells, 4403 vertices.
+59850 values written to graph/aliev-slab-uv-001
+ eq 0: dof = 29925 pts in mesh = 4403
+   ||solution||^2 = 4.043e-08 2.153e-18 
+     ||errors||^2 = 6.200e-08 6.783e-17 
+ eq 0: dof = 29925 pts in mesh = 4403
+ eq 0: dof = 29925 pts in mesh = 4403
+0.00233 0.00133 0.000513444 0 59850 
+t= 0.00233 dt = 0.00133 factor = 1.33 red=1
+59850 values written to graph/aliev-slab-uv-002
+checkpoint: 0.00233    2.25897e-17
+coarsening solution norms2: 1.43646e-06 3.878e-16 
+
+GRIDMANAGER: mesh is refined from 19200 cells to 2400 cells
+after refinement: 2400 cells, 762 vertices.
+8806 values written to graph/aliev-slab-uv-002
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 9.013e-07 2.777e-16 
+     ||errors||^2 = 1.190e-06 2.551e-15 
+ eq 0: dof = 4403 pts in mesh = 762
+ eq 0: dof = 4403 pts in mesh = 762
+0.0040989 0.0017689 0.000351525 0 8806 
+t= 0.0040989 dt = 0.0017689 factor = 1.33 red=1
+8806 values written to graph/aliev-slab-uv-003
+checkpoint: 0.0040989    2.48145e-10
+coarsening solution norms2: 1.23377e-05 8.98335e-15 
+8806 values written to graph/aliev-slab-uv-003
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 1.234e-05 8.983e-15 
+     ||errors||^2 = 6.314e-06 3.680e-14 
+
+GRIDMANAGER: mesh is refined from 2400 cells to 5488 cells
+after refinement: 5488 cells, 1375 vertices.
+ eq 0: dof = 8857 pts in mesh = 1375
+   ||solution||^2 = 1.234e-05 8.983e-15 
+     ||errors||^2 = 2.993e-06 9.604e-15 
+ eq 0: dof = 8857 pts in mesh = 1375
+ eq 0: dof = 8857 pts in mesh = 1375
+0.00645154 0.00235264 0.00353819 0 17714 
+t= 0.00645154 dt = 0.00235264 factor = 1.33 red=1
+17714 values written to graph/aliev-slab-uv-004
+checkpoint: 0.00645154    2.50643e-10
+coarsening solution norms2: 8.16168e-05 1.3592e-13 
+
+GRIDMANAGER: mesh is refined from 5488 cells to 2400 cells
+after refinement: 2400 cells, 762 vertices.
+8806 values written to graph/aliev-slab-uv-004
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 5.910e-05 1.171e-13 
+     ||errors||^2 = 2.779e-05 1.726e-13 
+
+GRIDMANAGER: mesh is refined from 2400 cells to 5464 cells
+after refinement: 5464 cells, 1379 vertices.
+ eq 0: dof = 8857 pts in mesh = 1379
+   ||solution||^2 = 5.910e-05 1.171e-13 
+     ||errors||^2 = 1.262e-05 5.134e-14 
+
+GRIDMANAGER: mesh is refined from 5464 cells to 13898 cells
+after refinement: 13898 cells, 2913 vertices.
+ eq 0: dof = 20468 pts in mesh = 2913
+   ||solution||^2 = 5.910e-05 1.171e-13 
+     ||errors||^2 = 3.333e-06 1.376e-14 
+ eq 0: dof = 20468 pts in mesh = 2913
+ eq 0: dof = 20468 pts in mesh = 2913
+0.00958054 0.00312901 0.0124785 0 40936 
+t= 0.00958054 dt = 0.00312901 factor = 1.33 red=1
+40936 values written to graph/aliev-slab-uv-005
+checkpoint: 0.00958054    2.07692e-10
+coarsening solution norms2: 0.000343788 9.74108e-13 
+
+GRIDMANAGER: mesh is refined from 13898 cells to 5464 cells
+after refinement: 5464 cells, 1379 vertices.
+17714 values written to graph/aliev-slab-uv-005
+ eq 0: dof = 8857 pts in mesh = 1379
+   ||solution||^2 = 3.212e-04 9.491e-13 
+     ||errors||^2 = 4.429e-05 2.325e-13 
+
+GRIDMANAGER: mesh is refined from 5464 cells to 13929 cells
+after refinement: 13929 cells, 2919 vertices.
+ eq 0: dof = 20512 pts in mesh = 2919
+   ||solution||^2 = 3.212e-04 9.491e-13 
+     ||errors||^2 = 1.135e-05 6.012e-14 
+
+GRIDMANAGER: mesh is refined from 13929 cells to 48068 cells
+after refinement: 48068 cells, 9090 vertices.
+ eq 0: dof = 67114 pts in mesh = 9090
+   ||solution||^2 = 3.212e-04 9.491e-13 
+     ||errors||^2 = 2.410e-06 1.418e-14 
+ eq 0: dof = 67114 pts in mesh = 9090
+ eq 0: dof = 67114 pts in mesh = 9090
+0.0137421 0.00416158 0.0143824 0 134228 
+t= 0.0137421 dt = 0.00416158 factor = 1.33 red=1
+134228 values written to graph/aliev-slab-uv-006
+checkpoint: 0.0137421    1.20845e-10
+coarsening solution norms2: 0.00128853 4.31314e-12 
+
+GRIDMANAGER: mesh is refined from 48068 cells to 15688 cells
+after refinement: 15688 cells, 3251 vertices.
+45894 values written to graph/aliev-slab-uv-006
+ eq 0: dof = 22947 pts in mesh = 3251
+   ||solution||^2 = 1.290e-03 4.291e-12 
+     ||errors||^2 = 1.155e-05 3.101e-13 
+
+GRIDMANAGER: mesh is refined from 15688 cells to 49327 cells
+after refinement: 49327 cells, 9399 vertices.
+ eq 0: dof = 69056 pts in mesh = 9399
+   ||solution||^2 = 1.290e-03 4.291e-12 
+     ||errors||^2 = 3.265e-06 1.108e-13 
+ eq 0: dof = 69056 pts in mesh = 9399
+ eq 0: dof = 69056 pts in mesh = 9399
+0.019277 0.0055349 0.203428 0 138112 
+t= 0.019277 dt = 0.0055349 factor = 1.2521 red=1
+138112 values written to graph/aliev-slab-uv-007
+checkpoint: 0.019277    1.54375e-11
+coarsening solution norms2: 0.00129048 1.2942e-11 
+
+GRIDMANAGER: mesh is refined from 49327 cells to 15900 cells
+after refinement: 15900 cells, 3291 vertices.
+46498 values written to graph/aliev-slab-uv-007
+ eq 0: dof = 23249 pts in mesh = 3291
+   ||solution||^2 = 1.291e-03 1.284e-11 
+     ||errors||^2 = 6.526e-07 6.437e-14 
+ eq 0: dof = 23249 pts in mesh = 3291
+ eq 0: dof = 23249 pts in mesh = 3291
+0.0262073 0.00693026 0.00532134 0 46498 
+t= 0.0262073 dt = 0.00693026 factor = 1.33 red=1
+46498 values written to graph/aliev-slab-uv-008
+checkpoint: 0.0262073    -7.41445e-11
+coarsening solution norms2: 0.00127997 2.7551e-11 
+
+GRIDMANAGER: mesh is refined from 15900 cells to 5400 cells
+after refinement: 5400 cells, 1371 vertices.
+17570 values written to graph/aliev-slab-uv-008
+ eq 0: dof = 8785 pts in mesh = 1371
+   ||solution||^2 = 1.299e-03 2.557e-11 
+     ||errors||^2 = 2.517e-06 4.381e-13 
+ eq 0: dof = 8785 pts in mesh = 1371
+ eq 0: dof = 8785 pts in mesh = 1371
+0.0354245 0.00921725 0.00614175 0 17570 
+t= 0.0354245 dt = 0.00921725 factor = 1.33 red=1
+17570 values written to graph/aliev-slab-uv-009
+checkpoint: 0.0354245    -1.13832e-10
+coarsening solution norms2: 0.00128689 5.33682e-11 
+
+GRIDMANAGER: mesh is refined from 5400 cells to 3968 cells
+after refinement: 3968 cells, 1054 vertices.
+13172 values written to graph/aliev-slab-uv-009
+ eq 0: dof = 6586 pts in mesh = 1054
+   ||solution||^2 = 1.310e-03 5.470e-11 
+     ||errors||^2 = 1.625e-06 1.086e-12 
+ eq 0: dof = 6586 pts in mesh = 1054
+ eq 0: dof = 6586 pts in mesh = 1054
+0.0476835 0.0122589 0.00764144 0 13172 
+t= 0.0476835 dt = 0.0122589 factor = 1.33 red=1
+13172 values written to graph/aliev-slab-uv-010
+checkpoint: 0.0476835    1.4834e-10
+coarsening solution norms2: 0.001299 1.1043e-10 
+
+GRIDMANAGER: mesh is refined from 3968 cells to 3648 cells
+after refinement: 3648 cells, 989 vertices.
+12216 values written to graph/aliev-slab-uv-010
+ eq 0: dof = 6108 pts in mesh = 989
+   ||solution||^2 = 1.376e-03 1.112e-10 
+     ||errors||^2 = 8.198e-07 3.473e-12 
+ eq 0: dof = 6108 pts in mesh = 989
+ eq 0: dof = 6108 pts in mesh = 989
+0.0639879 0.0163044 0.00638939 0 12216 
+t= 0.0639879 dt = 0.0163044 factor = 1.33 red=1
+12216 values written to graph/aliev-slab-uv-011
+checkpoint: 0.0639879    3.67081e-10
+coarsening solution norms2: 0.00136249 2.17955e-10 
+
+GRIDMANAGER: mesh is refined from 3648 cells to 2400 cells
+after refinement: 2400 cells, 762 vertices.
+8806 values written to graph/aliev-slab-uv-011
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 1.398e-03 1.727e-10 
+     ||errors||^2 = 2.781e-06 1.353e-11 
+ eq 0: dof = 4403 pts in mesh = 762
+ eq 0: dof = 4403 pts in mesh = 762
+0.0856727 0.0216848 0.00286788 0 8806 
+t= 0.0856727 dt = 0.0216848 factor = 1.33 red=1
+8806 values written to graph/aliev-slab-uv-012
+checkpoint: 0.0856727    -1.4746e-10
+coarsening solution norms2: 0.00137584 3.52191e-10 
+8806 values written to graph/aliev-slab-uv-012
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 1.376e-03 3.522e-10 
+     ||errors||^2 = 2.667e-06 1.756e-11 
+ eq 0: dof = 4403 pts in mesh = 762
+ eq 0: dof = 4403 pts in mesh = 762
+0.114514 0.0288408 0.0031511 0 8806 
+t= 0.114514 dt = 0.0288408 factor = 1.33 red=1
+8806 values written to graph/aliev-slab-uv-013
+checkpoint: 0.114514    -2.57496e-10
+coarsening solution norms2: 0.00135906 7.03116e-10 
+8806 values written to graph/aliev-slab-uv-013
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 1.359e-03 7.031e-10 
+     ||errors||^2 = 2.418e-06 2.326e-11 
+ eq 0: dof = 4403 pts in mesh = 762
+ eq 0: dof = 4403 pts in mesh = 762
+0.152872 0.0383583 0.00376282 0 8806 
+t= 0.152872 dt = 0.0383583 factor = 1.33 red=1
+8806 values written to graph/aliev-slab-uv-014
+checkpoint: 0.152872    -9.44201e-11
+coarsening solution norms2: 0.00135214 1.37974e-09 
+8806 values written to graph/aliev-slab-uv-014
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 1.352e-03 1.380e-09 
+     ||errors||^2 = 2.057e-06 3.228e-11 
+ eq 0: dof = 4403 pts in mesh = 762
+ eq 0: dof = 4403 pts in mesh = 762
+0.203888 0.0510166 0.00450533 0 8806 
+t= 0.203888 dt = 0.0510166 factor = 1.33 red=1
+8806 values written to graph/aliev-slab-uv-015
+checkpoint: 0.203888    6.16247e-11
+coarsening solution norms2: 0.00136182 2.67463e-09 
+8806 values written to graph/aliev-slab-uv-015
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 1.362e-03 2.675e-09 
+     ||errors||^2 = 1.680e-06 4.790e-11 
+ eq 0: dof = 4403 pts in mesh = 762
+ eq 0: dof = 4403 pts in mesh = 762
+0.27174 0.067852 0.00557226 0 8806 
+t= 0.27174 dt = 0.067852 factor = 1.33 red=1
+8806 values written to graph/aliev-slab-uv-016
+checkpoint: 0.27174    1.22184e-11
+coarsening solution norms2: 0.00139818 5.14743e-09 
+8806 values written to graph/aliev-slab-uv-016
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 1.398e-03 5.147e-09 
+     ||errors||^2 = 1.369e-06 7.720e-11 
+ eq 0: dof = 4403 pts in mesh = 762
+ eq 0: dof = 4403 pts in mesh = 762
+0.361984 0.0902432 0.00768213 0 8806 
+t= 0.361984 dt = 0.0902432 factor = 1.33 red=1
+8806 values written to graph/aliev-slab-uv-017
+checkpoint: 0.361984    7.98428e-13
+coarsening solution norms2: 0.00147667 9.88591e-09 
+8806 values written to graph/aliev-slab-uv-017
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 1.477e-03 9.886e-09 
+     ||errors||^2 = 1.179e-06 1.378e-10 
+ eq 0: dof = 4403 pts in mesh = 762
+ eq 0: dof = 4403 pts in mesh = 762
+0.482007 0.120023 0.013099 0 8806 
+t= 0.482007 dt = 0.120023 factor = 1.33 red=1
+8806 values written to graph/aliev-slab-uv-018
+checkpoint: 0.482007    4.92555e-11
+coarsening solution norms2: 0.0016229 1.90516e-08 
+8806 values written to graph/aliev-slab-uv-018
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 1.623e-03 1.905e-08 
+     ||errors||^2 = 1.204e-06 2.768e-10 
+ eq 0: dof = 4403 pts in mesh = 762
+ eq 0: dof = 4403 pts in mesh = 762
+0.641638 0.159631 0.0304052 0 8806 
+t= 0.641638 dt = 0.159631 factor = 1.33 red=1
+8806 values written to graph/aliev-slab-uv-019
+checkpoint: 0.641638    -2.7826e-11
+coarsening solution norms2: 0.00188595 3.70574e-08 
+8806 values written to graph/aliev-slab-uv-019
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 1.886e-03 3.706e-08 
+     ||errors||^2 = 1.738e-06 6.067e-10 
+ eq 0: dof = 4403 pts in mesh = 762
+ eq 0: dof = 4403 pts in mesh = 762
+0.853948 0.212309 0.0865606 0 8806 
+t= 0.853948 dt = 0.212309 factor = 1.33 red=1
+8806 values written to graph/aliev-slab-uv-020
+checkpoint: 0.853948    4.83286e-12
+coarsening solution norms2: 0.00238008 7.31012e-08 
+8806 values written to graph/aliev-slab-uv-020
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 2.380e-03 7.310e-08 
+     ||errors||^2 = 3.722e-06 1.240e-09 
+ eq 0: dof = 4403 pts in mesh = 762
+ eq 0: dof = 4403 pts in mesh = 762
+1.13632 0.282372 0.213014 0 8806 
+t= 1.13632 dt = 0.282372 factor = 1.23777 red=1
+8806 values written to graph/aliev-slab-uv-021
+checkpoint: 1.13632    1.79312e-11
+coarsening solution norms2: 0.0033666 1.44976e-07 
+8806 values written to graph/aliev-slab-uv-021
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 3.367e-03 1.450e-07 
+     ||errors||^2 = 6.338e-06 1.686e-09 
+
+GRIDMANAGER: mesh is refined from 2400 cells to 5648 cells
+after refinement: 5648 cells, 1407 vertices.
+ eq 0: dof = 9089 pts in mesh = 1407
+   ||solution||^2 = 3.367e-03 1.450e-07 
+     ||errors||^2 = 1.682e-06 1.957e-10 
+ eq 0: dof = 9089 pts in mesh = 1407
+ eq 0: dof = 9089 pts in mesh = 1407
+1.48583 0.349512 0.744491 0 18178 
+t= 1.48583 dt = 0.349512 factor = 0.905269 red=1
+18178 values written to graph/aliev-slab-uv-022
+checkpoint: 1.48583    -2.2129e-13
+coarsening solution norms2: 0.00490609 2.67207e-07 
+
+GRIDMANAGER: mesh is refined from 5648 cells to 2400 cells
+after refinement: 2400 cells, 762 vertices.
+8806 values written to graph/aliev-slab-uv-022
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 4.892e-03 2.670e-07 
+     ||errors||^2 = 4.861e-06 1.190e-09 
+
+GRIDMANAGER: mesh is refined from 2400 cells to 5730 cells
+after refinement: 5730 cells, 1428 vertices.
+ eq 0: dof = 9233 pts in mesh = 1428
+   ||solution||^2 = 4.892e-03 2.670e-07 
+     ||errors||^2 = 1.407e-06 2.440e-10 
+ eq 0: dof = 9233 pts in mesh = 1428
+ eq 0: dof = 9233 pts in mesh = 1428
+1.80223 0.316402 0.457607 0 18466 
+t= 1.80223 dt = 0.316402 factor = 1.0224 red=1
+18466 values written to graph/aliev-slab-uv-023
+checkpoint: 1.80223    4.5692e-11
+coarsening solution norms2: 0.00626472 4.06031e-07 
+
+GRIDMANAGER: mesh is refined from 5730 cells to 2400 cells
+after refinement: 2400 cells, 762 vertices.
+8806 values written to graph/aliev-slab-uv-023
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 6.264e-03 4.043e-07 
+     ||errors||^2 = 7.167e-06 1.924e-09 
+
+GRIDMANAGER: mesh is refined from 2400 cells to 6002 cells
+after refinement: 6002 cells, 1483 vertices.
+ eq 0: dof = 9613 pts in mesh = 1483
+   ||solution||^2 = 6.264e-03 4.043e-07 
+     ||errors||^2 = 2.284e-06 3.518e-10 
+ eq 0: dof = 9613 pts in mesh = 1483
+ eq 0: dof = 9613 pts in mesh = 1483
+2.12572 0.323488 0.433499 0 19226 
+t= 2.12572 dt = 0.323488 factor = 1.03632 red=1
+19226 values written to graph/aliev-slab-uv-024
+checkpoint: 2.12572    1.40571e-10
+coarsening solution norms2: 0.00774348 5.74031e-07 
+
+GRIDMANAGER: mesh is refined from 6002 cells to 2400 cells
+after refinement: 2400 cells, 762 vertices.
+8806 values written to graph/aliev-slab-uv-024
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 7.689e-03 5.703e-07 
+     ||errors||^2 = 1.369e-05 3.832e-09 
+
+GRIDMANAGER: mesh is refined from 2400 cells to 5992 cells
+after refinement: 5992 cells, 1485 vertices.
+ eq 0: dof = 9614 pts in mesh = 1485
+   ||solution||^2 = 7.689e-03 5.703e-07 
+     ||errors||^2 = 4.788e-06 5.552e-10 
+
+GRIDMANAGER: mesh is refined from 5992 cells to 20477 cells
+after refinement: 20477 cells, 4194 vertices.
+ eq 0: dof = 29895 pts in mesh = 4194
+   ||solution||^2 = 7.689e-03 5.703e-07 
+     ||errors||^2 = 9.034e-07 1.022e-10 
+ eq 0: dof = 29895 pts in mesh = 4194
+ eq 0: dof = 29895 pts in mesh = 4194
+2.46096 0.335239 0.442855 0 59790 
+t= 2.46096 dt = 0.335239 factor = 1.03081 red=1
+59790 values written to graph/aliev-slab-uv-025
+checkpoint: 2.46096    1.40083e-10
+coarsening solution norms2: 0.00934313 7.79245e-07 
+
+GRIDMANAGER: mesh is refined from 20477 cells to 8736 cells
+after refinement: 8736 cells, 1986 vertices.
+26956 values written to graph/aliev-slab-uv-025
+ eq 0: dof = 13478 pts in mesh = 1986
+   ||solution||^2 = 9.339e-03 7.793e-07 
+     ||errors||^2 = 1.488e-06 3.942e-10 
+ eq 0: dof = 13478 pts in mesh = 1986
+ eq 0: dof = 13478 pts in mesh = 1986
+2.80653 0.345566 0.577083 0 26956 
+t= 2.80653 dt = 0.345566 factor = 0.96479 red=1
+26956 values written to graph/aliev-slab-uv-026
+checkpoint: 2.80653    4.88936e-10
+coarsening solution norms2: 0.0112225 1.03164e-06 
+
+GRIDMANAGER: mesh is refined from 8736 cells to 2400 cells
+after refinement: 2400 cells, 762 vertices.
+8806 values written to graph/aliev-slab-uv-026
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 1.123e-02 1.035e-06 
+     ||errors||^2 = 8.881e-06 1.495e-09 
+
+GRIDMANAGER: mesh is refined from 2400 cells to 7656 cells
+after refinement: 7656 cells, 1802 vertices.
+ eq 0: dof = 11979 pts in mesh = 1802
+   ||solution||^2 = 1.123e-02 1.035e-06 
+     ||errors||^2 = 1.683e-06 2.507e-10 
+ eq 0: dof = 11979 pts in mesh = 1802
+ eq 0: dof = 11979 pts in mesh = 1802
+3.13992 0.333399 0.480793 0 23958 
+t= 3.13992 dt = 0.333399 factor = 1.00984 red=1
+23958 values written to graph/aliev-slab-uv-027
+checkpoint: 3.13992    4.97528e-10
+coarsening solution norms2: 0.0131346 1.31812e-06 
+
+GRIDMANAGER: mesh is refined from 7656 cells to 2400 cells
+after refinement: 2400 cells, 762 vertices.
+8806 values written to graph/aliev-slab-uv-027
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 1.314e-02 1.318e-06 
+     ||errors||^2 = 5.476e-06 3.340e-09 
+
+GRIDMANAGER: mesh is refined from 2400 cells to 8249 cells
+after refinement: 8249 cells, 1913 vertices.
+ eq 0: dof = 12775 pts in mesh = 1913
+   ||solution||^2 = 1.314e-02 1.318e-06 
+     ||errors||^2 = 2.177e-06 9.200e-10 
+ eq 0: dof = 12775 pts in mesh = 1913
+ eq 0: dof = 12775 pts in mesh = 1913
+3.4766 0.33668 0.524243 0 25550 
+t= 3.4766 dt = 0.33668 factor = 0.988233 red=1
+25550 values written to graph/aliev-slab-uv-028
+checkpoint: 3.4766    1.44944e-09
+coarsening solution norms2: 0.0152466 1.64626e-06 
+
+GRIDMANAGER: mesh is refined from 8249 cells to 2400 cells
+after refinement: 2400 cells, 762 vertices.
+8806 values written to graph/aliev-slab-uv-028
+ eq 0: dof = 4403 pts in mesh = 762
+   ||solution||^2 = 1.519e-02 1.643e-06 
+     ||errors||^2 = 1.519e-05 4.001e-09 
+
+GRIDMANAGER: mesh is refined from 2400 cells to 7464 cells
+after refinement: 7464 cells, 1759 vertices.
+ eq 0: dof = 11660 pts in mesh = 1759
+   ||solution||^2 = 1.519e-02 1.643e-06 
+     ||errors||^2 = 4.980e-06 6.346e-10 
+
+GRIDMANAGER: mesh is refined from 7464 cells to 27080 cells
+after refinement: 27080 cells, 5588 vertices.
+ eq 0: dof = 39400 pts in mesh = 5588
+   ||solution||^2 = 1.519e-02 1.643e-06 
+     ||errors||^2 = 1.258e-06 2.013e-10 
+ eq 0: dof = 39400 pts in mesh = 5588
+ eq 0: dof = 39400 pts in mesh = 5588
+3.80932 0.332718 0.482599 0 78800 
+t= 3.80932 dt = 0.332718 factor = 1.00889 red=1
+78800 values written to graph/aliev-slab-uv-029
+checkpoint: 3.80932    4.28268e-09
+coarsening solution norms2: 0.0174158 2.01616e-06 
+
+GRIDMANAGER: mesh is refined from 27080 cells to 10837 cells
+after refinement: 10837 cells, 2413 vertices.
+33056 values written to graph/aliev-slab-uv-029
+ eq 0: dof = 16528 pts in mesh = 2413
+   ||solution||^2 = 1.741e-02 2.016e-06 
+     ||errors||^2 = 2.418e-06 6.156e-10 
+ eq 0: dof = 16528 pts in mesh = 2413
+ eq 0: dof = 16528 pts in mesh = 2413
+4.145 0.335677 0.607984 0 33056 
+t= 4.145 dt = 0.335677 factor = 0.952291 red=1
+33056 values written to graph/aliev-slab-uv-030
+checkpoint: 4.145    5.65364e-09
+coarsening solution norms2: 0.0198855 2.44235e-06 
+
+GRIDMANAGER: mesh is refined from 10837 cells to 2400 cells
+after refinement: 2400 cells, 762 vertices.
+8806 values written to graph/aliev-slab-uv-030
+
+Limex time: 114.32s matrix assembly
+            105.95s rhs assembly
+            333.33s preconditioner assembly
+            0s factorization
+            0.06s init solution
+            381.07s solution
+            26.37s estimate
+*** maxSteps reached ***
+total cpu-time:  718.310430s wall, 722.110000s user + 8.130000s system = 730.240000s CPU (101.7%)
+
+End cardiac tutorial program

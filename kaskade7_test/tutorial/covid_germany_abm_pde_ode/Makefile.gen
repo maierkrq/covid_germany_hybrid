@@ -1,0 +1,30 @@
+
+TUTORIALTARGETS += run-covid_germany_abm_pde_ode-tutorial
+TUTORIALTARGETS += build-covid_germany_abm_pde_ode-tutorial
+TUTORIALRUNTARGETS +=
+
+export FILE=covid
+#export FILE=no_zero_covid
+#export FILE=create_trajectories
+
+DEPENDSRC += tutorial/covid_germany_abm_pde_ode/$(FILE).cpp
+#CLEAN += tutorial/covid_germany_abm_pde_ode/output_data/graph_abm_pde_ode/*
+
+.PHONY: build-covid_germany_abm_pde_ode-tutorial
+build-covid_germany_abm_pde_ode-tutorial: tutorial/covid_germany_abm_pde_ode/$(FILE)
+
+.PHONY: run-covid_germany_abm_pde_ode-tutorial
+run-covid_germany_abm_pde_ode-tutorial: tutorial/covid_germany_abm_pde_ode/$(FILE)
+	#mkdir -p tutorial/covid_germany_abm_pde_ode/output_data/graph_abm_pde_ode
+	cd tutorial/covid_germany_abm_pde_ode; ./$(FILE)
+tutorial/covid_germany_abm_pde_ode/$(FILE): tutorial/covid_germany_abm_pde_ode/$(FILE).o #tutorial/covid_germany_abm_pde_ode/$(FILE).o
+	$(CXX) $(FLAGS) $< $(KASKADE7)/libs/*.o /opt/yaml-cpp-kaskade/lib/libyaml-cpp.a $(KASKADELIB) \
+	$(DUNELIB) \
+	$(UGLIB) \
+	$(BOOSTLIB) \
+	$(DIRECTSOLVERLIB) \
+	$(ITSOLLIB) \
+	$(HYPRELIB) \
+	$(AMIRALIB) \
+	$(BLASLIB) $(FTNLIB) $(NUMALIB) $(LINKFLAGS) -lz -o $@
+

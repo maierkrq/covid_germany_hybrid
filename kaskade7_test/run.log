@@ -1,0 +1,877 @@
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Baue yaml-cpp mit Kaskade-Compiler...
+Cloning into '/tmp/yaml-cpp'...
+remote: Enumerating objects: 440, done.[K
+remote: Counting objects:   0% (1/440)[Kremote: Counting objects:   1% (5/440)[Kremote: Counting objects:   2% (9/440)[Kremote: Counting objects:   3% (14/440)[Kremote: Counting objects:   4% (18/440)[Kremote: Counting objects:   5% (22/440)[Kremote: Counting objects:   6% (27/440)[Kremote: Counting objects:   7% (31/440)[Kremote: Counting objects:   8% (36/440)[Kremote: Counting objects:   9% (40/440)[Kremote: Counting objects:  10% (44/440)[Kremote: Counting objects:  11% (49/440)[Kremote: Counting objects:  12% (53/440)[Kremote: Counting objects:  13% (58/440)[Kremote: Counting objects:  14% (62/440)[Kremote: Counting objects:  15% (66/440)[Kremote: Counting objects:  16% (71/440)[Kremote: Counting objects:  17% (75/440)[Kremote: Counting objects:  18% (80/440)[Kremote: Counting objects:  19% (84/440)[Kremote: Counting objects:  20% (88/440)[Kremote: Counting objects:  21% (93/440)[Kremote: Counting objects:  22% (97/440)[Kremote: Counting objects:  23% (102/440)[Kremote: Counting objects:  24% (106/440)[Kremote: Counting objects:  25% (110/440)[Kremote: Counting objects:  26% (115/440)[Kremote: Counting objects:  27% (119/440)[Kremote: Counting objects:  28% (124/440)[Kremote: Counting objects:  29% (128/440)[Kremote: Counting objects:  30% (132/440)[Kremote: Counting objects:  31% (137/440)[Kremote: Counting objects:  32% (141/440)[Kremote: Counting objects:  33% (146/440)[Kremote: Counting objects:  34% (150/440)[Kremote: Counting objects:  35% (154/440)[Kremote: Counting objects:  36% (159/440)[Kremote: Counting objects:  37% (163/440)[Kremote: Counting objects:  38% (168/440)[Kremote: Counting objects:  39% (172/440)[Kremote: Counting objects:  40% (176/440)[Kremote: Counting objects:  41% (181/440)[Kremote: Counting objects:  42% (185/440)[Kremote: Counting objects:  43% (190/440)[Kremote: Counting objects:  44% (194/440)[Kremote: Counting objects:  45% (198/440)[Kremote: Counting objects:  46% (203/440)[Kremote: Counting objects:  47% (207/440)[Kremote: Counting objects:  48% (212/440)[Kremote: Counting objects:  49% (216/440)[Kremote: Counting objects:  50% (220/440)[Kremote: Counting objects:  51% (225/440)[Kremote: Counting objects:  52% (229/440)[Kremote: Counting objects:  53% (234/440)[Kremote: Counting objects:  54% (238/440)[Kremote: Counting objects:  55% (242/440)[Kremote: Counting objects:  56% (247/440)[Kremote: Counting objects:  57% (251/440)[Kremote: Counting objects:  58% (256/440)[Kremote: Counting objects:  59% (260/440)[Kremote: Counting objects:  60% (264/440)[Kremote: Counting objects:  61% (269/440)[Kremote: Counting objects:  62% (273/440)[Kremote: Counting objects:  63% (278/440)[Kremote: Counting objects:  64% (282/440)[Kremote: Counting objects:  65% (286/440)[Kremote: Counting objects:  66% (291/440)[Kremote: Counting objects:  67% (295/440)[Kremote: Counting objects:  68% (300/440)[Kremote: Counting objects:  69% (304/440)[Kremote: Counting objects:  70% (308/440)[Kremote: Counting objects:  71% (313/440)[Kremote: Counting objects:  72% (317/440)[Kremote: Counting objects:  73% (322/440)[Kremote: Counting objects:  74% (326/440)[Kremote: Counting objects:  75% (330/440)[Kremote: Counting objects:  76% (335/440)[Kremote: Counting objects:  77% (339/440)[Kremote: Counting objects:  78% (344/440)[Kremote: Counting objects:  79% (348/440)[Kremote: Counting objects:  80% (352/440)[Kremote: Counting objects:  81% (357/440)[Kremote: Counting objects:  82% (361/440)[Kremote: Counting objects:  83% (366/440)[Kremote: Counting objects:  84% (370/440)[Kremote: Counting objects:  85% (374/440)[Kremote: Counting objects:  86% (379/440)[Kremote: Counting objects:  87% (383/440)[Kremote: Counting objects:  88% (388/440)[Kremote: Counting objects:  89% (392/440)[Kremote: Counting objects:  90% (396/440)[Kremote: Counting objects:  91% (401/440)[Kremote: Counting objects:  92% (405/440)[Kremote: Counting objects:  93% (410/440)[Kremote: Counting objects:  94% (414/440)[Kremote: Counting objects:  95% (418/440)[Kremote: Counting objects:  96% (423/440)[Kremote: Counting objects:  97% (427/440)[Kremote: Counting objects:  98% (432/440)[Kremote: Counting objects:  99% (436/440)[Kremote: Counting objects: 100% (440/440)[Kremote: Counting objects: 100% (440/440), done.[K
+remote: Compressing objects:   0% (1/371)[Kremote: Compressing objects:   1% (4/371)[Kremote: Compressing objects:   2% (8/371)[Kremote: Compressing objects:   3% (12/371)[Kremote: Compressing objects:   4% (15/371)[Kremote: Compressing objects:   5% (19/371)[Kremote: Compressing objects:   6% (23/371)[Kremote: Compressing objects:   7% (26/371)[Kremote: Compressing objects:   8% (30/371)[Kremote: Compressing objects:   9% (34/371)[Kremote: Compressing objects:  10% (38/371)[Kremote: Compressing objects:  11% (41/371)[Kremote: Compressing objects:  12% (45/371)[Kremote: Compressing objects:  13% (49/371)[Kremote: Compressing objects:  14% (52/371)[Kremote: Compressing objects:  15% (56/371)[Kremote: Compressing objects:  16% (60/371)[Kremote: Compressing objects:  17% (64/371)[Kremote: Compressing objects:  18% (67/371)[Kremote: Compressing objects:  19% (71/371)[Kremote: Compressing objects:  20% (75/371)[Kremote: Compressing objects:  21% (78/371)[Kremote: Compressing objects:  22% (82/371)[Kremote: Compressing objects:  23% (86/371)[Kremote: Compressing objects:  24% (90/371)[Kremote: Compressing objects:  25% (93/371)[Kremote: Compressing objects:  26% (97/371)[Kremote: Compressing objects:  27% (101/371)[Kremote: Compressing objects:  28% (104/371)[Kremote: Compressing objects:  29% (108/371)[Kremote: Compressing objects:  30% (112/371)[Kremote: Compressing objects:  31% (116/371)[Kremote: Compressing objects:  32% (119/371)[Kremote: Compressing objects:  33% (123/371)[Kremote: Compressing objects:  34% (127/371)[Kremote: Compressing objects:  35% (130/371)[Kremote: Compressing objects:  36% (134/371)[Kremote: Compressing objects:  37% (138/371)[Kremote: Compressing objects:  38% (141/371)[Kremote: Compressing objects:  39% (145/371)[Kremote: Compressing objects:  40% (149/371)[Kremote: Compressing objects:  41% (153/371)[Kremote: Compressing objects:  42% (156/371)[Kremote: Compressing objects:  43% (160/371)[Kremote: Compressing objects:  44% (164/371)[Kremote: Compressing objects:  45% (167/371)[Kremote: Compressing objects:  46% (171/371)[Kremote: Compressing objects:  47% (175/371)[Kremote: Compressing objects:  48% (179/371)[Kremote: Compressing objects:  49% (182/371)[Kremote: Compressing objects:  50% (186/371)[Kremote: Compressing objects:  51% (190/371)[Kremote: Compressing objects:  52% (193/371)[Kremote: Compressing objects:  53% (197/371)[Kremote: Compressing objects:  54% (201/371)[Kremote: Compressing objects:  55% (205/371)[Kremote: Compressing objects:  56% (208/371)[Kremote: Compressing objects:  57% (212/371)[Kremote: Compressing objects:  58% (216/371)[Kremote: Compressing objects:  59% (219/371)[Kremote: Compressing objects:  60% (223/371)[Kremote: Compressing objects:  61% (227/371)[Kremote: Compressing objects:  62% (231/371)[Kremote: Compressing objects:  63% (234/371)[Kremote: Compressing objects:  64% (238/371)[Kremote: Compressing objects:  65% (242/371)[Kremote: Compressing objects:  66% (245/371)[Kremote: Compressing objects:  67% (249/371)[Kremote: Compressing objects:  68% (253/371)[Kremote: Compressing objects:  69% (256/371)[Kremote: Compressing objects:  70% (260/371)[Kremote: Compressing objects:  71% (264/371)[Kremote: Compressing objects:  72% (268/371)[Kremote: Compressing objects:  73% (271/371)[Kremote: Compressing objects:  74% (275/371)[Kremote: Compressing objects:  75% (279/371)[Kremote: Compressing objects:  76% (282/371)[Kremote: Compressing objects:  77% (286/371)[Kremote: Compressing objects:  78% (290/371)[Kremote: Compressing objects:  79% (294/371)[Kremote: Compressing objects:  80% (297/371)[Kremote: Compressing objects:  81% (301/371)[Kremote: Compressing objects:  82% (305/371)[Kremote: Compressing objects:  83% (308/371)[Kremote: Compressing objects:  84% (312/371)[Kremote: Compressing objects:  85% (316/371)[Kremote: Compressing objects:  86% (320/371)[Kremote: Compressing objects:  87% (323/371)[Kremote: Compressing objects:  88% (327/371)[Kremote: Compressing objects:  89% (331/371)[Kremote: Compressing objects:  90% (334/371)[Kremote: Compressing objects:  91% (338/371)[Kremote: Compressing objects:  92% (342/371)[Kremote: Compressing objects:  93% (346/371)[Kremote: Compressing objects:  94% (349/371)[Kremote: Compressing objects:  95% (353/371)[Kremote: Compressing objects:  96% (357/371)[Kremote: Compressing objects:  97% (360/371)[Kremote: Compressing objects:  98% (364/371)[Kremote: Compressing objects:  99% (368/371)[Kremote: Compressing objects: 100% (371/371)[Kremote: Compressing objects: 100% (371/371), done.[K
+Receiving objects:   0% (1/440)Receiving objects:   1% (5/440)Receiving objects:   2% (9/440)Receiving objects:   3% (14/440)Receiving objects:   4% (18/440)Receiving objects:   5% (22/440)Receiving objects:   6% (27/440)Receiving objects:   7% (31/440)Receiving objects:   8% (36/440)Receiving objects:   9% (40/440)Receiving objects:  10% (44/440)Receiving objects:  11% (49/440)Receiving objects:  12% (53/440)Receiving objects:  13% (58/440)Receiving objects:  14% (62/440)Receiving objects:  15% (66/440)Receiving objects:  16% (71/440)Receiving objects:  17% (75/440)Receiving objects:  18% (80/440)Receiving objects:  19% (84/440)Receiving objects:  20% (88/440)Receiving objects:  21% (93/440)Receiving objects:  22% (97/440)Receiving objects:  23% (102/440)Receiving objects:  24% (106/440)Receiving objects:  25% (110/440)Receiving objects:  26% (115/440)Receiving objects:  27% (119/440)Receiving objects:  28% (124/440)Receiving objects:  29% (128/440)Receiving objects:  30% (132/440)Receiving objects:  31% (137/440)Receiving objects:  32% (141/440)Receiving objects:  33% (146/440)Receiving objects:  34% (150/440)Receiving objects:  35% (154/440)Receiving objects:  36% (159/440)Receiving objects:  37% (163/440)Receiving objects:  38% (168/440)Receiving objects:  39% (172/440)Receiving objects:  40% (176/440)Receiving objects:  41% (181/440)Receiving objects:  42% (185/440)Receiving objects:  43% (190/440)Receiving objects:  44% (194/440)Receiving objects:  45% (198/440)Receiving objects:  46% (203/440)Receiving objects:  47% (207/440)Receiving objects:  48% (212/440)Receiving objects:  49% (216/440)Receiving objects:  50% (220/440)Receiving objects:  51% (225/440)Receiving objects:  52% (229/440)Receiving objects:  53% (234/440)Receiving objects:  54% (238/440)Receiving objects:  55% (242/440)Receiving objects:  56% (247/440)Receiving objects:  57% (251/440)Receiving objects:  58% (256/440)Receiving objects:  59% (260/440)Receiving objects:  60% (264/440)Receiving objects:  61% (269/440)Receiving objects:  62% (273/440)Receiving objects:  63% (278/440)Receiving objects:  64% (282/440)Receiving objects:  65% (286/440)Receiving objects:  66% (291/440)Receiving objects:  67% (295/440)Receiving objects:  68% (300/440)Receiving objects:  69% (304/440)Receiving objects:  70% (308/440)Receiving objects:  71% (313/440)Receiving objects:  72% (317/440)Receiving objects:  73% (322/440)Receiving objects:  74% (326/440)Receiving objects:  75% (330/440)Receiving objects:  76% (335/440)Receiving objects:  77% (339/440)Receiving objects:  78% (344/440)Receiving objects:  79% (348/440)Receiving objects:  80% (352/440)Receiving objects:  81% (357/440)Receiving objects:  82% (361/440)Receiving objects:  83% (366/440)Receiving objects:  84% (370/440)Receiving objects:  85% (374/440)Receiving objects:  86% (379/440)Receiving objects:  87% (383/440)Receiving objects:  88% (388/440)Receiving objects:  89% (392/440)Receiving objects:  90% (396/440)Receiving objects:  91% (401/440)Receiving objects:  92% (405/440)Receiving objects:  93% (410/440)Receiving objects:  94% (414/440)Receiving objects:  95% (418/440)Receiving objects:  96% (423/440)Receiving objects:  97% (427/440)Receiving objects:  98% (432/440)remote: Total 440 (delta 88), reused 170 (delta 54), pack-reused 0 (from 0)[K
+Receiving objects:  99% (436/440)Receiving objects: 100% (440/440)Receiving objects: 100% (440/440), 1.15 MiB | 10.79 MiB/s, done.
+Resolving deltas:   0% (0/88)Resolving deltas:   1% (1/88)Resolving deltas:   2% (2/88)Resolving deltas:   3% (3/88)Resolving deltas:   4% (4/88)Resolving deltas:   5% (5/88)Resolving deltas:   6% (6/88)Resolving deltas:   7% (7/88)Resolving deltas:   9% (8/88)Resolving deltas:  11% (10/88)Resolving deltas:  12% (11/88)Resolving deltas:  13% (12/88)Resolving deltas:  14% (13/88)Resolving deltas:  15% (14/88)Resolving deltas:  17% (15/88)Resolving deltas:  18% (16/88)Resolving deltas:  19% (17/88)Resolving deltas:  20% (18/88)Resolving deltas:  22% (20/88)Resolving deltas:  25% (22/88)Resolving deltas:  26% (23/88)Resolving deltas:  29% (26/88)Resolving deltas:  30% (27/88)Resolving deltas:  31% (28/88)Resolving deltas:  34% (30/88)Resolving deltas:  35% (31/88)Resolving deltas:  38% (34/88)Resolving deltas:  42% (37/88)Resolving deltas:  45% (40/88)Resolving deltas:  46% (41/88)Resolving deltas:  47% (42/88)Resolving deltas:  48% (43/88)Resolving deltas:  50% (44/88)Resolving deltas:  51% (45/88)Resolving deltas:  53% (47/88)Resolving deltas:  54% (48/88)Resolving deltas:  55% (49/88)Resolving deltas:  56% (50/88)Resolving deltas:  61% (54/88)Resolving deltas:  62% (55/88)Resolving deltas:  63% (56/88)Resolving deltas:  64% (57/88)Resolving deltas:  65% (58/88)Resolving deltas:  67% (59/88)Resolving deltas:  69% (61/88)Resolving deltas:  72% (64/88)Resolving deltas:  76% (67/88)Resolving deltas:  77% (68/88)Resolving deltas:  78% (69/88)Resolving deltas:  79% (70/88)Resolving deltas:  80% (71/88)Resolving deltas:  81% (72/88)Resolving deltas:  82% (73/88)Resolving deltas:  84% (74/88)Resolving deltas:  85% (75/88)Resolving deltas:  87% (77/88)Resolving deltas:  88% (78/88)Resolving deltas:  89% (79/88)Resolving deltas:  90% (80/88)Resolving deltas:  92% (81/88)Resolving deltas:  93% (82/88)Resolving deltas:  94% (83/88)Resolving deltas:  96% (85/88)Resolving deltas:  97% (86/88)Resolving deltas:  98% (87/88)Resolving deltas: 100% (88/88)Resolving deltas: 100% (88/88), done.
+Note: switching to '56e3bb550c91fd7005566f19c079cb7a503223cf'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+-- The CXX compiler identification is GNU 10.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /data/numerik/software/KaskadeDependencies/Kaskade7.5Dependencies-10.2/installed/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /tmp/yaml-cpp/build
+[  2%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/contrib/graphbuilder.cpp.o[0m
+[  5%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/contrib/graphbuilderadapter.cpp.o[0m
+[  7%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/binary.cpp.o[0m
+[ 10%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/convert.cpp.o[0m
+In file included from [01m[K/tmp/yaml-cpp/include/yaml-cpp/node/convert.h:26[m[K,
+                 from [01m[K/tmp/yaml-cpp/src/convert.cpp:3[m[K:
+[01m[K/tmp/yaml-cpp/include/yaml-cpp/node/impl.h:[m[K In member function '[01m[KYAML::Node& YAML::Node::operator=(const T&)[m[K':
+[01m[K/tmp/yaml-cpp/include/yaml-cpp/node/impl.h:208:10:[m[K [01;35m[Kwarning: [m[K'[01m[Koperator=[m[K' should return a reference to '[01m[K*this[m[K' [[01;35m[K-Weffc++[m[K]
+  208 |   return [01;35m[K*this[m[K;
+      |          [01;35m[K^~~~~[m[K
+[ 12%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/depthguard.cpp.o[0m
+[ 15%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/directives.cpp.o[0m
+[ 17%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/emit.cpp.o[0m
+[ 20%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/emitfromevents.cpp.o[0m
+[ 23%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/emitter.cpp.o[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/emitterstate.cpp.o[0m
+[ 28%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/emitterutils.cpp.o[0m
+[ 30%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/exceptions.cpp.o[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/exp.cpp.o[0m
+[ 35%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/fptostring.cpp.o[0m
+[ 38%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/memory.cpp.o[0m
+[ 41%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/node.cpp.o[0m
+[ 43%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/node_data.cpp.o[0m
+[ 46%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/nodebuilder.cpp.o[0m
+In file included from [01m[K/tmp/yaml-cpp/src/nodebuilder.cpp:5[m[K:
+[01m[K/tmp/yaml-cpp/include/yaml-cpp/node/impl.h:[m[K In member function '[01m[KYAML::Node& YAML::Node::operator=(const T&)[m[K':
+[01m[K/tmp/yaml-cpp/include/yaml-cpp/node/impl.h:208:10:[m[K [01;35m[Kwarning: [m[K'[01m[Koperator=[m[K' should return a reference to '[01m[K*this[m[K' [[01;35m[K-Weffc++[m[K]
+  208 |   return [01;35m[K*this[m[K;
+      |          [01;35m[K^~~~~[m[K
+[ 48%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/nodeevents.cpp.o[0m
+[ 51%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/null.cpp.o[0m
+[ 53%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/ostream_wrapper.cpp.o[0m
+[ 56%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/parse.cpp.o[0m
+In file included from [01m[K/tmp/yaml-cpp/src/parse.cpp:7[m[K:
+[01m[K/tmp/yaml-cpp/include/yaml-cpp/node/impl.h:[m[K In member function '[01m[KYAML::Node& YAML::Node::operator=(const T&)[m[K':
+[01m[K/tmp/yaml-cpp/include/yaml-cpp/node/impl.h:208:10:[m[K [01;35m[Kwarning: [m[K'[01m[Koperator=[m[K' should return a reference to '[01m[K*this[m[K' [[01;35m[K-Weffc++[m[K]
+  208 |   return [01;35m[K*this[m[K;
+      |          [01;35m[K^~~~~[m[K
+[ 58%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/parser.cpp.o[0m
+[ 61%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/regex_yaml.cpp.o[0m
+[ 64%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/scanner.cpp.o[0m
+[ 66%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/scanscalar.cpp.o[0m
+[ 69%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/scantag.cpp.o[0m
+[ 71%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/scantoken.cpp.o[0m
+[ 74%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/simplekey.cpp.o[0m
+[ 76%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/singledocparser.cpp.o[0m
+[ 79%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/stream.cpp.o[0m
+[ 82%] [32mBuilding CXX object CMakeFiles/yaml-cpp.dir/src/tag.cpp.o[0m
+[ 84%] [32m[1mLinking CXX static library libyaml-cpp.a[0m
+[ 84%] Built target yaml-cpp
+[ 87%] [32mBuilding CXX object util/CMakeFiles/yaml-cpp-sandbox.dir/sandbox.cpp.o[0m
+[ 89%] [32m[1mLinking CXX executable sandbox[0m
+[ 89%] Built target yaml-cpp-sandbox
+[ 92%] [32mBuilding CXX object util/CMakeFiles/yaml-cpp-parse.dir/parse.cpp.o[0m
+[ 94%] [32m[1mLinking CXX executable parse[0m
+[ 94%] Built target yaml-cpp-parse
+[ 97%] [32mBuilding CXX object util/CMakeFiles/yaml-cpp-read.dir/read.cpp.o[0m
+[100%] [32m[1mLinking CXX executable read[0m
+[100%] Built target yaml-cpp-read
+-- Install configuration: "Release"
+-- Installing: /opt/yaml-cpp-kaskade/lib/libyaml-cpp.a
+-- Installing: /opt/yaml-cpp-kaskade/include
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/mark.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/emittermanip.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/emitfromevents.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/fptostring.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/stlemitter.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/parser.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/eventhandler.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/traits.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/emitterdef.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/depthguard.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/emitter.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/noexcept.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/binary.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/emitterstyle.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/dll.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/ostream_wrapper.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/type.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/convert.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/node.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/emit.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/impl.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/iterator.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/detail
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/detail/node_iterator.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/detail/iterator_fwd.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/detail/node_ref.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/detail/node.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/detail/node_data.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/detail/memory.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/detail/impl.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/detail/iterator.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/parse.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/node/ptr.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/null.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/exceptions.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/yaml.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/anchor.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/contrib
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/contrib/anchordict.h
+-- Installing: /opt/yaml-cpp-kaskade/include/yaml-cpp/contrib/graphbuilder.h
+-- Installing: /opt/yaml-cpp-kaskade/lib/cmake/yaml-cpp/yaml-cpp-targets.cmake
+-- Installing: /opt/yaml-cpp-kaskade/lib/cmake/yaml-cpp/yaml-cpp-targets-release.cmake
+-- Installing: /opt/yaml-cpp-kaskade/lib/cmake/yaml-cpp/yaml-cpp-config.cmake
+-- Installing: /opt/yaml-cpp-kaskade/lib/cmake/yaml-cpp/yaml-cpp-config-version.cmake
+-- Installing: /opt/yaml-cpp-kaskade/lib/pkgconfig/yaml-cpp.pc
+number of threads 1
+model_type 0, state_idx 0: 1
+model_type 0, state_idx 1: 1
+model_type 0, state_idx 2: 1
+model_type 1, state_idx 0: 1
+model_type 1, state_idx 1: 1
+model_type 1, state_idx 2: 1
+model_type 1, state_idx 3: 1
+model_type 1, state_idx 4: 1
+model_type 1, state_idx 5: 1
+model_type 1, state_idx 6: 1
+model_type 1, state_idx 7: 1
+model_type 2, state_idx 0: 1
+model_type 2, state_idx 1: 1
+model_type 2, state_idx 2: 1
+model_type 2, state_idx 3: 1
+model_type 2, state_idx 4: 1
+setze local_index fuer domain
+1
+3
+9
+0
+6
+10
+11
+12
+13
+14
+15
+2
+4
+5
+7
+8
+trying to read file with nr_day 0
+0 0 0 12244566 0 
+0 0 1 12302991 0 
+0 0 2 13122619 0 
+0 0 3 13119631 0 
+0 0 4 12596725 0 
+0 0 5 12857130 0 
+0 0 6 12286798 0 
+0 0 7 12286798 0 
+0 0 8 12423734 0 
+0 0 9 12332926 0 
+0 0 10 12332926 0 
+0 0 11 12332926 0 
+0 0 12 12332926 0 
+0 0 13 12332926 0 
+0 0 14 12535164 0 
+0 0 15 12370918 0 
+0 0 16 12370918 0 
+0 0 17 13152994 0 
+0 0 18 12252683 0 
+0 0 19 12252683 0 
+28808 1 20 13 0 
+31084 0 20 0 1 
+43465 1 20 0 1 
+45738 0 20 13 0 
+53100 1 20 13 0 
+63409 0 20 13 0 
+63720 1 21 5202169 0 
+68527 0 21 0 2 
+0 0 22 5202169 0 
+0 0 23 12346036 0 
+56940 1 24 5215262 0 
+58818 0 24 1 2 
+60840 1 24 1 2 
+64417 0 24 0 3 
+0 0 25 12458515 0 
+0 0 26 12458515 0 
+0 0 27 12404611 0 
+27498 1 28 5215265 0 
+31641 0 28 1 1 
+45125 1 28 1 1 
+46933 0 28 5215265 0 
+0 0 29 13112967 0 
+22380 1 30 5202179 0 
+29856 0 30 2 2 
+44760 1 30 2 2 
+53721 0 30 0 4 
+57540 1 30 0 4 
+60052 0 30 1 3 
+65940 1 30 1 3 
+67655 0 30 2 3 
+70920 1 30 2 3 
+71365 0 30 3 2 
+80340 1 30 3 2 
+81716 0 30 4 2 
+0 0 31 12281381 0 
+0 0 32 13106565 0 
+0 0 33 12567092 0 
+0 0 34 12903763 0 
+0 0 35 13006749 0 
+0 0 36 12338401 0 
+0 0 37 12338401 0 
+0 0 38 12338401 0 
+0 0 39 10614264 0 
+32566 1 40 10614264 0 
+40251 0 40 10614264 0 
+0 0 41 10614264 0 
+0 0 42 13130299 0 
+0 0 43 12313337 0 
+0 0 44 12313337 0 
+0 0 45 12313337 0 
+0 0 46 12313337 0 
+0 0 47 12972419 0 
+0 0 48 12409024 0 
+23996 1 49 35 0 
+30831 0 49 0 5 
+44997 1 49 0 5 
+45756 0 49 3 3 
+48231 1 49 3 3 
+49017 0 49 1 5 
+61776 1 49 1 5 
+67851 0 49 35 0 
+0 0 50 12536155 0 
+25946 1 51 37 0 
+28010 0 51 0 6 
+39499 1 51 0 6 
+43851 0 51 37 0 
+47428 1 51 37 0 
+54651 0 51 37 0 
+0 0 52 12702770 0 
+0 0 53 13142301 0 
+0 0 54 12567638 0 
+27810 1 55 42 0 
+34382 0 55 2 5 
+47662 1 55 2 5 
+50201 0 55 42 0 
+0 0 56 42 0 
+25526 1 57 43 0 
+28079 0 57 0 5 
+46869 1 57 0 5 
+52251 0 57 43 0 
+nr_day 0, cnt_trajectories 20616477
+trying to read file with nr_day 1
+34680 1 0 126634 0 
+35738 0 0 0 1 
+51960 1 0 0 1 
+81218 0 0 0 2 
+0 0 1 12237125 0 
+0 0 2 13486095 0 
+31888 1 3 10481429 0 
+34970 0 3 0 3 
+35612 1 3 0 3 
+38673 0 3 0 4 
+73522 1 3 0 4 
+74154 0 3 1 4 
+76286 1 3 1 4 
+86248 0 3 10481429 0 
+44640 1 4 5407009 0 
+75844 0 4 2 4 
+0 0 5 13080138 0 
+0 0 6 12212202 0 
+0 0 7 12212202 0 
+22397 1 8 7 0 
+39094 0 8 3 4 
+70813 1 8 3 4 
+0 0 9 12281469 0 
+0 0 10 12281469 0 
+0 0 11 12281469 0 
+0 0 12 12281469 0 
+0 0 13 12281469 0 
+0 0 14 12598218 0 
+0 0 15 5407018 0 
+53378 1 16 5407018 0 
+61851 0 16 5407018 0 
+0 0 17 13533803 0 
+0 0 18 5117132 0 
+30780 1 19 5117132 0 
+41759 0 19 4 4 
+61440 1 19 4 4 
+62947 0 19 5 4 
+65880 1 19 5 4 
+67386 0 19 6 4 
+37232 0 20 5117134 0 
+52495 1 20 5117134 0 
+54992 0 20 7 4 
+58832 1 20 7 4 
+61851 0 20 5117134 0 
+0 0 21 12324766 0 
+0 0 22 12324766 0 
+0 0 23 12301323 0 
+0 0 24 13291432 0 
+0 0 25 12479216 0 
+0 0 26 12479216 0 
+0 0 27 12392774 0 
+45949 1 28 5129533 0 
+50363 0 28 5129533 0 
+0 0 29 13470862 0 
+0 0 30 13232990 0 
+0 0 31 12203944 0 
+39060 1 32 25 0 
+54294 0 32 8 4 
+58020 1 32 8 4 
+58341 0 32 9 4 
+60360 1 32 9 4 
+66393 0 32 10 4 
+69000 1 32 10 4 
+69314 0 32 11 4 
+78480 1 32 11 4 
+79089 0 32 12 4 
+0 0 33 12647220 0 
+0 0 34 13151723 0 
+0 0 35 13309232 0 
+68520 1 36 30 0 
+75065 0 36 1 2 
+0 0 37 30 0 
+0 0 38 30 0 
+0 0 39 12607046 0 
+0 0 40 12607046 0 
+0 0 41 12607046 0 
+0 0 42 13498052 0 
+0 0 43 12252573 0 
+0 0 44 12252573 0 
+0 0 45 12252573 0 
+0 0 46 12252573 0 
+0 0 47 13256847 0 
+0 0 48 12400114 0 
+60025 1 49 36 0 
+65554 0 49 36 0 
+38672 1 50 37 0 
+42621 0 50 2 2 
+48100 1 50 2 2 
+58777 0 50 0 5 
+65078 1 50 0 5 
+68138 0 50 3 2 
+75491 1 50 3 2 
+76877 0 50 4 2 
+80996 1 50 4 2 
+83640 0 50 37 0 
+47045 1 51 38 0 
+52006 0 51 13 4 
+61648 1 51 13 4 
+64251 0 51 38 0 
+0 0 52 12848092 0 
+trying to read file with nr_day 2
+50580 1 0 0 0 
+52207 0 0 0 1 
+55680 1 0 0 1 
+57264 0 0 0 0 
+0 0 1 12011564 0 
+0 0 2 13719953 0 
+0 0 3 13713179 0 
+0 0 4 12646746 0 
+39900 1 5 4971071 0 
+51937 0 5 1 1 
+60780 1 5 1 1 
+62326 0 5 2 1 
+66180 1 5 2 1 
+66743 0 5 0 2 
+0 0 6 11975991 0 
+0 0 7 11975991 0 
+32108 1 8 4823100 0 
+38817 0 8 3 1 
+64324 1 8 3 1 
+70960 0 8 4823100 0 
+0 0 9 4823101 0 
+41160 1 10 4823101 0 
+60396 0 10 4 1 
+64800 1 10 4 1 
+66124 0 10 5 1 
+0 0 11 4823101 0 
+0 0 12 4823101 0 
+0 0 13 4823101 0 
+0 0 14 12516278 0 
+0 0 15 12159900 0 
+0 0 16 12159900 0 
+0 0 17 13786639 0 
+52980 1 18 4823107 0 
+62283 0 18 6 1 
+0 0 19 4823107 0 
+0 0 20 12524103 0 
+0 0 21 12139307 0 
+0 0 22 12139307 0 
+0 0 23 12104469 0 
+0 0 24 13468816 0 
+0 0 25 12348297 0 
+0 0 26 12348297 0 
+0 0 27 12232109 0 
+0 0 28 12417232 0 
+0 0 29 13697719 0 
+0 0 30 13393739 0 
+0 0 31 11964293 0 
+0 0 32 13683472 0 
+0 0 33 12584485 0 
+0 0 34 13282985 0 
+0 0 35 13492001 0 
+0 0 36 4823176 0 
+0 0 37 4823176 0 
+38213 1 38 4823176 0 
+39998 0 38 7 1 
+43760 1 38 7 1 
+45545 0 38 4823176 0 
+0 0 39 12528577 0 
+0 0 40 12528577 0 
+0 0 41 12528577 0 
+0 0 42 13737629 0 
+0 0 43 12033966 0 
+0 0 44 12033966 0 
+0 0 45 12033966 0 
+0 0 46 12033966 0 
+0 0 47 13425021 0 
+0 0 48 12242149 0 
+0 0 49 12153704 0 
+0 0 50 12518201 0 
+0 0 51 12379303 0 
+0 0 52 12856924 0 
+0 0 53 13763211 0 
+0 0 54 12585607 0 
+0 0 55 12293359 0 
+0 0 56 12293359 0 
+35439 1 57 8 1 
+0 0 58 13518771 0 
+0 0 59 12495531 0 
+0 0 60 13301796 0 
+0 0 61 12177234 0 
+0 0 62 12177234 0 
+0 0 63 12824198 0 
+48667 1 64 48 0 
+49614 0 64 9 1 
+60423 1 64 9 1 
+61123 0 64 48 0 
+0 0 65 11890191 0 
+0 0 66 12373718 0 
+0 0 67 12373718 0 
+0 0 68 52 0 
+38245 1 69 52 0 
+0 0 70 12573073 0 
+0 0 71 12573073 0 
+0 0 72 12573073 0 
+0 0 73 12792429 0 
+0 0 74 12792429 0 
+44312 1 75 55 0 
+60067 0 75 0 3 
+60903 1 75 0 3 
+66261 0 75 0 4 
+facility_categories.size() 14
+category 0, num_triples 14049790
+category 1, num_triples 39643
+category 2, num_triples 301345
+category 3, num_triples 142084
+category 4, num_triples 143708
+category 5, num_triples 21097
+category 6, num_triples 23032
+category 7, num_triples 1404362
+category 8, num_triples 1106897
+category 9, num_triples 204963
+category 10, num_triples 12599
+category 11, num_triples 296402
+category 12, num_triples 8023
+category 13, num_triples 4866
+facility_categories.size() 14
+category 0, num_triples 14825859
+category 1, num_triples 527801
+category 2, num_triples 142336
+category 3, num_triples 147668
+category 4, num_triples 303198
+category 5, num_triples 370175
+category 6, num_triples 242770
+category 7, num_triples 303001
+category 8, num_triples 7673
+category 9, num_triples 2929
+category 10, num_triples 8529
+category 11, num_triples 4631
+category 12, num_triples 3697
+category 13, num_triples 10392
+facility_categories.size() 14
+category 0, num_triples 15453561
+category 1, num_triples 303390
+category 2, num_triples 5443
+category 3, num_triples 224016
+category 4, num_triples 141580
+category 5, num_triples 95747
+category 6, num_triples 158313
+category 7, num_triples 344068
+category 8, num_triples 112740
+category 9, num_triples 3430
+category 10, num_triples 615
+category 11, num_triples 1963
+category 12, num_triples 3377
+category 13, num_triples 1598
+category home, num_pairs 20616477
+category home, num_pairs 20616477
+category home, num_pairs 20616477
+
+ nr_day 0
+state_idx 0, is_abm 1, total_nbr_individuals 680266
+state_idx 1, is_abm 0, total_nbr_individuals 341928
+state_idx 2, is_abm 0, total_nbr_individuals 1934288
+state_idx 3, is_abm 0, total_nbr_individuals 125112
+state_idx 4, is_abm 0, total_nbr_individuals 4645915
+state_idx 5, is_abm 0, total_nbr_individuals 1615589
+state_idx 6, is_abm 1, total_nbr_individuals 1056170
+state_idx 7, is_abm 0, total_nbr_individuals 2762181
+state_idx 8, is_abm 0, total_nbr_individuals 3450204
+state_idx 9, is_abm 0, total_nbr_individuals 274533
+state_idx 10, is_abm 1, total_nbr_individuals 711327
+state_idx 11, is_abm 1, total_nbr_individuals 657869
+state_idx 12, is_abm 1, total_nbr_individuals 368422
+state_idx 13, is_abm 1, total_nbr_individuals 916703
+state_idx 14, is_abm 1, total_nbr_individuals 536096
+state_idx 15, is_abm 1, total_nbr_individuals 539874
+
+ nr_day 1
+state_idx 0, is_abm 1, total_nbr_individuals 673025
+state_idx 1, is_abm 0, total_nbr_individuals 321490
+state_idx 2, is_abm 0, total_nbr_individuals 1917690
+state_idx 3, is_abm 0, total_nbr_individuals 121501
+state_idx 4, is_abm 0, total_nbr_individuals 4654357
+state_idx 5, is_abm 0, total_nbr_individuals 1636199
+state_idx 6, is_abm 1, total_nbr_individuals 1059815
+state_idx 7, is_abm 0, total_nbr_individuals 2758514
+state_idx 8, is_abm 0, total_nbr_individuals 3466551
+state_idx 9, is_abm 0, total_nbr_individuals 269116
+state_idx 10, is_abm 1, total_nbr_individuals 686640
+state_idx 11, is_abm 1, total_nbr_individuals 665706
+state_idx 12, is_abm 1, total_nbr_individuals 375232
+state_idx 13, is_abm 1, total_nbr_individuals 920575
+state_idx 14, is_abm 1, total_nbr_individuals 545511
+state_idx 15, is_abm 1, total_nbr_individuals 544555
+
+ nr_day 2
+state_idx 0, is_abm 1, total_nbr_individuals 671780
+state_idx 1, is_abm 0, total_nbr_individuals 314519
+state_idx 2, is_abm 0, total_nbr_individuals 1916854
+state_idx 3, is_abm 0, total_nbr_individuals 119963
+state_idx 4, is_abm 0, total_nbr_individuals 4656712
+state_idx 5, is_abm 0, total_nbr_individuals 1644347
+state_idx 6, is_abm 1, total_nbr_individuals 1057349
+state_idx 7, is_abm 0, total_nbr_individuals 2742379
+state_idx 8, is_abm 0, total_nbr_individuals 3470547
+state_idx 9, is_abm 0, total_nbr_individuals 261058
+state_idx 10, is_abm 1, total_nbr_individuals 679955
+state_idx 11, is_abm 1, total_nbr_individuals 668182
+state_idx 12, is_abm 1, total_nbr_individuals 375734
+state_idx 13, is_abm 1, total_nbr_individuals 931890
+state_idx 14, is_abm 1, total_nbr_individuals 554512
+state_idx 15, is_abm 1, total_nbr_individuals 550696
+data.size()/3.0 15028551
+data.size()/3.0 13388104
+data.size()/3.0 12714622
+input_data/germany_jump_matrix_agent_IDs_wt_Berlin_ABM.bin
+Fehler beim Öffnen der Datei input_data/germany_jump_matrix_agent_IDs_wt_Berlin_ABM.bin
+point 0, value1 0, value2 0
+point 1, value1 0.5, value2 -0.5
+point 2, value1 0.666667, value2 -1.33333
+point 3, value1 0.75, value2 -1.25
+point 4, value1 0.8, value2 -1.4
+point 5, value1 2.33333, value2 -4.83333
+point 6, value1 4.28571, value2 -9
+point 7, value1 4.71429, value2 -9.71429
+point 8, value1 4.85714, value2 -10.1429
+point 9, value1 4.85714, value2 -10.1429
+point 10, value1 5.14286, value2 -10.8571
+point 11, value1 5.42857, value2 -11.5714
+point 12, value1 5.85714, value2 -12.2857
+point 13, value1 6.57143, value2 -13.7143
+point 14, value1 7.28571, value2 -15.4286
+point 15, value1 8.71429, value2 -18.4286
+point 16, value1 10.4286, value2 -21.8571
+point 17, value1 12.1429, value2 -25.5714
+point 18, value1 14.1429, value2 -29.5714
+point 19, value1 15.5714, value2 -32.5714
+point 20, value1 16.4286, value2 -34.4286
+point 21, value1 18, value2 -37.7143
+point 22, value1 19.1429, value2 -40
+point 23, value1 20, value2 -42
+point 24, value1 20.5714, value2 -43
+point 25, value1 20.7143, value2 -43.4286
+point 26, value1 21, value2 -44.1429
+point 27, value1 21.4286, value2 -44.8571
+point 28, value1 21.4286, value2 -44.7143
+point 29, value1 21.1429, value2 -44.4286
+point 30, value1 20.8571, value2 -43.8571
+point 31, value1 20.7143, value2 -43.7143
+point 32, value1 20.5714, value2 -43.5714
+point 33, value1 20.1429, value2 -42.5714
+point 34, value1 19.4286, value2 -41
+point 35, value1 19, value2 -40.1429
+point 36, value1 18.7143, value2 -39.2857
+point 37, value1 18.4286, value2 -38.5714
+point 38, value1 18, value2 -37.7143
+point 39, value1 19, value2 -39.4286
+point 40, value1 18.7143, value2 -38.8571
+point 41, value1 18.1429, value2 -37.8571
+point 42, value1 19.7143, value2 -41.2857
+point 43, value1 19.8571, value2 -41.5714
+point 44, value1 20.1429, value2 -42
+point 45, value1 20.1429, value2 -41.8571
+point 46, value1 18.8571, value2 -39.2857
+point 47, value1 18.7143, value2 -39
+point 48, value1 19.1429, value2 -39.8571
+point 49, value1 17.4286, value2 -36.1429
+point 50, value1 17, value2 -35.4286
+point 51, value1 16.4286, value2 -34.2857
+point 52, value1 16.1429, value2 -33.5714
+point 53, value1 15.8571, value2 -32.8571
+point 54, value1 16, value2 -33
+point 55, value1 15.8571, value2 -32.7143
+point 56, value1 15.5714, value2 -32
+point 57, value1 15.2857, value2 -31.4286
+point 58, value1 15.2857, value2 -31.5714
+point 59, value1 14.5714, value2 -30.1429
+point 60, value1 15.2857, value2 -31.7143
+point 61, value1 14.4286, value2 -30.1429
+point 62, value1 14, value2 -29.4286
+point 63, value1 13.2857, value2 -28
+point 64, value1 12.5714, value2 -26.4286
+point 65, value1 12, value2 -25.2857
+point 66, value1 12.2857, value2 -25.8571
+point 67, value1 12.1429, value2 -25.5714
+point 68, value1 12, value2 -25.2857
+point 69, value1 12, value2 -25.2857
+point 70, value1 12.8571, value2 -27.1429
+point 71, value1 13.5714, value2 -28.5714
+point 72, value1 13.8571, value2 -29.1429
+point 73, value1 13.8571, value2 -29.4286
+point 74, value1 12.7143, value2 -27
+point 75, value1 13, value2 -27.4286
+point 76, value1 13, value2 -27.2857
+point 77, value1 12.2857, value2 -26
+point 78, value1 12, value2 -25.2857
+point 79, value1 11.2857, value2 -23.5714
+point 80, value1 11.8571, value2 -24.5714
+point 81, value1 12.1429, value2 -25.2857
+point 82, value1 12.2857, value2 -25.5714
+point 83, value1 12.4286, value2 -25.8571
+point 84, value1 12.5714, value2 -26.1429
+point 85, value1 12.1429, value2 -25.4286
+point 86, value1 12.2857, value2 -25.7143
+point 87, value1 11.2857, value2 -23.5714
+point 88, value1 10.4286, value2 -21.7143
+point 89, value1 9.57143, value2 -20.1429
+point 90, value1 8.71429, value2 -18.5714
+point 91, value1 9.28571, value2 -19.7143
+point 92, value1 9, value2 -19.1429
+point 93, value1 8.85714, value2 -18.8571
+point 94, value1 8.85714, value2 -19
+point 95, value1 9, value2 -19.4286
+point 96, value1 9.14286, value2 -19.7143
+point 97, value1 9.71429, value2 -20.7143
+point 98, value1 8.57143, value2 -18.4286
+point 99, value1 8.85714, value2 -18.8571
+point 100, value1 8.71429, value2 -18.5714
+point 101, value1 8.14286, value2 -17.4286
+point 102, value1 7.14286, value2 -15.4286
+point 103, value1 6.71429, value2 -14.5714
+point 104, value1 5.71429, value2 -12.4286
+population Hamburg 3.41928000e+05
+population Bremen 1.25112000e+05
+population Saarland 2.74533000e+05
+population Schleswig-Holstein 6.80266000e+05
+population Rheinland-Pfalz 1.05617000e+06
+population Berlin 7.11327000e+05
+population Brandenburg 6.57869000e+05
+population Mecklenburg-Vorpommern 3.68422000e+05
+population Sachsen 9.16703000e+05
+population Sachsen-Anhalt 5.36096000e+05
+population Thueringen 5.39874000e+05
+population Niedersachsen 1.93428800e+06
+population Nordrhein-Westfalen 4.64591500e+06
+population Hessen 1.61558900e+06
+population Baden-Wuerttemberg 2.76218100e+06
+population Bayern 3.45020400e+06
+grad_V numPoints=519
+grad_V numPoints=248
+grad_V numPoints=1580
+done reading target data
+exposed[0][0][Hamburg]6.78571429e-01
+recovered[0][0][Hamburg]6.78571429e-01
+susceptibles[0][0][Hamburg]3.41926643e+05
+
+exposed[0][0][Bremen]2.14285714e-01
+recovered[0][0][Bremen]2.14285714e-01
+susceptibles[0][0][Bremen]1.25111571e+05
+
+exposed[0][0][Saarland]4.64285714e-01
+recovered[0][0][Saarland]4.28571429e-01
+susceptibles[0][0][Saarland]2.74532107e+05
+
+exposed[0][0][Schleswig-Holstein]5.35714286e-01
+recovered[0][0][Schleswig-Holstein]5.00000000e-01
+susceptibles[0][0][Schleswig-Holstein]6.80264964e+05
+
+exposed[0][0][Rheinland-Pfalz]1.21428571e+00
+recovered[0][0][Rheinland-Pfalz]1.21428571e+00
+susceptibles[0][0][Rheinland-Pfalz]1.05616757e+06
+
+exposed[0][0][Berlin]2.28571429e+00
+recovered[0][0][Berlin]2.25000000e+00
+susceptibles[0][0][Berlin]7.11322464e+05
+
+exposed[0][0][Brandenburg]3.92857143e-01
+recovered[0][0][Brandenburg]3.57142857e-01
+susceptibles[0][0][Brandenburg]6.57868250e+05
+
+exposed[0][0][Mecklenburg-Vorpommern]3.92857143e-01
+recovered[0][0][Mecklenburg-Vorpommern]3.92857143e-01
+susceptibles[0][0][Mecklenburg-Vorpommern]3.68421214e+05
+
+exposed[0][0][Sachsen]5.00000000e-01
+recovered[0][0][Sachsen]5.00000000e-01
+susceptibles[0][0][Sachsen]9.16702000e+05
+
+exposed[0][0][Sachsen-Anhalt]1.07142857e-01
+recovered[0][0][Sachsen-Anhalt]1.07142857e-01
+susceptibles[0][0][Sachsen-Anhalt]5.36095786e+05
+
+exposed[0][0][Thueringen]3.92857143e-01
+recovered[0][0][Thueringen]3.92857143e-01
+susceptibles[0][0][Thueringen]5.39873214e+05
+
+exposed[0][0][Niedersachsen]1.28571429e+00
+recovered[0][0][Niedersachsen]1.28571429e+00
+susceptibles[0][0][Niedersachsen]1.93428543e+06
+
+exposed[0][0][Nordrhein-Westfalen]2.20000000e+01
+recovered[0][0][Nordrhein-Westfalen]2.15357143e+01
+susceptibles[0][0][Nordrhein-Westfalen]4.64587146e+06
+
+exposed[0][0][Hessen]1.50000000e+00
+recovered[0][0][Hessen]1.50000000e+00
+susceptibles[0][0][Hessen]1.61558600e+06
+
+exposed[0][0][Baden-Wuerttemberg]8.42857143e+00
+recovered[0][0][Baden-Wuerttemberg]8.10714286e+00
+susceptibles[0][0][Baden-Wuerttemberg]2.76216446e+06
+
+exposed[0][0][Bayern]8.92857143e+00
+recovered[0][0][Bayern]8.71428571e+00
+susceptibles[0][0][Bayern]3.45018636e+06
+
+Could not read option file default.json
+Default parameters read from default.json
+New parameter config added /work/input/run-config.yaml
+New parameter output-dir added /work/output
+Solver type  not known
+Direct Solver  not known
+Iterate Solver  not known
+Matrix property  not known
+Start program
+correction terms ABM:
+0, 0, 0, 0, 0, 0, 0, 0, 
+correction terms PDE:
+0, 0, 0, 
+correction terms ODE:
+100, 100, 100, 100, 100, 
+
+Grid Hamburg: 832 triangles,
+      1350 edges,
+      519 points
+
+
+Grid Bremen: 374 triangles,
+      621 edges,
+      248 points
+
+
+Grid Saarland: 2811 triangles,
+      4390 edges,
+      1580 points
+
+nbr_points_PDE Hamburg 519
+nbr_cells_PDE Hamburg 832
+
+nbr_points_PDE Bremen 248
+nbr_cells_PDE Bremen 374
+
+nbr_points_PDE Saarland 1580
+nbr_cells_PDE Saarland 2811
+
+integral_of_inv_V 7.31530291e+09
+min_normalized_inv_V 1.36678565e-09
+max_normalized_inv_V 1.36683535e-09
+integral_of_inv_V 3.18524437e+09
+min_normalized_inv_V 3.13896405e-09
+max_normalized_inv_V 3.13905196e-09
+integral_of_inv_V 2.56930199e+10
+min_normalized_inv_V 3.89146396e-10
+max_normalized_inv_V 3.89156460e-10
+start runs
+maxSteps = 672
+########################## run: 0
+ABM parameter choices: 
+6.8000000000e-06
+6.8000000000e-06
+6.8000000000e-06
+6.8000000000e-06
+6.8000000000e-06
+6.8000000000e-06
+6.8000000000e-06
+6.8000000000e-06
+PDE parameter choices: 
+4.5000000000e+02
+4.5000000000e+02
+4.5000000000e+02
+ODE parameter choices: 
+5.4500000000e+03
+5.4500000000e+03
+5.4500000000e+03
+5.4500000000e+03
+5.4500000000e+03
+init_time_step: 0
+nbr_points_PDE.at(state_PDE_idx) 519
+nbr_points_PDE.at(state_PDE_idx) 248
+nbr_points_PDE.at(state_PDE_idx) 1580
+total number of agents: 5466727
+total number of Trajectories: 20616477
+state_ABM_idx 0, number of exposed agents 10
+state_ABM_idx 1, number of exposed agents 24
+state_ABM_idx 2, number of exposed agents 45
+state_ABM_idx 3, number of exposed agents 7
+state_ABM_idx 4, number of exposed agents 7
+state_ABM_idx 5, number of exposed agents 10
+state_ABM_idx 6, number of exposed agents 2
+state_ABM_idx 7, number of exposed agents 7
+next step 0
+jump_timestep 0
+before filter_event_data
+after filter_event_data
+before ABM
+after ABM
+accurate = 1
+total_nbr_PDE_state 3.4192800000e+05
+accurate = 1
+total_nbr_PDE_state 1.2511200000e+05
+accurate = 1
+total_nbr_PDE_state 2.7453300000e+05
+after PDE step
+/////////////////////////////////////////
+before add agents to PDE or ODE states
