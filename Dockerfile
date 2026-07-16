@@ -69,14 +69,15 @@ RUN --mount=type=secret,id=lakefs_access_key,required=true \
             "  access_key_id: $(cat /run/secrets/lakefs_access_key)" \
             "  secret_access_key: $(cat /run/secrets/lakefs_secret_key)" \
             > /tmp/lakectl.yaml; \
-        lakectl \
-            --config /tmp/lakectl.yaml \
-            fs download \
-            lakefs://sandbox/main/RAW/work/ \
-            "${KASKADE_ROOT}/work" \
-            --recursive \
-            --no-progress; \
-        rm -f /tmp/lakectl.yaml; \
+	lakectl \
+	    --config /tmp/lakectl.yaml \
+	    fs download \
+	    lakefs://sandbox/main/RAW/work/ \
+	    "${KASKADE_ROOT}/work" \
+	    --recursive \
+	    --no-progress \
+	    || { echo "lakectl download FAILED"; rm -f /tmp/lakectl.yaml; exit 1; }; \
+	rm -f /tmp/lakectl.yaml; \
     else \
         echo "work/input und work/output sind bereits vorhanden."; \
     fi
