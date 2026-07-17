@@ -115,7 +115,7 @@ public:
         jump_matrix.resize(3);
         germany_jump_matrix_agent_IDs.resize(3);
         for (int nr_day=0; nr_day<3; nr_day++) {
-            std::string filename = "../../work/input/global/germany_jump_matrix_agent_IDs_" + days_str[nr_day] + addOn + "_dt_inv_" + std::to_string(dt_inv) + ".bin";
+            std::string filename = "../../work/input_data/global/germany_jump_matrix_agent_IDs_" + days_str[nr_day] + addOn + "_dt_inv_" + std::to_string(dt_inv) + ".bin";
             std::cout << filename << std::endl;
             std::ifstream file(filename, std::ios::binary);
             if (!file) {
@@ -176,7 +176,7 @@ public:
         const int cols = 5; // time in seconds, activity type, person id, facility index (corresponding to facility coordinates of that category), category index (corresponding to facility_categories)
         for (int nr_day=init_nr_day; nr_day<init_nr_day+total_nr_days; nr_day++) {
             std::cout << "trying to read file with nr_day " << nr_day << std::endl;
-            std::string filename = "../../work/input/global/germany_event_data_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin.gz"; 
+            std::string filename = "../../work/input_data/global/germany_event_data_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin.gz"; 
             gzFile file = gzopen(filename.c_str(), "rb");
             if (!file) {
                 std::cerr << "Fehler beim Öffnen der Datei " << filename << std::endl;
@@ -258,7 +258,7 @@ public:
         facilityCoordinates_home.resize(3);
         for (int nr_day=0; nr_day<3; nr_day++) {
             //input_data/germany_agent_ids_with_home_facility_coordinates_index_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin"; 
-            std::string filename = "../../work/input/global/germany_agent_ids_with_home_facility_coordinates_index_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin"; 
+            std::string filename = "../../work/input_data/global/germany_agent_ids_with_home_facility_coordinates_index_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin"; 
             std::ifstream infile(filename, std::ios::binary);
 
             if (!infile) {
@@ -300,7 +300,7 @@ public:
         facilityCoordinates_allCategories.resize(3);
         facilityLabels_allCategories.resize(3);
         for (int nr_day=0; nr_day<3; nr_day++) {
-            std::string filename = "../../work/input/global/germany_facility_coordinates_" + std::to_string(nr_day) + "_" + population_scale_str + "_labeled.bin";
+            std::string filename = "../../work/input_data/global/germany_facility_coordinates_" + std::to_string(nr_day) + "_" + population_scale_str + "_labeled.bin";
             std::ifstream infile(filename, std::ios::binary);
             if (!infile) {
                 std::cerr << "Datei " << filename << " konnte nicht geöffnet werden" << std::endl;
@@ -361,7 +361,7 @@ public:
 
         max_agents_per_facility_category.resize(3);
         for (int nr_day=0; nr_day<3; nr_day++) {
-            std::string filename = "../../work/input/global/germany_max_agents_per_facility_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin";
+            std::string filename = "../../work/input_data/global/germany_max_agents_per_facility_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin";
             std::ifstream file(filename, std::ios::binary);
             if (!file) {
                 std::cerr << "Fehler beim Öffnen der Datei " << filename << std::endl;
@@ -402,7 +402,7 @@ public:
         initial_agent_ids.resize(3, std::vector<std::vector<int>>(nr_ABM_states));
         for (int nr_day = 0; nr_day < 3; nr_day++) {
             std::cout << "\n nr_day " << nr_day << std::endl;
-            std::string filenameTotalNumbers = "../../work/input/global/germany_nbr_individuals_id_t_0_in_states_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin"; 
+            std::string filenameTotalNumbers = "../../work/input_data/global/germany_nbr_individuals_id_t_0_in_states_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin"; 
             std::ifstream fileTotalNumbers(filenameTotalNumbers, std::ios::binary); 
             if ((fileTotalNumbers.is_open())) { 
                 int64_t total_nbr_individuals;
@@ -436,7 +436,7 @@ public:
                 std::cerr << "Error opening the file " << filenameTotalNumbers << std::endl;
             }
 
-            std::string filename = "../../work/input/global/germany_agent_id_t_0_in_ABM_" + std::to_string(nr_day) + "_" + population_scale_str + addOn + ".bin"; 
+            std::string filename = "../../work/input_data/global/germany_agent_id_t_0_in_ABM_" + std::to_string(nr_day) + "_" + population_scale_str + addOn + ".bin"; 
             std::ifstream file(filename, std::ios::binary); 
             if ((file.is_open())) {
                 int64_t ABMstate_nr;
@@ -455,7 +455,7 @@ public:
 
 
     void readActivityChangeData(){        
-        std::string filename = "../../work/input/global/activity_data.txt";
+        std::string filename = "../../work/input_data/global/activity_data.txt";
 
         std::ifstream infile(filename, std::ios::binary);
 

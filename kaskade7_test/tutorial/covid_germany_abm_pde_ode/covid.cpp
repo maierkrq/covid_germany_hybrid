@@ -269,10 +269,10 @@ int main(int argc, char *argv[]) {
   std::vector<std::vector<double>> V_PDE;
   std::vector<std::vector<std::vector<double>>> grad_V_PDE;
   for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) { // iterate over all PDE domains
-    std::string filename_V = "../../work/input/global/" + stateLabels_PDE.at(state_PDE_idx) + "_V" + coarsity_str_PDEs.at(state_PDE_idx) + ".bin";
+    std::string filename_V = "../../work/input_data/global/" + stateLabels_PDE.at(state_PDE_idx) + "_V" + coarsity_str_PDEs.at(state_PDE_idx) + ".bin";
     V_PDE.push_back(readLandscape(filename_V));
 
-    std::string filename_grad_V = "../../work/input/global/" + stateLabels_PDE.at(state_PDE_idx) + "_grad_V" + coarsity_str_PDEs.at(state_PDE_idx) + ".bin";
+    std::string filename_grad_V = "../../work/input_data/global/" + stateLabels_PDE.at(state_PDE_idx) + "_grad_V" + coarsity_str_PDEs.at(state_PDE_idx) + ".bin";
     grad_V_PDE.push_back(readGradient(filename_grad_V));
   }
 

@@ -105,7 +105,7 @@ std::vector<std::vector<double>> readGradient(std::string filename) {
 }
 
 std::vector<std::vector<double>> readTargetData(std::string bundesland){
-    std::string filename = "../../work/input/global/cases_" + bundesland + ".bin";
+    std::string filename = "../../work/input_data/global/cases_" + bundesland + ".bin";
     std::ifstream infile(filename, std::ios::binary);
 
     if (!infile) {

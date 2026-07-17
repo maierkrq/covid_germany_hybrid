@@ -673,7 +673,7 @@ int main(int argc, char *argv[]) {
   std::cout << "jump_matrix[0][0][0] " << jump_matrix[0][0][0] << std::endl;
   std::cout << "jump_matrix[jump_matrix.size()-1][nbr_domains-1][nbr_domains-1] " << jump_matrix[jump_matrix.size()-1][nbr_domains-1][nbr_domains-1] << std::endl;
 
-  std::string filename_jump_agent_IDs = "../../work/input/global/germany_jump_matrix_agent_IDs_" + days_str[nr_day] + addOn + "_dt_inv_" + std::to_string(dt_inv) + ".bin";
+  std::string filename_jump_agent_IDs = "../../work/input_data/global/germany_jump_matrix_agent_IDs_" + days_str[nr_day] + addOn + "_dt_inv_" + std::to_string(dt_inv) + ".bin";
   std::ofstream file(filename_jump_agent_IDs, std::ios::binary);
   for (const auto& mat2d : jump_matrix_agent_IDs) {          // time step
     for (const auto& row2d : mat2d) {                        // from-state
