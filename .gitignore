@@ -1,4 +1,5 @@
 .env
+deps/
 work/
 work2/
 docker_run_old.sh
