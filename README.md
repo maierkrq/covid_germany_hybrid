@@ -76,9 +76,9 @@ to the `the-episerve-consortium` org.
 
 ## For contributors: changing the model and publishing a new tag
 
-Before you can contribute, you need to have done all steps from the
-maintainer section above on your machine (`./deps/` populated, logged in to
-the registry).
+Before you can contribute, you need step 1 from the maintainer section
+above done on your machine (`./deps/` populated) and to be logged in to the
+registry (`docker login ghcr.io`, see step 3).
 
 If you then change code under `kaskade7_test/` (e.g. tweaking a parameter
 like `num_threads` in `covid.cpp`), you don't need to redo the lakeFS
