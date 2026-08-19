@@ -27,7 +27,7 @@ full ~25GB tree). Requires `lakectl` configured with lakeFS credentials
 (`~/.lakectl.yaml` or equivalent).
 
 ```bash
-cd model_kristina
+cd model_covid_germany_hybrid
 
 BASE="lakefs://sandbox/main/RAW/work/input/KaskadeDependencies"
 DEST="deps"
@@ -79,9 +79,12 @@ to the `the-episerve-consortium` org.
 If you change code under `kaskade7_test/` (e.g. tweaking a parameter like
 `num_threads` in `covid.cpp`), you don't need to touch `deps/` or redo the
 lakeFS download above — that's only needed when the Kaskade dependencies
-themselves change. Just rebuild and republish:
+themselves change. Just rebuild and republish, from the repo root
+(`model_covid_germany_hybrid/`, alongside `Dockerfile` and `deps/`):
 
 ```bash
+cd model_covid_germany_hybrid
+
 docker build -t ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<new-tag> .
 # test locally, e.g.:
 docker run --rm \
