@@ -74,11 +74,12 @@ docker push ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<tag>
 Requires `docker login ghcr.io` with an account/token that has write access
 to the `the-episerve-consortium` org.
 
-### Publishing a new tag after a model source code change
+## For contributors: changing the model and publishing a new tag
 
-If you only changed code under `kaskade7_test/` (not the Kaskade
-dependencies themselves), you don't need to touch `deps/` or redo step 1 —
-just rebuild and republish:
+If you change code under `kaskade7_test/` (e.g. tweaking a parameter like
+`num_threads` in `covid.cpp`), you don't need to touch `deps/` or redo the
+lakeFS download above — that's only needed when the Kaskade dependencies
+themselves change. Just rebuild and republish:
 
 ```bash
 docker build -t ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<new-tag> .
@@ -91,10 +92,10 @@ docker run --rm \
 docker push ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<new-tag>
 ```
 
-`deps/` already sits on disk from step 1, so this reuses it — no lakeFS
-involvement at all for a source-only change. Bump `<new-tag>` (e.g.
-`v0.1.1` → `v0.1.2`) and commit/push the source change to git so the tag is
-traceable back to the commit that produced it.
+`deps/` already sits on disk from the maintainer's earlier download, so this
+reuses it — no lakeFS involvement at all for a source-only change. Bump
+`<new-tag>` (e.g. `v0.1.1` → `v0.1.2`) and commit/push the source change to
+git so the tag is traceable back to the commit that produced it.
 
 ## For end users: running the model
 
