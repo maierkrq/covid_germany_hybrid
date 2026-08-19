@@ -1,14 +1,31 @@
-FROM ubuntu:20.04
+# syntax=docker/dockerfile:1
+#
+# Two-stage build:
+#   build   - full compiler toolchain + trimmed Kaskade dependencies, compiles
+#             the covid_germany_abm_pde_ode tutorial binary.
+#   runtime - slim image containing only the compiled binary and the shared
+#             libraries it needs at runtime.
+#
+# The Kaskade dependency tree (./deps/) must be downloaded manually beforehand
+# from lakeFS onto this machine - see README/plan for the lakectl commands.
+# No lakeFS credentials or network access are required to build or run either
+# stage. Confidential model input data (work/input_data) and run output
+# (work/output) are never part of the build context; they are supplied to the
+# running container via bind mounts.
+
+ARG UBUNTU_VERSION=20.04
+
+########################################################################
+# build stage
+########################################################################
+FROM ubuntu:${UBUNTU_VERSION} AS build
 
 ENV DEBIAN_FRONTEND=noninteractive
-
-ARG LAKECTL_VERSION=1.83.0
 
 ENV PROJECT_ROOT=/root/covid_germany_hybrid
 ENV KASKADE_ROOT=/root/covid_germany_hybrid/kaskade7_test
 
 RUN apt-get update && apt-get install -y \
-    curl \
     libyaml-cpp-dev \
     gcc-10 \
     g++-10 \
@@ -19,7 +36,6 @@ RUN apt-get update && apt-get install -y \
     cmake \
     pkg-config \
     git \
-    ca-certificates \
     libopenblas-dev \
     liblapack-dev \
     libopenmpi-dev \
@@ -34,54 +50,16 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -fsSL \
-    "https://github.com/treeverse/lakeFS/releases/download/v${LAKECTL_VERSION}/lakeFS_${LAKECTL_VERSION}_Linux_x86_64.tar.gz" \
-    -o /tmp/lakefs.tar.gz \
-    && tar -xzf /tmp/lakefs.tar.gz -C /tmp \
-    && install -m 0755 /tmp/lakectl /usr/local/bin/lakectl \
-    && rm -f /tmp/lakefs.tar.gz /tmp/lakectl \
-    && lakectl --version
-
 WORKDIR ${PROJECT_ROOT}
 
-# Projekt kopieren
+# Trimmed Kaskade dependency tree (downloaded manually from lakeFS beforehand,
+# see plan/README - only the paths actually referenced by
+# installed/Makefile.Local are kept, ~2.5GB instead of the full ~25GB tree).
+COPY deps/KaskadeDependencies/ ${KASKADE_ROOT}/work/input/KaskadeDependencies/
+COPY deps/MKL/ ${KASKADE_ROOT}/work/input/KaskadeDependencies/MKL/
+
+# Kaskade7 source
 COPY kaskade7_test/ ${KASKADE_ROOT}/
-
-RUN --mount=type=secret,id=lakefs_access_key,required=true \
-    --mount=type=secret,id=lakefs_secret_key,required=true \
-    --mount=type=secret,id=lakefs_endpoint,required=true \
-    if [ ! -d "${KASKADE_ROOT}/work/input" ] || \
-       [ ! -d "${KASKADE_ROOT}/work/output" ]; then \
-        echo "work-Ordner fehlt oder ist unvollständig; lade ihn aus lakeFS herunter."; \
-        rm -rf "${KASKADE_ROOT}/work"; \
-        mkdir -p "${KASKADE_ROOT}/work"; \
-        export LAKECTL_CREDENTIALS_ACCESS_KEY_ID="$(cat /run/secrets/lakefs_access_key)"; \
-        export LAKECTL_CREDENTIALS_SECRET_ACCESS_KEY="$(cat /run/secrets/lakefs_secret_key)"; \
-        export LAKECTL_SERVER_ENDPOINT_URL="$(tr -d '\r\n' < /run/secrets/lakefs_endpoint)"; \
-        mkdir -p "${KASKADE_ROOT}/work/input" "${KASKADE_ROOT}/work/output"; \
-        lakectl \
-            fs download \
-            lakefs://sandbox/main/RAW/work/input/ \
-            "${KASKADE_ROOT}/work/input" \
-            --recursive \
-            --no-progress \
-            || { echo "lakectl download FAILED (input)"; exit 1; }; \
-        lakectl \
-            fs download \
-            lakefs://sandbox/main/RAW/work/output/ \
-            "${KASKADE_ROOT}/work/output" \
-            --recursive \
-            --no-progress \
-            || { echo "lakectl download FAILED (output)"; exit 1; }; \
-    else \
-        echo "work/input und work/output sind bereits vorhanden."; \
-    fi
-
-RUN test -d "${KASKADE_ROOT}/work/input" \
-    && test -d "${KASKADE_ROOT}/work/output" \
-    || { echo "Der work-Ordner wurde nicht korrekt heruntergeladen."; exit 1; }
-
-RUN mkdir -p "${KASKADE_ROOT}/work/output/graph_abm_pde_ode"
 
 RUN find kaskade7_test \
     -name "Makefile*" -type f \
@@ -113,10 +91,6 @@ RUN sed -i \
     's|^FLAGS = |FLAGS = -no-pie |' \
     Makefile.Local
 
-RUN find . -name "*.o" -delete && \
-    find . -name "*.d" -delete && \
-    rm -f libs/libkaskade.a
-
 RUN grep -RIlZ \
     -E '/root/kaskade7_master/kaskade7_test' \
     "${KASKADE_ROOT}" \
@@ -139,4 +113,45 @@ RUN make kasklib || \
         exit 1; \
     }
 
-CMD ["make", "tutorial"]
+RUN make build-covid_germany_abm_pde_ode-tutorial
+
+########################################################################
+# runtime stage
+########################################################################
+FROM ubuntu:${UBUNTU_VERSION} AS runtime
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+ENV PROJECT_ROOT=/root/covid_germany_hybrid
+ENV KASKADE_ROOT=/root/covid_germany_hybrid/kaskade7_test
+
+RUN apt-get update && apt-get install -y \
+    libnuma1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Runtime shared libraries only (.so*) - headers, static archives (.a) and the
+# build toolchain from the build stage are not needed to run the compiled
+# binary. Kept at the same absolute paths the binary's baked-in rpath expects.
+COPY --from=build /root/covid_germany_hybrid/kaskade7_test/work/input/KaskadeDependencies/Kaskade7.5Dependencies-10.2/installed/lib/ ${KASKADE_ROOT}/work/input/KaskadeDependencies/Kaskade7.5Dependencies-10.2/installed/lib/
+COPY --from=build /root/covid_germany_hybrid/kaskade7_test/work/input/KaskadeDependencies/Kaskade7.5Dependencies-10.2/installed/lib64/ ${KASKADE_ROOT}/work/input/KaskadeDependencies/Kaskade7.5Dependencies-10.2/installed/lib64/
+COPY --from=build /root/covid_germany_hybrid/kaskade7_test/work/input/KaskadeDependencies/MKL/mkl/lib/intel64/ ${KASKADE_ROOT}/work/input/KaskadeDependencies/MKL/mkl/lib/intel64/
+
+RUN find "${KASKADE_ROOT}/work/input" -type f \( -name "*.a" -o -name "*.la" \) -delete
+
+ENV LD_LIBRARY_PATH=${KASKADE_ROOT}/work/input/KaskadeDependencies/Kaskade7.5Dependencies-10.2/installed/lib:${KASKADE_ROOT}/work/input/KaskadeDependencies/Kaskade7.5Dependencies-10.2/installed/lib64:${KASKADE_ROOT}/work/input/KaskadeDependencies/MKL/mkl/lib/intel64
+
+# Compiled model binary
+COPY --from=build ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode/covid ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode/covid
+
+# Confidential input data (work/input_data) and run output (work/output) are
+# supplied at `docker run` time via bind mounts, e.g.:
+#   docker run \
+#     -v /local/path/to/input_data:${KASKADE_ROOT}/work/input_data \
+#     -v /local/path/to/output:${KASKADE_ROOT}/work/output \
+#     <image>
+
+WORKDIR ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode
+
+# work/output is a bind mount supplied at `docker run` time; the model
+# expects this subdirectory to already exist.
+CMD ["sh", "-c", "mkdir -p ../../work/output/graph_abm_pde_ode && exec ./covid"]
