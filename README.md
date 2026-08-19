@@ -13,9 +13,8 @@ The `Dockerfile` is a two-stage build:
   actually needs (~3GB). No compiler, no headers, no source, no confidential
   data.
 
-lakeFS is never referenced by the `Dockerfile` itself — the dependency
-download is a manual step a maintainer runs locally, and confidential model
-input/output are never baked into the image at all.
+The dependency download is a manual step a maintainer runs locally, and
+confidential model input/output are never baked into the image at all.
 
 ## For maintainers: building and publishing the image
 
