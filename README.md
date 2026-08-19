@@ -76,17 +76,16 @@ to the `the-episerve-consortium` org.
 
 ## For contributors: changing the model and publishing a new tag
 
-If you change code under `kaskade7_test/` (e.g. tweaking a parameter like
-`num_threads` in `covid.cpp`), you don't need to redo the lakeFS download
-above — that's only needed when the Kaskade dependencies themselves change,
-not on a source-only change.
+Before you can contribute, you need to have done all steps from the
+maintainer section above on your machine (`./deps/` populated, logged in to
+the registry).
 
-This does still require a local `./deps/` populated with the Kaskade
-dependencies (see "1. Download the Kaskade dependencies" above) and being
-logged in to the registry (see "3. Push to the registry" above). If you
-haven't done the maintainer steps on this machine before, do those first.
-Once `deps/` is in place, rebuild and republish from the repo root
-(`model_covid_germany_hybrid/`, alongside `Dockerfile` and `deps/`):
+If you then change code under `kaskade7_test/` (e.g. tweaking a parameter
+like `num_threads` in `covid.cpp`), you don't need to redo the lakeFS
+download — that's only needed when the Kaskade dependencies themselves
+change, not on a source-only change. Just rebuild and republish from the
+repo root (`model_covid_germany_hybrid/`, alongside `Dockerfile` and
+`deps/`):
 
 ```bash
 cd model_covid_germany_hybrid
