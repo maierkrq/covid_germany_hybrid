@@ -51,6 +51,12 @@ This populates `./deps/` (gitignored — never committed, ~2.5GB). You only
 need to redo this when the Kaskade dependency versions actually change, not
 on every build.
 
+> **Large-file downloads may fail with `stream error: ... CANCEL`.** Some of
+> the larger objects (e.g. `libmkl_core.so`, ~664MB) can hit HTTP/2
+> stream-reset errors at `lakectl`'s default parallelism. If a download
+> fails this way, retry with `-p 1` (single-threaded):
+> `lakectl fs download ... --recursive -p 1`.
+
 ### 2. Build the image
 
 ```bash
@@ -83,6 +89,14 @@ The model needs `work/input_data` (confidential — e.g. `Berlin_V_*.bin`,
 case data by state) available locally. This is **not** included in the
 image; obtain it separately (e.g. from lakeFS at
 `lakefs://sandbox/main/RAW/work/input_data/`) and note its local path.
+
+```bash
+lakectl fs download "lakefs://sandbox/main/RAW/work/input_data/" \
+  /local/path/to/input_data --recursive
+```
+
+If this fails with a `stream error: ... CANCEL` on a large file, retry with
+`-p 1` — see the note in the maintainer section above.
 
 ### 3. Run it
 
