@@ -109,7 +109,3 @@ docker run --rm \
 - `input_data` mount: read-only is fine, e.g. add `:ro` to that `-v` flag.
 - `output` mount: needs to be writable; results land under
   `output/output_data_optim_<N>/...` on the host.
-
-No lakeFS credentials, network access, or the confidential dataset are ever
-part of the image itself — both mounts are supplied entirely by whoever runs
-the container.
