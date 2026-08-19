@@ -143,6 +143,11 @@ ENV LD_LIBRARY_PATH=${KASKADE_ROOT}/work/input/KaskadeDependencies/Kaskade7.5Dep
 # Compiled model binary
 COPY --from=build ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode/covid ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode/covid
 
+# Mesh/domain data (triangulated state boundaries etc.) - non-confidential,
+# part of the source tree, read by the binary relative to its working
+# directory at runtime (e.g. domain/domain_Berlin.1.node).
+COPY kaskade7_test/tutorial/covid_germany_abm_pde_ode/domain/ ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode/domain/
+
 # Confidential input data (work/input_data) and run output (work/output) are
 # supplied at `docker run` time via bind mounts, e.g.:
 #   docker run \
