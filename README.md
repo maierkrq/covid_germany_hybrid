@@ -1,9 +1,9 @@
 # covid_germany_abm_pde_ode Docker image
 
 This repo builds a Docker image for the Kaskade7-based `covid_germany_abm_pde_ode`
-(Berlin) model. The image is built once by a maintainer and pushed to a
-registry; anyone who wants to run the model pulls it and supplies the
-(confidential) model input data via a local mount at run time.
+(Berlin) model. The image is built and pushed to a registry; anyone who
+wants to run the model pulls it and supplies the (confidential) model
+input data via a local mount at run time.
 
 The `Dockerfile` is a two-stage build:
 
@@ -13,10 +13,10 @@ The `Dockerfile` is a two-stage build:
   actually needs (~3GB). No compiler, no headers, no source, no confidential
   data.
 
-The dependency download is a manual step a maintainer runs locally, and
-confidential model input/output are never baked into the image at all.
+The dependency download is a manual step run locally, and confidential
+model input/output are never baked into the image at all.
 
-## For maintainers: building and publishing the image
+## Building and publishing the image
 
 ### 1. Download the Kaskade dependencies (one-time, or when they change)
 
@@ -65,7 +65,16 @@ docker build -t ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<tag> .
 `deps/` and `kaskade7_test/` are the only build inputs; no secrets, no
 network access to lakeFS needed at this step.
 
-### 3. Push to the registry
+### 3. Test it locally
+
+```bash
+docker run --rm \
+  -v /local/path/to/input_data:/root/covid_germany_hybrid/kaskade7_test/work/input_data:ro \
+  -v /local/path/to/output:/root/covid_germany_hybrid/kaskade7_test/work/output \
+  ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<tag>
+```
+
+### 4. Push to the registry
 
 ```bash
 docker push ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<tag>
@@ -74,36 +83,14 @@ docker push ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<tag>
 Requires `docker login ghcr.io` with an account/token that has write access
 to the `the-episerve-consortium` org.
 
-## For contributors: changing the model and publishing a new tag
+### Publishing after a source-only change
 
-Before you can contribute, you need step 1 from the maintainer section
-above done on your machine (`./deps/` populated) and to be logged in to the
-registry (`docker login ghcr.io`, see step 3).
-
-If you then change code under `kaskade7_test/` (e.g. tweaking a parameter
-like `num_threads` in `covid.cpp`), you don't need to redo the lakeFS
-download — that's only needed when the Kaskade dependencies themselves
-change, not on a source-only change. Just rebuild and republish from the
-repo root (`model_covid_germany_hybrid/`, alongside `Dockerfile` and
-`deps/`):
-
-```bash
-cd model_covid_germany_hybrid
-
-docker build -t ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<new-tag> .
-# test locally, e.g.:
-docker run --rm \
-  -v /local/path/to/input_data:/root/covid_germany_hybrid/kaskade7_test/work/input_data:ro \
-  -v /local/path/to/output:/root/covid_germany_hybrid/kaskade7_test/work/output \
-  ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<new-tag>
-# once satisfied:
-docker push ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<new-tag>
-```
-
-This reuses the already-downloaded `deps/` — no lakeFS involvement at all
-for a source-only change once it's in place. Bump
-`<new-tag>` (e.g. `v0.1.1` → `v0.1.2`) and commit/push the source change to
-git so the tag is traceable back to the commit that produced it.
+If you changed code under `kaskade7_test/` (e.g. tweaking a parameter like
+`num_threads` in `covid.cpp`) without changing the Kaskade dependencies
+themselves, skip step 1 — `deps/` is unaffected and doesn't need
+redownloading. Just repeat steps 2–4 with a bumped tag (e.g. `v0.1.1` →
+`v0.1.2`), and commit/push the source change to git so the tag is traceable
+back to the commit that produced it.
 
 ## For end users: running the model
 
@@ -129,7 +116,8 @@ lakectl fs download "lakefs://sandbox/main/RAW/work/input_data/" \
 ```
 
 If this fails with a `stream error: ... CANCEL` on a large file, retry with
-`-p 1` — see the note in the maintainer section above.
+`-p 1` — see the note in the "Building and publishing the image" section
+above.
 
 ### 3. Run it
 
