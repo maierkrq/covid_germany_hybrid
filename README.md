@@ -82,6 +82,9 @@ to the `the-episerve-consortium` org.
 docker pull ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<tag>
 ```
 
+Available tags/versions:
+https://github.com/orgs/the-episerve-consortium/packages/container/package/kaskade-covid-berlin
+
 ### 2. Get the model input data
 
 The model needs `work/input_data` (confidential — e.g. `Berlin_V_*.bin`,
