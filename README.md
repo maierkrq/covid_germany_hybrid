@@ -77,9 +77,15 @@ to the `the-episerve-consortium` org.
 ## For contributors: changing the model and publishing a new tag
 
 If you change code under `kaskade7_test/` (e.g. tweaking a parameter like
-`num_threads` in `covid.cpp`), you don't need to touch `deps/` or redo the
-lakeFS download above — that's only needed when the Kaskade dependencies
-themselves change. Just rebuild and republish, from the repo root
+`num_threads` in `covid.cpp`), you don't need to redo the lakeFS download
+above — that's only needed when the Kaskade dependencies themselves change,
+not on a source-only change.
+
+This does still require a local `./deps/` populated with the Kaskade
+dependencies (see "1. Download the Kaskade dependencies" above) and being
+logged in to the registry (see "3. Push to the registry" above). If you
+haven't done the maintainer steps on this machine before, do those first.
+Once `deps/` is in place, rebuild and republish from the repo root
 (`model_covid_germany_hybrid/`, alongside `Dockerfile` and `deps/`):
 
 ```bash
@@ -95,8 +101,8 @@ docker run --rm \
 docker push ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<new-tag>
 ```
 
-`deps/` already sits on disk from the maintainer's earlier download, so this
-reuses it — no lakeFS involvement at all for a source-only change. Bump
+This reuses the already-downloaded `deps/` — no lakeFS involvement at all
+for a source-only change once it's in place. Bump
 `<new-tag>` (e.g. `v0.1.1` → `v0.1.2`) and commit/push the source change to
 git so the tag is traceable back to the commit that produced it.
 
