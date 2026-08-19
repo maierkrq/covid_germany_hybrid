@@ -5,17 +5,6 @@ This repo builds a Docker image for the Kaskade7-based `covid_germany_abm_pde_od
 wants to run the model pulls it and supplies the (confidential) model
 input data via a local mount at run time.
 
-The `Dockerfile` is a two-stage build:
-
-- **`build`** — full compiler toolchain (gcc-10, cmake, Boost, etc.) plus the
-  Kaskade dependency tree, compiles the `covid` model binary.
-- **`runtime`** — only the compiled binary and the shared libraries it
-  actually needs (~3GB). No compiler, no headers, no source, no confidential
-  data.
-
-The dependency download is a manual step run locally, and confidential
-model input/output are never baked into the image at all.
-
 ## Building and publishing the image
 
 ### 1. Download the Kaskade dependencies (one-time, or when they change)
