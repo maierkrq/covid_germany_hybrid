@@ -16,7 +16,7 @@ full ~25GB tree). Requires `lakectl` configured with lakeFS credentials
 (`~/.lakectl.yaml` or equivalent).
 
 ```bash
-cd model_covid_germany_hybrid
+cd covid_germany_hybrid
 
 BASE="lakefs://sandbox/main/RAW/work/input/KaskadeDependencies"
 DEST="deps"
