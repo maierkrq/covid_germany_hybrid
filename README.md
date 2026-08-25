@@ -1,7 +1,7 @@
 # covid_germany_hybrid Docker image
 
 This repo builds a Docker image for the Kaskade7-based `covid_germany_hybrid`
-(Berlin) model. The image is built and pushed to a registry; anyone who
+model for Germany. The image is built and pushed to a registry; anyone who
 wants to run the model pulls it and supplies the (confidential) model
 input data via a local mount at run time.
 
