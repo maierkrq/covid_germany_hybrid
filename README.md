@@ -22,7 +22,7 @@ BASE="lakefs://sandbox/main/RAW/work/input/KaskadeDependencies"
 DEST="deps"
 
 lakectl fs download "$BASE/Kaskade7.5Dependencies-10.2/installed/Makefile.Local" \
-  "$DEST/KaskadeDependencies/Kaskade7.5Dependencies-10.2/installed/"
+  "$DEST/KaskadeDependencies/Kaskade7.5Dependencies-10.2/installed/Makefile.Local"
 lakectl fs download "$BASE/Kaskade7.5Dependencies-10.2/installed/lib/" \
   "$DEST/KaskadeDependencies/Kaskade7.5Dependencies-10.2/installed/lib/" --recursive
 lakectl fs download "$BASE/Kaskade7.5Dependencies-10.2/installed/lib64/" \
