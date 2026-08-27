@@ -159,4 +159,4 @@ WORKDIR ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode
 
 # work/output is a bind mount supplied at `docker run` time; the model
 # expects this subdirectory to already exist.
-CMD ["sh", "-c", "mkdir -p ../../work/output/graph_abm_pde_ode && exec ./covid"]
+CMD ["sh", "-c", "exec ./covid"]
