@@ -158,7 +158,7 @@ void plot_result(std::vector<double> result, std::vector<double> target, int cor
     dataFile.close();
 
     fprintf(gnuplotPipe, "set terminal png\n");
-    fprintf(gnuplotPipe, "set output 'output_data_optim_%d/Symptomatic_hybrid_interval_0_%s.png'\n", correction_step, fileAddOn.c_str());
+    fprintf(gnuplotPipe, "set output '../../work/output/output_data_optim_%d/Symptomatic_hybrid_interval_0_%s.png'\n", correction_step, fileAddOn.c_str());
     fprintf(gnuplotPipe, "set title ''\n");
     fprintf(gnuplotPipe, "plot ");
 
