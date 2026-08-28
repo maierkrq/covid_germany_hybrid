@@ -1,0 +1,4 @@
+verbosity: 0 # 0: less output, no file saving; 1: more output, file savings without agents position and health states, 2: more output, all file savings
+num_threads: 1
+maxRun: 1 # initial run is 0
+nbr_simulation_days: 14
