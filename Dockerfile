@@ -127,6 +127,7 @@ ENV KASKADE_ROOT=/root/covid_germany_hybrid/kaskade7_test
 
 RUN apt-get update && apt-get install -y \
     libnuma1 \
+    gnuplot-nox \
     && rm -rf /var/lib/apt/lists/*
 
 # Runtime shared libraries only (.so*) - headers, static archives (.a) and the
