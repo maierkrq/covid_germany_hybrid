@@ -149,6 +149,9 @@ COPY --from=build ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode/covid ${KAS
 # directory at runtime (e.g. domain/domain_Berlin.1.node).
 COPY kaskade7_test/tutorial/covid_germany_abm_pde_ode/domain/ ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode/domain/
 
+# Parameter file for the model binary.
+COPY run-config.yaml ${PROJECT_ROOT}/run-config.yaml
+
 # Confidential input data (work/input_data) and run output (work/output) are
 # supplied at `docker run` time via bind mounts, e.g.:
 #   docker run \
@@ -160,4 +163,4 @@ WORKDIR ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode
 
 # work/output is a bind mount supplied at `docker run` time; the model
 # expects this subdirectory to already exist.
-CMD ["sh", "-c", "exec ./covid"]
+CMD ["sh", "-c", "exec ./covid --config \"${PROJECT_ROOT}/run-config.yaml\""]
