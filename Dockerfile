@@ -15,10 +15,14 @@
 
 ARG UBUNTU_VERSION=20.04
 
+# Alternative to PROGRAM=covid which is the default model binary built from the tutorial source code. Other options are: no_zero_covid, create_trajectories.
+ARG PROGRAM=covid
+
 ########################################################################
 # build stage
 ########################################################################
 FROM ubuntu:${UBUNTU_VERSION} AS build
+ARG PROGRAM
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -119,6 +123,7 @@ RUN make build-covid_germany_abm_pde_ode-tutorial
 # runtime stage
 ########################################################################
 FROM ubuntu:${UBUNTU_VERSION} AS runtime
+ARG PROGRAM
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -142,7 +147,7 @@ RUN find "${KASKADE_ROOT}/work/input" -type f \( -name "*.a" -o -name "*.la" \) 
 ENV LD_LIBRARY_PATH=${KASKADE_ROOT}/work/input/KaskadeDependencies/Kaskade7.5Dependencies-10.2/installed/lib:${KASKADE_ROOT}/work/input/KaskadeDependencies/Kaskade7.5Dependencies-10.2/installed/lib64:${KASKADE_ROOT}/work/input/KaskadeDependencies/MKL/mkl/lib/intel64
 
 # Compiled model binary
-COPY --from=build ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode/covid ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode/covid
+COPY --from=build ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode/${PROGRAM} ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode/model
 
 # Mesh/domain data (triangulated state boundaries etc.) - non-confidential,
 # part of the source tree, read by the binary relative to its working
@@ -163,4 +168,4 @@ WORKDIR ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode
 
 # work/output is a bind mount supplied at `docker run` time; the model
 # expects this subdirectory to already exist.
-CMD ["sh", "-c", "exec ./covid --config \"${PROJECT_ROOT}/run-config.yaml\""]
+CMD ["sh", "-c", "exec ./model --config \"${PROJECT_ROOT}/run-config.yaml\""]
