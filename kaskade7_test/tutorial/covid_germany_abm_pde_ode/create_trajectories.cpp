@@ -15,7 +15,7 @@
 #include "io/amira.hh"
 #endif
 
-#include "ABM_threadsafe.cpp"
+#include "ABM.cpp"
 
 std::tuple<std::vector<std::vector<std::vector<double>>>, std::vector<std::vector<int>>> create_trajectories(int nbr_trajectories, std::vector<std::vector<int>> trajectories_nr_state_previous, 
   std::vector<std::vector<std::vector<int>>> eventData, std::vector<std::vector<std::vector<std::vector<double>>>> facilityCoordinates_allCategories_all_days, std::vector<std::unordered_map<int, int>> facilityCoordinates_home_all_days, 
