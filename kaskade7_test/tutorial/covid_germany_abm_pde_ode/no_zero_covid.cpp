@@ -49,6 +49,7 @@ using namespace Kaskade;
 #include "io/readPoly.hh"
 #include "io/readPoly.cpp"
 
+#include <yaml-cpp/yaml.h>
 
 template<typename T>
 struct Initial_1Value {
@@ -145,12 +146,28 @@ void delete_non_relevant_events(const std::vector<int>& no_coupling_abm_indices,
 }
 
 int main(int argc, char *argv[]) {
-  int num_threads = 1; //10; //
+  std::string config_file;
+  for (int i = 1; i < argc; ++i) {
+      std::string arg = argv[i];
+
+      if (arg == "--config" && i + 1 < argc) {
+          config_file = argv[++i];
+      }
+  }
+
+  if (config_file.empty()) {
+      std::cerr << "Missing --config argument" << std::endl;
+      return 1;
+  }
+
+  YAML::Node config = YAML::LoadFile(config_file);
+
+  int num_threads = config["num_threads"].as<int>();
   std::cout << "number of threads " << num_threads << std::endl;
   omp_set_num_threads(num_threads); 
 
   int initial_run = 0;
-  int maxRun = 1; //10; //
+  int maxRun = config["maxRun"].as<int>();
 
   int dt_inv = 48;
 
@@ -329,7 +346,7 @@ int main(int argc, char *argv[]) {
   boost::timer::cpu_timer totalTimer;
 
   //0: less output, no file saving; 1: more output, file savings without agents position and health states, 2: more output, all file savings
-  int verbosity = 1; //0; //2; //
+  int verbosity = config["verbosity"].as<int>();
 
   int const dim = 2;
   DirectType directType = DirectType::MUMPS; 
@@ -340,7 +357,9 @@ int main(int argc, char *argv[]) {
   // final times sectioned
   int nbr_time_intervals = 1;
   std::vector<int> T_vec(nbr_time_intervals);
-  T_vec[0] = 14;
+  int nbr_simulation_days = config["nbr_simulation_days"].as<int>();
+  T_vec[0] = nbr_simulation_days; 
+
 
   double correction_term_ABM = 5.0e-2; 
   double correction_term_PDE = 5.0e+1;
