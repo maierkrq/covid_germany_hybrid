@@ -3,9 +3,7 @@ TUTORIALTARGETS += run-covid_germany_abm_pde_ode-tutorial
 TUTORIALTARGETS += build-covid_germany_abm_pde_ode-tutorial
 TUTORIALRUNTARGETS +=
 
-export FILE=covid
-#export FILE=no_zero_covid
-#export FILE=create_trajectories
+FILE ?= covid
 
 DEPENDSRC += tutorial/covid_germany_abm_pde_ode/$(FILE).cpp
 #CLEAN += tutorial/covid_germany_abm_pde_ode/output_data/graph_abm_pde_ode/*
