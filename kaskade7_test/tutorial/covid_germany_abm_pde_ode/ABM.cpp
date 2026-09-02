@@ -65,14 +65,14 @@ private:
     
 public:
     ABModel(double population_scale_, bool with_restriction_, int dt_inv_): population_scale(population_scale_), with_restriction(with_restriction_), dt_inv(dt_inv_) {
-        day_shift_mask_wearing_all.resize(nbr_domains);
+        day_shift_mask_wearing_all.resize(nbr_federal_states);
         if (with_restriction) {
-            for (int state=0; state<nbr_domains; state++) {
+            for (int state=0; state<nbr_federal_states; state++) {
                 day_shift_mask_wearing_all[state] = 56;
             }
         }
         else {
-            for (int state=0; state<nbr_domains; state++) {
+            for (int state=0; state<nbr_federal_states; state++) {
                 day_shift_mask_wearing_all[state] = 1e+6; // no restriction 
             }
         }
@@ -92,7 +92,7 @@ public:
 
     int nbr_trajectories = 0; // total number of given trajectories
     int nbr_categories;
-    std::vector<std::vector<std::vector<int>>> initial_agent_ids;
+    std::vector<std::vector<std::vector<int>>> all_initial_agent_ids;
     std::vector<std::map<std::pair<int, int>, int>> max_agents_per_facility_category;
 
     std::vector<std::string> facility_categories = {
@@ -122,15 +122,15 @@ public:
                 return; 
             }
             
-            jump_matrix[nr_day].resize(dt_inv, std::vector<std::vector<int>>(nbr_domains, std::vector<int>(nbr_domains))); 
-            germany_jump_matrix_agent_IDs[nr_day].resize(dt_inv, std::vector<std::vector<std::vector<int>>>(nbr_domains, std::vector<std::vector<int>>(nbr_domains))); 
+            jump_matrix[nr_day].resize(dt_inv, std::vector<std::vector<int>>(nbr_federal_states, std::vector<int>(nbr_federal_states))); 
+            germany_jump_matrix_agent_IDs[nr_day].resize(dt_inv, std::vector<std::vector<std::vector<int>>>(nbr_federal_states, std::vector<std::vector<int>>(nbr_federal_states))); 
             int nbr_agent_IDs, agent_ID;
             for (std::size_t t = 0; t < dt_inv; t++) {
                 if (t<=1) {
                     std::cout << "time step " << t << std::endl;
                 }
-                for (int state_1 = 0; state_1 < nbr_domains; state_1++) {
-                    for (int state_2 = 0; state_2 < nbr_domains; state_2++) {
+                for (int state_1 = 0; state_1 < nbr_federal_states; state_1++) {
+                    for (int state_2 = 0; state_2 < nbr_federal_states; state_2++) {
                         file.read(reinterpret_cast<char*>(&nbr_agent_IDs), sizeof(int));
                         jump_matrix[nr_day][t][state_1][state_2] = nbr_agent_IDs;
                         germany_jump_matrix_agent_IDs[nr_day][t][state_1][state_2].resize(nbr_agent_IDs);
@@ -397,16 +397,20 @@ public:
         }
         
         nbr_agents.resize(3, std::vector<int>(nr_ABM_states));
-        initial_agent_ids.resize(3, std::vector<std::vector<int>>(nr_ABM_states));
+        all_initial_agent_ids.resize(3, std::vector<std::vector<int>>(nr_ABM_states));
         for (int nr_day = 0; nr_day < 3; nr_day++) {
             std::cout << "\n nr_day " << nr_day << std::endl;
             std::string filenameTotalNumbers = "../../work/input_data/global/germany_nbr_individuals_id_t_0_in_states_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin"; 
             std::ifstream fileTotalNumbers(filenameTotalNumbers, std::ios::binary); 
             if ((fileTotalNumbers.is_open())) { 
                 int64_t total_nbr_individuals;
-                for (int state_idx=0; state_idx<nbr_domains; state_idx++) {
+                for (int state_idx=0; state_idx<nbr_federal_states; state_idx++) { 
                     fileTotalNumbers.read(reinterpret_cast<char*>(&total_nbr_individuals), sizeof(int64_t));    
                     
+                    if (model_type_of_domain[state_idx] == -1) { // federal state is not in any of the models (ABM, PDE, ODE) -> skip it
+                        continue;
+                    }
+
                     bool is_abm = (model_type_of_domain[state_idx] == abm_idx); 
                     if (is_abm) { //state_idx in stateIndices_ABM
                         int idx_stateIndices_ABM = local_index[state_idx];
@@ -434,14 +438,15 @@ public:
                 std::cerr << "Error opening the file " << filenameTotalNumbers << std::endl;
             }
 
-            std::string filename = "../../work/input_data/global/germany_agent_id_t_0_in_ABM_" + std::to_string(nr_day) + "_" + population_scale_str + addOn + ".bin";
+            std::string filename = "../../work/input_data/global/germany_agent_id_t_0_in_ABM_" + std::to_string(nr_day) + "_" + population_scale_str + "_all_fed_states.bin";
             std::ifstream file(filename, std::ios::binary); 
             if ((file.is_open())) {
-                int64_t ABMstate_nr;
+                int64_t bundesland_nr;
                 for (int agent_id=0; agent_id<nbr_trajectories; agent_id++) {
-                    file.read(reinterpret_cast<char*>(&ABMstate_nr), sizeof(int64_t));
-                    if (ABMstate_nr >= 0) { // if ABMstate_nr == -1, then it's not in an ABM state but PDE or ODE state
-                        initial_agent_ids[nr_day][ABMstate_nr].push_back(agent_id);
+                    file.read(reinterpret_cast<char*>(&bundesland_nr), sizeof(int64_t));
+                    // if (ABMstate_nr >= 0 && nr_ABM_states > ABMstate_nr) { // if ABMstate_nr == -1, then it's not in an ABM state but PDE or ODE state
+                    if (model_type_of_domain[bundesland_nr] == abm_idx) {
+                        all_initial_agent_ids[nr_day][local_index[bundesland_nr]].push_back(agent_id);
                     }
                 }
                 file.close();
@@ -495,9 +500,9 @@ public:
                                                                                 std::ranlux24_base& gen_local, int step, int nr_day, int verbosity) {
         double dt = 1.0/dt_inv;
 
-        std::vector<int> day_shift_edu_lockdown_all(nbr_domains, dt * step + 1); // no lockdown. if with_restriction -> overwrite!
+        std::vector<int> day_shift_edu_lockdown_all(nbr_federal_states, dt * step + 1); // no lockdown. if with_restriction -> overwrite!
         if (with_restriction) {
-            for (int state=0; state<nbr_domains; state++) {
+            for (int state=0; state<nbr_federal_states; state++) {
                 if (state == 15) { // Thueringen
                     day_shift_edu_lockdown_all[state] = 17; // march 17
                 }
@@ -1150,6 +1155,7 @@ public:
             }
             containers.at(category_index).at(facility_index).push_back({agent_id, time_entering, time_leaving});
         }
+        std::cout << "after containers" << std::endl;
 
         // find out whether an agent leaves a container, for checking whether the health status changes or not!
         // deep copy health state map
@@ -1291,6 +1297,7 @@ public:
                 }
             }
         }
+        std::cout << "after health status change of susceptible" << std::endl;
 
         std::vector<int> ids;
         ids.reserve(agentID_healthStatus.size());
@@ -1356,7 +1363,8 @@ public:
                 }
             }
         }
-
+        std::cout << "after health status change of everyone else" << std::endl;
+        
         ///////////////
         // compute final location of agents and check if they are in PDE/ODE domain or not
         std::vector<int> agent_IDs_in_ABM;
@@ -1370,7 +1378,10 @@ public:
         int stateIdxSpecificModelType = -1;
         int agent_id;
 
-        if (filtered_event_data_size > 0) { // during the night there are sometimes timesteps without events
+        if ( filtered_event_data_size > 0 &&  // during the night there are sometimes timesteps without events
+            ( (nr_ABM_states > 1)
+               || 
+              ((nr_PDE_states + nr_ODE_states) > 0 && (nr_ABM_states == 1)) ) ) {
             previous_agent_id = event_data[0][2];
             for (int i = 0; i < filtered_event_data_size+1; i++) {
                 if (i < filtered_event_data_size) {
@@ -1424,6 +1435,9 @@ public:
                         healthStatus_agents_in_PDE[stateIdxSpecificModelType][agentID_healthStatus_next[previous_agent_id]]++;
                     } 
                     else { // bleibt im ABM als agent
+                        if (stateIdxSpecificModelType < 0) { // federal state is not modeled at all
+                            stateIdxSpecificModelType = 0; // add agents outside of modeling domain to one of the ABM states (e.g. state 0) so that they are not lost and can be tracked in the ABM, and also possible infection events are not lost
+                        }
                         agent_IDs_in_ABM.push_back(previous_agent_id); 
                         healthStatus_agents_in_ABM[stateIdxSpecificModelType][previous_agent_id] = agentID_healthStatus_next[previous_agent_id];
 
@@ -1437,10 +1451,16 @@ public:
                 previous_agent_id = agent_id;
             }
         }
-
+        else { // all agents stay in ABM domain
+            for (const auto& kv : agentID_healthStatus_next) {
+                agent_IDs_in_ABM.push_back(kv.first);
+                healthStatus_agents_in_ABM[0][kv.first] = kv.second;
+            }
+        }
+        
         // ///////////////
         if ((verbosity == 2) && (step % (8*3) == 0) && (run == 0)) {
-            std::string filename_position = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/agents_position_0" + addOn + ".txt";
+            std::string filename_position = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/agents_position_0.txt";
             std::ofstream outfile_position;
             if (step == 0) { 
                 outfile_position.open(filename_position);  // Datei überschreiben im ersten Durchlauf
@@ -1456,7 +1476,7 @@ public:
 
 
             // save additionally the status of agents
-            std::string filename_healthStatus = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/agents_healthStatus_0" + addOn + ".txt";
+            std::string filename_healthStatus = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/agents_healthStatus_0.txt";
             std::ofstream outfile_healthStatus;
             if (step == 0) { 
                 outfile_healthStatus.open(filename_healthStatus);  // Datei überschreiben im ersten Durchlauf

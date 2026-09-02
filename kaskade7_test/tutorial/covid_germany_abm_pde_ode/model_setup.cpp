@@ -8,7 +8,9 @@
 
 #include <dune/common/fvector.hh>
 
-//only important if ABM states change:
+//only important if non-ABM state becomes ABM state or vice versa:
+// empty "" string means default scenario, "_Berlin_ABM" means Berlin is ABM state 
+// string is needed for jump matrix in ABM.cpp
 const std::string addOn = ""; //"_Berlin_ABM"; //
 
 int initial_nr_day;
@@ -37,22 +39,16 @@ const int nr_PDE_states = stateIndices_PDE.size();
 const int nr_ABM_states = stateIndices_ABM.size();
 const int nr_ODE_states = stateIndices_ODE.size();
 
-const std::vector<std::string> stateLabels = {"Schleswig-Holstein", "Hamburg", "Niedersachsen", "Bremen", "Nordrhein-Westfalen",
-    "Hessen", "Rheinland-Pfalz", "Baden-Wuerttemberg", "Bayern", "Saarland",
-    "Berlin", "Brandenburg", "Mecklenburg-Vorpommern", "Sachsen",
-    "Sachsen-Anhalt", "Thueringen"
-}; // data is given for Berlin and then Brandenburg
-
-
 const std::vector<std::string> stateLabels_PDE = {"Hamburg","Bremen","Saarland","Berlin"}; // Berlin can be moved to stateLabels_ABM or stateLabels_ODE
 const std::vector<std::string> stateLabels_ABM = {"Schleswig-Holstein","Rheinland-Pfalz","Brandenburg","Mecklenburg-Vorpommern","Sachsen","Sachsen-Anhalt","Thueringen"};
 const std::vector<std::string> stateLabels_ODE = {"Niedersachsen","Nordrhein-Westfalen","Hessen","Baden-Wuerttemberg","Bayern"};
 const std::vector<std::vector<std::string>> stateLabels_all_models = {stateLabels_PDE, stateLabels_ABM, stateLabels_ODE}; 
 
-static int const nbr_domains = stateLabels_all_models[0].size() + stateLabels_all_models[1].size() + stateLabels_all_models[2].size();
+static int const nbr_domains = stateLabels_all_models[0].size() + stateLabels_all_models[1].size() + stateLabels_all_models[2].size(); 
+static int const nbr_federal_states = 16;
 
-std::vector<int> model_type_of_domain(nbr_domains, -1);
-std::vector<int> local_index(nbr_domains, -1);
+std::vector<int> model_type_of_domain(nbr_federal_states, -1);
+std::vector<int> local_index(nbr_federal_states, -1);
 
 const std::vector<double> areas_ODE = {4.7710e+10, 3.4113e+10, 2.1116e+10, 3.5748e+10, 7.0542e+10 };
 // const std::vector<double> areas_ODE = {4.7710e+10, 3.4113e+10, 2.1116e+10, 3.5748e+10, 7.0542e+10, 8.911e+8 }; // if Berlin is in ODE, then we need to use this areas_ODE
@@ -65,6 +61,7 @@ std::vector<std::vector<std::vector<std::vector<double>>>> recovered;
 std::vector<std::vector<double>> population(nbr_model_types); 
 std::vector<double> population_pde_t_0(nr_PDE_states); 
 std::vector<double> population_ode_t_0(nr_ODE_states);
+int total_initial_population;
 std::vector<std::vector<double>> normalized_inv_V_PDE(nr_PDE_states);
 
 std::vector<double> readLandscape(std::string filename) {

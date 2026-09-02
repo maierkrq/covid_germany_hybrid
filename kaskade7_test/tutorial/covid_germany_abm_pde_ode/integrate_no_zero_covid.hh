@@ -229,7 +229,7 @@ integrate(
                                                 int dt_inv, double population_scale,
                                                 std::ranlux24_base& gen_local, //& important here
                                                 int correction_step,
-                                                int week_day, double T, int maxSteps, int extrapolOrder, 
+                                                int week_day, double T, double t_0, int maxSteps, int extrapolOrder, 
                                                 bool zero_covid, bool no_covid, std::vector<bool> greenZone, 
                                                 std::vector<typename VariableSet::VariableSet>& x_PDE,
                                                 std::vector<std::vector<double>>& x_ODE,
@@ -250,8 +250,6 @@ integrate(
     limex_PDE.push_back(Limex<Equation>(*gridManagers_PDE.at(state_PDE_idx),eq.at(state_PDE_idx),variableSet.at(state_PDE_idx),directType,PrecondType::ILUK,verbosity));
   }
 
-  bool done = false;
-  double t_0 = eq[0].time();
   int init_time_step = (int) t_0;
   std::cout << "init_time_step: " << init_time_step << std::endl;
 
@@ -298,7 +296,7 @@ integrate(
 
   std::vector<std::vector<int>> filtered_event_data; 
   std::unordered_map<int, int> agentID_location_commuting_start, agentID_location_commuting_end;  
-  std::vector<std::vector<std::vector<int>>> initial_agent_ids = abm.initial_agent_ids; 
+  std::vector<std::vector<std::vector<int>>> initial_agent_ids = abm.all_initial_agent_ids; 
   std::vector<int> agent_IDs_in_ABM;
   std::unordered_set<int> agent_IDs_in_ABM_set;
   for (int state_ABM_idx=0; state_ABM_idx<nr_ABM_states; state_ABM_idx++) {
@@ -433,13 +431,16 @@ integrate(
   }
   int sign;
 
-  std::vector<std::vector<int>> healthStatus_agents_in_PDE, healthStatus_agents_in_ODE;
+  // std::vector<std::vector<int>> healthStatus_agents_in_PDE, healthStatus_agents_in_ODE;
+  std::vector<std::vector<int>> healthStatus_agents_in_PDE(nr_PDE_states, std::vector<int>(nbr_compartments,0));
+  std::vector<std::vector<int>> healthStatus_agents_in_ODE(nr_ODE_states, std::vector<int>(nbr_compartments,0));
+
   const auto& jump_matrix = abm.jump_matrix; 
   const auto& germany_jump_matrix_agent_IDs = abm.germany_jump_matrix_agent_IDs;
   std::vector<std::vector<std::vector<std::vector<int>>>> germany_jump_matrix_agent_IDs_with_reductions;
-  germany_jump_matrix_agent_IDs_with_reductions.resize(dt_inv, std::vector<std::vector<std::vector<int>>>(nbr_domains, std::vector<std::vector<int>>(nbr_domains))); 
+  germany_jump_matrix_agent_IDs_with_reductions.resize(dt_inv, std::vector<std::vector<std::vector<int>>>(nbr_federal_states, std::vector<std::vector<int>>(nbr_federal_states))); 
 
-  std::vector<std::vector<std::vector<int>>> cnt_jumping_persons_per_compartment(nbr_domains, std::vector<std::vector<int>>(nr_ABM_states,std::vector<int>(nbr_compartments)));
+  std::vector<std::vector<std::vector<int>>> cnt_jumping_persons_per_compartment(nbr_federal_states, std::vector<std::vector<int>>(nr_ABM_states,std::vector<int>(nbr_compartments)));
   const auto& activityChangePercentage = abm.activityChangePercentage;
   std::vector<std::vector<int>> cnt_new_symptomatic;
   std::vector<std::vector<bool>> zero_covid_active(nbr_model_types);
@@ -449,7 +450,7 @@ integrate(
 
   int max_jumps = 0; 
   int nbr_unique_agents = 0;
-  for (int steps=0; !done && steps<maxSteps; steps++) {
+  for (int steps=0; steps<maxSteps; steps++) {
     std::cout << "next step " << steps+(init_time_step*dt_inv) << std::endl;
 
     int jump_timestep = (steps%dt_inv);
@@ -459,125 +460,126 @@ integrate(
     // steps == 47 -> jump_timestep = 47
     // steps == 48 -> jump_timestep = 0
 
-    if (eq[0].time()>T-1.1*dt) {
-      dt = T-eq[0].time();
-      done = true;
-    }
+    if (nr_ABM_states > 0) {
+      // update event data for new agents
+      std::tie(filtered_event_data_size, agentID_location_commuting_start, agentID_location_commuting_end) =
+        abm.filter_event_data(agent_IDs_in_ABM, filtered_event_data, gen_local, 
+                          steps, nr_day, verbosity, zero_covid_active, greenZone); 
 
-    // update event data for new agents
-    std::tie(filtered_event_data_size, agentID_location_commuting_start, agentID_location_commuting_end) =
-      abm.filter_event_data(agent_IDs_in_ABM, filtered_event_data, gen_local, 
-                        steps, nr_day, verbosity, zero_covid_active, greenZone); 
-
-    // flatten agentID_healthStatus_map for ABM step
-    agentID_healthStatus_map_flatten.clear();
-    for (int state_ABM_idx = 0; state_ABM_idx < nr_ABM_states; state_ABM_idx++) {
-      for (const auto& [agent_id, healthState]: agentID_healthStatus_map.at(state_ABM_idx)) {
-        agentID_healthStatus_map_flatten[agent_id] = healthState;
-      }
-    }
-
-    // do one ABM step
-    std::tie(agentID_healthStatus_map, agent_IDs_in_ABM, healthStatus_agents_in_PDE, healthStatus_agents_in_ODE, cnt_new_symptomatic) = abm.step(std::move(filtered_event_data), filtered_event_data_size, with_coupling_states, agentID_location_commuting_start, agentID_location_commuting_end, agentID_healthStatus_map_flatten, steps, param_ABMs, nr_day, population_scale, mystery_case_location, symptomatic_mystery_cases, gen_local, verbosity, run, correction_step); 
-
-    agent_IDs_in_ABM_set.clear();
-    agent_IDs_in_ABM_set.reserve(agent_IDs_in_ABM.size());
-    agent_IDs_in_ABM_set.insert(agent_IDs_in_ABM.begin(), agent_IDs_in_ABM.end());
-
-    // count symptomatic agents in ABM:
-    for (int state_ABM_idx = 0; state_ABM_idx < nr_ABM_states; state_ABM_idx++) {
-      for (const auto& agent_ID_healthState: agentID_healthStatus_map.at(state_ABM_idx)) {
-        int healthState = agent_ID_healthState.second;
-        if (healthState == 3) {
-          nbr_symptomatic_agents.at(state_ABM_idx)[steps+1]++;
-        }
-      }
-      allNewSymptomaticCases[abm_idx].at(state_ABM_idx)[steps+1] = cnt_new_symptomatic[abm_idx].at(state_ABM_idx);
-    }
-
-    // do one PDE step
-    std::vector<typename VariableSet::VariableSet> dx_PDE;
-    for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) { // iterate over all PDE domains
-      dx_PDE.push_back(typename VariableSet::VariableSet(x_PDE.at(state_PDE_idx)));
-
-      try {
-        #pragma omp critical
-        {
-          dx_PDE.at(state_PDE_idx) = limex_PDE.at(state_PDE_idx).step(x_PDE.at(state_PDE_idx),dt,extrapolOrder,tolX_PDE.at(state_PDE_idx)); // no mesh adaptation! tolX_PDE[] empty
-        }
-      }
-      catch (const Kaskade::DirectSolverException& e) {
-        std::cerr << "Fehler beim Lösen der Gleichung vom Bundesland " + stateLabels_PDE.at(state_PDE_idx) + ": " << e.what() << std::endl;
-        return std::make_tuple(agentID_healthStatus_map, agent_IDs_in_ABM); 
-      }
-
-      // step ahead
-      x_PDE.at(state_PDE_idx) += dx_PDE.at(state_PDE_idx);
-      eq.at(state_PDE_idx).setTime(eq.at(state_PDE_idx).time()+dt);
-
-
-      // compute how many people are in total in the PDE domain
-      std::vector<std::vector<double>> compartmentJumpingPersons_test(nbr_points_PDE.at(state_PDE_idx),std::vector<double>(nbr_compartments,0.0));
-      compartmentJumpingPersons_test = getNumberOfJumps<0>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx); 
-      compartmentJumpingPersons_test = getNumberOfJumps<1>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
-      compartmentJumpingPersons_test = getNumberOfJumps<2>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
-      compartmentJumpingPersons_test = getNumberOfJumps<3>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
-      compartmentJumpingPersons_test = getNumberOfJumps<4>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
-      compartmentJumpingPersons_test = getNumberOfJumps<5>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
-      compartmentJumpingPersons_test = getNumberOfJumps<6>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
-      compartmentJumpingPersons_test = getNumberOfJumps<7>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
-
-      double total_nbr_PDE_state = 0.0;
-      for (int j=0; j<compartmentJumpingPersons_test[0].size(); j++) { //compartments
-        for (int i=0; i<compartmentJumpingPersons_test.size(); i++) { // grid nodes
-          total_nbr_PDE_state += compartmentJumpingPersons_test[i][j];
-        }
-      }
-      n_PDE.at(state_PDE_idx)[steps+1] = total_nbr_PDE_state;
-    }
-
-    double act_change_notAtHome = activityChangePercentage[int(t_0+steps*dt+0.1)][1]/100.0;
-    double factor_beta = (1 + act_change_notAtHome) * M_PI;
-    if ((1 + act_change_notAtHome) > 1) {
-      factor_beta = M_PI;
-    }
-    for (int state_ODE_idx=0; state_ODE_idx<nr_ODE_states; state_ODE_idx++) {
-      double beta = factor_beta * params_ODEs[9+state_ODE_idx] / areas_ODE.at(state_ODE_idx); 
-      auto& x = x_ODE[state_ODE_idx];
-
-      double S_ode_before = x[0];
-      double E_ode_before = x[1];
-      double I_ode_before = x[2];
-      double SY_ode_before = x[3];
-      double H_ode_before = x[4];
-      double C_ode_before = x[5];
-      double HC_ode_before = x[6];
-      double S_times_I_plus_SY_ode_before = S_ode_before * (I_ode_before + SY_ode_before);
-      x[0] =  S_ode_before + dt * (- beta * S_times_I_plus_SY_ode_before);
-      x[1] =  E_ode_before + dt * (+ beta * S_times_I_plus_SY_ode_before - params_ODEs[0]*E_ode_before); 
-      x[2] =  I_ode_before + dt * (+ params_ODEs[0]*E_ode_before  - (params_ODEs[5]+params_ODEs[1])*I_ode_before);
-      x[3] = SY_ode_before + dt * (+ params_ODEs[1]*I_ode_before  - (params_ODEs[6]+params_ODEs[2])*SY_ode_before);
-      x[4] =  H_ode_before + dt * (+ params_ODEs[2]*SY_ode_before - (params_ODEs[7]+params_ODEs[3])*H_ode_before);
-      x[5] =  C_ode_before + dt * (+ params_ODEs[3]*H_ode_before  -                 params_ODEs[4] *C_ode_before);
-      x[6] = HC_ode_before + dt * (+ params_ODEs[4]*C_ode_before -  params_ODEs[8]                 *HC_ode_before);
-      x[7] = x[7] + dt * (+ (params_ODEs[5]*I_ode_before + params_ODEs[6]*SY_ode_before + params_ODEs[7]*H_ode_before + params_ODEs[8]*HC_ode_before));
-
-      for (int i=0; i<x.size(); i++) {
-        if (x[i] < 0) {
-          std::cout << "negative solution for i=" << i << ", state_ODE_idx=" << state_ODE_idx << ", after solution value " << x[i] << std::endl; 
-          std::exit(EXIT_FAILURE);
+      // flatten agentID_healthStatus_map for ABM step
+      agentID_healthStatus_map_flatten.clear();
+      for (int state_ABM_idx = 0; state_ABM_idx < nr_ABM_states; state_ABM_idx++) {
+        for (const auto& [agent_id, healthState]: agentID_healthStatus_map.at(state_ABM_idx)) {
+          agentID_healthStatus_map_flatten[agent_id] = healthState;
         }
       }
 
-      F_ODE.at(state_ODE_idx)[steps+1] = x[3]; // total number of symptomatic people in ODE domain
-      n_ODE.at(state_ODE_idx)[steps+1] = x[0] + x[1] + x[2] + x[3] + x[4] + x[5] + x[6] + x[7]; // total number of people in ODE domain
-      allNewSymptomaticCases[ode_idx].at(state_ODE_idx)[steps+1] = dt * params_ODEs[1]*x[2]; 
+      // do one ABM step
+      std::tie(agentID_healthStatus_map, agent_IDs_in_ABM, healthStatus_agents_in_PDE, healthStatus_agents_in_ODE, cnt_new_symptomatic) = abm.step(std::move(filtered_event_data), filtered_event_data_size, with_coupling_states, agentID_location_commuting_start, agentID_location_commuting_end, agentID_healthStatus_map_flatten, steps, param_ABMs, nr_day, population_scale, mystery_case_location, symptomatic_mystery_cases, gen_local, verbosity, run, correction_step); 
 
-      if (no_covid) {
-        int bundesland = stateIndices_ODE[state_ODE_idx];
-        double P_mystery = (x[2])/(x[2] + x[3]);
-        double mystery_infected = P_mystery * allNewSymptomaticCases[ode_idx][state_ODE_idx][steps+1];
-        symptomatic_mystery_cases[ode_idx][state_ODE_idx][steps+1] += mystery_infected;
+      agent_IDs_in_ABM_set.clear();
+      agent_IDs_in_ABM_set.reserve(agent_IDs_in_ABM.size());
+      agent_IDs_in_ABM_set.insert(agent_IDs_in_ABM.begin(), agent_IDs_in_ABM.end());
+
+      // count symptomatic agents in ABM:
+      for (int state_ABM_idx = 0; state_ABM_idx < nr_ABM_states; state_ABM_idx++) {
+        for (const auto& agent_ID_healthState: agentID_healthStatus_map.at(state_ABM_idx)) {
+          int healthState = agent_ID_healthState.second;
+          if (healthState == 3) {
+            nbr_symptomatic_agents.at(state_ABM_idx)[steps+1]++;
+          }
+        }
+        allNewSymptomaticCases[abm_idx].at(state_ABM_idx)[steps+1] = cnt_new_symptomatic[abm_idx].at(state_ABM_idx);
+      }
+    }
+
+    if (nr_PDE_states > 0) {
+      // do one PDE step
+      std::vector<typename VariableSet::VariableSet> dx_PDE;
+      for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) { // iterate over all PDE domains
+        dx_PDE.push_back(typename VariableSet::VariableSet(x_PDE.at(state_PDE_idx)));
+
+        try {
+          #pragma omp critical
+          {
+            dx_PDE.at(state_PDE_idx) = limex_PDE.at(state_PDE_idx).step(x_PDE.at(state_PDE_idx),dt,extrapolOrder,tolX_PDE.at(state_PDE_idx)); // no mesh adaptation! tolX_PDE[] empty
+          }
+        }
+        catch (const Kaskade::DirectSolverException& e) {
+          std::cerr << "Fehler beim Lösen der Gleichung vom Bundesland " + stateLabels_PDE.at(state_PDE_idx) + ": " << e.what() << std::endl;
+          return std::make_tuple(agentID_healthStatus_map, agent_IDs_in_ABM); 
+        }
+
+        // step ahead
+        x_PDE.at(state_PDE_idx) += dx_PDE.at(state_PDE_idx);
+        eq.at(state_PDE_idx).setTime(eq.at(state_PDE_idx).time()+dt);
+
+
+        // compute how many people are in total in the PDE domain
+        std::vector<std::vector<double>> compartmentJumpingPersons_test(nbr_points_PDE.at(state_PDE_idx),std::vector<double>(nbr_compartments,0.0));
+        compartmentJumpingPersons_test = getNumberOfJumps<0>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx); 
+        compartmentJumpingPersons_test = getNumberOfJumps<1>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
+        compartmentJumpingPersons_test = getNumberOfJumps<2>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
+        compartmentJumpingPersons_test = getNumberOfJumps<3>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
+        compartmentJumpingPersons_test = getNumberOfJumps<4>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
+        compartmentJumpingPersons_test = getNumberOfJumps<5>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
+        compartmentJumpingPersons_test = getNumberOfJumps<6>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
+        compartmentJumpingPersons_test = getNumberOfJumps<7>(x_PDE.at(state_PDE_idx), compartmentJumpingPersons_test, state_PDE_idx);
+
+        double total_nbr_PDE_state = 0.0;
+        for (int j=0; j<compartmentJumpingPersons_test[0].size(); j++) { //compartments
+          for (int i=0; i<compartmentJumpingPersons_test.size(); i++) { // grid nodes
+            total_nbr_PDE_state += compartmentJumpingPersons_test[i][j];
+          }
+        }
+        n_PDE.at(state_PDE_idx)[steps+1] = total_nbr_PDE_state;
+      }
+    }
+
+    if (nr_ODE_states > 0) {
+      double act_change_notAtHome = activityChangePercentage[int(t_0+steps*dt+0.1)][1]/100.0;
+      double factor_beta = (1 + act_change_notAtHome) * M_PI;
+      if ((1 + act_change_notAtHome) > 1) {
+        factor_beta = M_PI;
+      }
+      for (int state_ODE_idx=0; state_ODE_idx<nr_ODE_states; state_ODE_idx++) {
+        double beta = factor_beta * params_ODEs[9+state_ODE_idx] / areas_ODE.at(state_ODE_idx); 
+        auto& x = x_ODE[state_ODE_idx];
+
+        double S_ode_before = x[0];
+        double E_ode_before = x[1];
+        double I_ode_before = x[2];
+        double SY_ode_before = x[3];
+        double H_ode_before = x[4];
+        double C_ode_before = x[5];
+        double HC_ode_before = x[6];
+        double S_times_I_plus_SY_ode_before = S_ode_before * (I_ode_before + SY_ode_before);
+        x[0] =  S_ode_before + dt * (- beta * S_times_I_plus_SY_ode_before);
+        x[1] =  E_ode_before + dt * (+ beta * S_times_I_plus_SY_ode_before - params_ODEs[0]*E_ode_before); 
+        x[2] =  I_ode_before + dt * (+ params_ODEs[0]*E_ode_before  - (params_ODEs[5]+params_ODEs[1])*I_ode_before);
+        x[3] = SY_ode_before + dt * (+ params_ODEs[1]*I_ode_before  - (params_ODEs[6]+params_ODEs[2])*SY_ode_before);
+        x[4] =  H_ode_before + dt * (+ params_ODEs[2]*SY_ode_before - (params_ODEs[7]+params_ODEs[3])*H_ode_before);
+        x[5] =  C_ode_before + dt * (+ params_ODEs[3]*H_ode_before  -                 params_ODEs[4] *C_ode_before);
+        x[6] = HC_ode_before + dt * (+ params_ODEs[4]*C_ode_before -  params_ODEs[8]                 *HC_ode_before);
+        x[7] = x[7] + dt * (+ (params_ODEs[5]*I_ode_before + params_ODEs[6]*SY_ode_before + params_ODEs[7]*H_ode_before + params_ODEs[8]*HC_ode_before));
+
+        for (int i=0; i<x.size(); i++) {
+          if (x[i] < 0) {
+            std::cout << "negative solution for i=" << i << ", state_ODE_idx=" << state_ODE_idx << ", after solution value " << x[i] << std::endl; 
+            std::exit(EXIT_FAILURE);
+          }
+        }
+
+        F_ODE.at(state_ODE_idx)[steps+1] = x[3]; // total number of symptomatic people in ODE domain
+        n_ODE.at(state_ODE_idx)[steps+1] = x[0] + x[1] + x[2] + x[3] + x[4] + x[5] + x[6] + x[7]; // total number of people in ODE domain
+        allNewSymptomaticCases[ode_idx].at(state_ODE_idx)[steps+1] = dt * params_ODEs[1]*x[2]; 
+
+        if (no_covid) {
+          int bundesland = stateIndices_ODE[state_ODE_idx];
+          double P_mystery = (x[2])/(x[2] + x[3]);
+          double mystery_infected = P_mystery * allNewSymptomaticCases[ode_idx][state_ODE_idx][steps+1];
+          symptomatic_mystery_cases[ode_idx][state_ODE_idx][steps+1] += mystery_infected;
+        }
       }
     }
 
@@ -627,8 +629,8 @@ integrate(
       std::cout << "total population in ABM states is        " << (total_nbr_agents) << std::endl;
       std::cout << "total population in germany " << (total_population_in_germany) << std::endl;
     }
-    if (int(total_population_in_germany+0.1) != nbr_trajectories) {
-      std::cout << "Total population number changed! It should be " << nbr_trajectories << " but currently is " << int(total_population_in_germany+0.1) << std::endl;
+    if (int(total_population_in_germany+0.1) != total_initial_population) {
+      std::cout << "Total population number changed! It should be " << total_initial_population << " but currently is " << int(total_population_in_germany+0.1) << std::endl;
       std::exit(EXIT_FAILURE);
     }
     //////////////////////////////////////////
@@ -923,7 +925,7 @@ integrate(
     // set health status of new agents accordingly to how many new people are in each compartment
     for (int state_ABM_idx=0; state_ABM_idx<nr_ABM_states; state_ABM_idx++) { 
       int state_idx_into = stateIndices_ABM.at(state_ABM_idx);
-      for (int state_idx=0; state_idx<nbr_domains; state_idx++) { // iterate over all domains
+      for (int state_idx=0; state_idx<nbr_federal_states; state_idx++) { // iterate over all domains
         int person_idx = 0;
         // shuffle the agent IDs before using them! if not shuffled, the lower agent IDs will always be susceptible (if there are any susceptible)
         std::shuffle(germany_jump_matrix_agent_IDs_with_reductions[jump_timestep][state_idx][state_idx_into].begin(), germany_jump_matrix_agent_IDs_with_reductions[jump_timestep][state_idx][state_idx_into].end(), gen_local);
@@ -1045,7 +1047,7 @@ integrate(
       }
 
       // because jump_timestep will be reset at the beginning of the day, germany_jump_matrix_agent_IDs_with_reductions needs to be emptied again
-      germany_jump_matrix_agent_IDs_with_reductions = std::vector<std::vector<std::vector<std::vector<int>>>>(dt_inv, std::vector<std::vector<std::vector<int>>>(nbr_domains, std::vector<std::vector<int>>(nbr_domains)));    
+      germany_jump_matrix_agent_IDs_with_reductions = std::vector<std::vector<std::vector<std::vector<int>>>>(dt_inv, std::vector<std::vector<std::vector<int>>>(nbr_federal_states, std::vector<std::vector<int>>(nbr_federal_states)));    
 
       week_day++;
       nr_day = get_nr_day(week_day);
@@ -1073,8 +1075,10 @@ integrate(
       }
     } // end new day
   } // end for steps
-  std::cout << '\n';
-  limex_PDE[0].reportTime(std::cout);
+  if (nr_PDE_states > 0) {
+    std::cout << '\n';
+    limex_PDE[0].reportTime(std::cout);
+  }
 
   if (verbosity<=0) {
     return std::make_tuple(agentID_healthStatus_map, agent_IDs_in_ABM); 
@@ -1157,7 +1161,7 @@ integrate(
   std::cout << "run " << run << std::endl;
 
   // save result in file
-  std::string filename_result = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_0_" + std::to_string(run) + addOn + ".txt";
+  std::string filename_result = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_0_" + std::to_string(run) + ".txt";
   std::ofstream file_result;
   file_result.open(filename_result); 
   for (int day = 0; day < result_days.size(); day++) {
@@ -1167,7 +1171,7 @@ integrate(
 
 
   for (int state_ODE_idx=0; state_ODE_idx<nr_ODE_states; state_ODE_idx++) { // iterate over all ODE domains
-    std::string filename_result_ODE = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_ODE_0_" + std::to_string(run) + "_" + stateLabels_ODE.at(state_ODE_idx) + addOn + ".txt";
+    std::string filename_result_ODE = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_ODE_0_" + std::to_string(run) + "_" + stateLabels_ODE.at(state_ODE_idx) + ".txt";
     std::ofstream file_result_ODE;
     file_result_ODE.open(filename_result_ODE);
     for (int day = 0; day < result_days_ODE.at(state_ODE_idx).size(); day++) {
@@ -1187,7 +1191,7 @@ integrate(
   }
 
   for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) { // iterate over all PDE domains
-    std::string filename_result_PDE = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_PDE_0_" + std::to_string(run) + "_" + stateLabels_PDE.at(state_PDE_idx) + addOn + ".txt";
+    std::string filename_result_PDE = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_PDE_0_" + std::to_string(run) + "_" + stateLabels_PDE.at(state_PDE_idx) + ".txt";
     std::ofstream file_result_PDE;
     file_result_PDE.open(filename_result_PDE); //, std::ios_base::app);
     for (int day = 0; day < result_days_PDE.at(state_PDE_idx).size(); day++) {
@@ -1207,7 +1211,7 @@ integrate(
   }
 
   for (int state_ABM_idx=0; state_ABM_idx<nr_ABM_states; state_ABM_idx++) { // iterate over all ABM domains
-    std::string filename_result_ABM = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_ABM_0_" + std::to_string(run) + "_" + stateLabels_ABM.at(state_ABM_idx) + addOn + ".txt";
+    std::string filename_result_ABM = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_ABM_0_" + std::to_string(run) + "_" + stateLabels_ABM.at(state_ABM_idx) + ".txt";
     std::ofstream file_result_ABM;
     file_result_ABM.open(filename_result_ABM);
     for (int day = 0; day < result_days_ABM.at(state_ABM_idx).size(); day++) {
@@ -1227,7 +1231,7 @@ integrate(
   }
 
   // save error/difference in file
-  std::string filename_error = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/error_0_" + std::to_string(run) + addOn + ".txt";
+  std::string filename_error = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/error_0_" + std::to_string(run) + ".txt";
   std::ofstream file_error;
   file_error.open(filename_error); 
   for (int day = 0; day < result_days.size(); day++) {
@@ -1236,19 +1240,17 @@ integrate(
   file_error.close();
 
   if (run == 0) {
-    plot_result(result_days, target, correction_step, addOn);
+    plot_result(result_days, target, correction_step);
     for (int state_ABM_idx=0; state_ABM_idx<nr_ABM_states; state_ABM_idx++) { // iterate over all ABM domains
-      plot_result(result_days_ABM.at(state_ABM_idx), target_ABM.at(state_ABM_idx), correction_step, "_ABM_" + stateLabels_ABM.at(state_ABM_idx) + addOn);
+      plot_result(result_days_ABM.at(state_ABM_idx), target_ABM.at(state_ABM_idx), correction_step, "_ABM_" + stateLabels_ABM.at(state_ABM_idx));
     }
     for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) { // iterate over all PDE domains
-      plot_result(result_days_PDE.at(state_PDE_idx), target_PDE.at(state_PDE_idx), correction_step, "_PDE_" + stateLabels_PDE.at(state_PDE_idx) + addOn);
+      plot_result(result_days_PDE.at(state_PDE_idx), target_PDE.at(state_PDE_idx), correction_step, "_PDE_" + stateLabels_PDE.at(state_PDE_idx));
     }
     for (int state_ODE_idx=0; state_ODE_idx<nr_ODE_states; state_ODE_idx++) { // iterate over all ODE domains
-      plot_result(result_days_ODE.at(state_ODE_idx), target_ODE.at(state_ODE_idx), correction_step, "_ODE_" + stateLabels_ODE.at(state_ODE_idx) + addOn);
+      plot_result(result_days_ODE.at(state_ODE_idx), target_ODE.at(state_ODE_idx), correction_step, "_ODE_" + stateLabels_ODE.at(state_ODE_idx));
     }
   }
-  if (!done)
-  std::cout << "*** maxSteps reached ***\n";
   return std::make_tuple(agentID_healthStatus_map, agent_IDs_in_ABM);
 }
 #endif

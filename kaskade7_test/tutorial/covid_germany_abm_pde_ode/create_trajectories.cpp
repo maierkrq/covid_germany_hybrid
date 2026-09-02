@@ -22,8 +22,8 @@ std::tuple<std::vector<std::vector<std::vector<double>>>, std::vector<std::vecto
   std::vector<std::vector<std::vector<int>>> facilityLabels_allCategories_all_days, int dt_inv, int step, int nr_day, std::vector<std::vector<std::vector<int>>>& jump_matrix, std::vector<std::vector<std::vector<std::vector<int>>>>& jump_matrix_agent_IDs) {
 
   auto check_bounds = [&](int prev_state_nr, int state_nr, int step) {
-      if (prev_state_nr < 0 || prev_state_nr >= nbr_domains ||
-          state_nr      < 0 || state_nr      >= nbr_domains) {
+      if (prev_state_nr < 0 || prev_state_nr >= nbr_federal_states ||
+          state_nr      < 0 || state_nr      >= nbr_federal_states) {
           std::cout << "INVALID INDEX in jump_matrix: "
                     << "step=" << step
                     << ", prev_state_nr=" << prev_state_nr
@@ -623,8 +623,8 @@ int main(int argc, char *argv[]) {
 
   std::vector<std::vector<std::tuple<double, double, int>>> trajectories(nbr_trajectories, std::vector<std::tuple<double, double, int>>(maxSteps + 1, std::make_tuple(0.0, 0.0, 0)));
 
-  std::vector<std::vector<std::vector<int>>> jump_matrix(dt_inv, std::vector<std::vector<int>>(nbr_domains, std::vector<int>(nbr_domains,0)));
-  std::vector<std::vector<std::vector<std::vector<int>>>> jump_matrix_agent_IDs(dt_inv, std::vector<std::vector<std::vector<int>>>(nbr_domains, std::vector<std::vector<int>>(nbr_domains)));
+  std::vector<std::vector<std::vector<int>>> jump_matrix(dt_inv, std::vector<std::vector<int>>(nbr_federal_states, std::vector<int>(nbr_federal_states,0)));
+  std::vector<std::vector<std::vector<std::vector<int>>>> jump_matrix_agent_IDs(dt_inv, std::vector<std::vector<std::vector<int>>>(nbr_federal_states, std::vector<std::vector<int>>(nbr_federal_states)));
   std::vector<std::vector<std::vector<double>>> trajectory_partial;
   std::vector<std::vector<int>> trajectory_partial_nr_state;
   std::tie(trajectory_partial, trajectory_partial_nr_state) = create_trajectories(nbr_trajectories, trajectory_partial_nr_state, eventData, facilityCoordinates_allCategories, facilityCoordinates_home, facilityLabels_allCategories,
@@ -671,7 +671,7 @@ int main(int argc, char *argv[]) {
     std::cout << std::get<0>(trajectories[trajectories.size()-2][j]) << ", " << std::get<1>(trajectories[trajectories.size()-2][j]) << std::endl;
   }
   std::cout << "jump_matrix[0][0][0] " << jump_matrix[0][0][0] << std::endl;
-  std::cout << "jump_matrix[jump_matrix.size()-1][nbr_domains-1][nbr_domains-1] " << jump_matrix[jump_matrix.size()-1][nbr_domains-1][nbr_domains-1] << std::endl;
+  std::cout << "jump_matrix[jump_matrix.size()-1][nbr_federal_states-1][nbr_federal_states-1] " << jump_matrix[jump_matrix.size()-1][nbr_federal_states-1][nbr_federal_states-1] << std::endl;
 
   std::string filename_jump_agent_IDs = "../../work/input_data/global/germany_jump_matrix_agent_IDs_" + days_str[nr_day] + addOn + "_dt_inv_" + std::to_string(dt_inv) + ".bin";
   std::ofstream file(filename_jump_agent_IDs, std::ios::binary);

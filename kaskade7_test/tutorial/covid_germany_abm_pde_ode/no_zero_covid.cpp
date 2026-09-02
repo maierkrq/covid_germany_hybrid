@@ -201,7 +201,7 @@ int main(int argc, char *argv[]) {
   for (int model_type=0; model_type<nbr_model_types; model_type++) {
     for (int state_idx=0; state_idx<stateIndices_all_models[model_type].size(); state_idx++) {
       int domain = stateIndices_all_models[model_type][state_idx];
-      std::cout << "domain " << domain << ", model_type " << model_type << std::endl;
+      std::cout << "domain " << domain << ", model_type " << model_type << ", state_idx " << state_idx << std::endl;
       model_type_of_domain[domain] = model_type;
       local_index[domain] = state_idx;
     }
@@ -238,31 +238,34 @@ int main(int argc, char *argv[]) {
   std::vector<ABModel> all_abms;
   all_abms.reserve(maxRun - initial_run);
   for (int run = initial_run; run < maxRun; run++) {
-      all_abms.emplace_back(population_scale, with_restriction, dt_inv, zero_covid, no_covid);
-      all_abms.back().readEventData();
-      all_abms.back().readFacilityCoordinates_allCategories();
-      all_abms.back().readFacilityCoordinates_home();
-      all_abms.back().set_initial_agent_ids();
-      all_abms.back().set_max_number_of_agents_per_facility();
-      all_abms.back().setLeavingNumberOfPeople();
-      all_abms.back().readActivityChangeData();
+    all_abms.emplace_back(population_scale, with_restriction, dt_inv, zero_covid, no_covid);
+    all_abms.back().readEventData();
+    all_abms.back().readFacilityCoordinates_allCategories();
+    all_abms.back().readFacilityCoordinates_home();
+    all_abms.back().set_initial_agent_ids();
+    all_abms.back().set_max_number_of_agents_per_facility();
+    all_abms.back().setLeavingNumberOfPeople();
+    all_abms.back().readActivityChangeData();
   }
 
   population[pde_idx].resize(nr_PDE_states);
   for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) {
     population[pde_idx].at(state_PDE_idx) = population_pde_t_0.at(state_PDE_idx);
+    total_initial_population += population[pde_idx].at(state_PDE_idx);
     std::cout << std::scientific << std::setprecision(8) << "population " << stateLabels_PDE.at(state_PDE_idx) << " " << population[pde_idx].at(state_PDE_idx) << std::endl;
   }
 
   population[abm_idx].resize(nr_ABM_states);
   for (int state_ABM_idx=0; state_ABM_idx<nr_ABM_states; state_ABM_idx++) {
     population[abm_idx].at(state_ABM_idx) = all_abms[0].nbr_agents[nr_day].at(state_ABM_idx); // all_abms[0] because they are the same in terms of number of agents
+    total_initial_population += population[abm_idx].at(state_ABM_idx);
     std::cout << std::scientific << std::setprecision(8) << "population " << stateLabels_ABM.at(state_ABM_idx) << " " << population[abm_idx].at(state_ABM_idx) << std::endl;
   }
 
   population[ode_idx].resize(nr_ODE_states);
   for (int state_ODE_idx=0; state_ODE_idx<nr_ODE_states; state_ODE_idx++) {
     population[ode_idx].at(state_ODE_idx) = population_ode_t_0.at(state_ODE_idx);
+    total_initial_population += population[ode_idx].at(state_ODE_idx);
     std::cout << std::scientific << std::setprecision(8) << "population " << stateLabels_ODE.at(state_ODE_idx) << " " << population[ode_idx].at(state_ODE_idx) << std::endl;
   }
 
@@ -270,11 +273,11 @@ int main(int argc, char *argv[]) {
   bool no_coupling_abm = false;
   std::vector<int> no_coupling_abm_indices;
   for (int state_ABM_idx=0; state_ABM_idx<nr_ABM_states; state_ABM_idx++) { // iterate over all ABM domains
-      if (!with_coupling_states[abm_idx].at(state_ABM_idx)) {
-          no_coupling_abm = true;
-          no_coupling_abm_indices.push_back(stateIndices_ABM.at(state_ABM_idx)); // 0,6, ..
-          std::cout << "ABM index excluded from coupling " << stateIndices_ABM.at(state_ABM_idx) << std::endl;
-      }
+    if (!with_coupling_states[abm_idx].at(state_ABM_idx)) {
+      no_coupling_abm = true;
+      no_coupling_abm_indices.push_back(stateIndices_ABM.at(state_ABM_idx)); // 0,6, ..
+      std::cout << "ABM index excluded from coupling " << stateIndices_ABM.at(state_ABM_idx) << std::endl;
+    }
   }
 
   if (no_coupling_abm) {
@@ -296,16 +299,25 @@ int main(int argc, char *argv[]) {
     grad_V_PDE.push_back(readGradient(filename_grad_V));
   }
 
-  std::vector<std::vector<std::vector<double>>> diseaseStatus_all;
-  for (int state_idx=0; state_idx<nbr_domains; state_idx++) {
-    std::string filename = stateLabels[state_idx];
-    std::vector<std::vector<double>> diseaseStatus = readTargetData(filename);
-    diseaseStatus_all.push_back(diseaseStatus);
+  // std::vector<std::vector<std::vector<double>>> diseaseStatus_all;
+  // for (int state_idx=0; state_idx<nbr_domains; state_idx++) {
+  //   std::string filename = stateLabels[state_idx];
+  //   std::vector<std::vector<double>> diseaseStatus = readTargetData(filename);
+  //   diseaseStatus_all.push_back(diseaseStatus);
+  // }
+  std::vector<std::vector<std::vector<double>>> diseaseStatus_all(nbr_federal_states);
+  int nbrDays;
+  for (int model_type = 0; model_type < nbr_model_types; model_type++) {
+    for (int state_idx = 0; state_idx < stateIndices_all_models[model_type].size(); state_idx++) {
+      int global_state_idx = stateIndices_all_models[model_type][state_idx];
+      std::string filename = stateLabels_all_models[model_type][state_idx];
+      diseaseStatus_all[global_state_idx] = readTargetData(filename);
+      nbrDays = diseaseStatus_all[global_state_idx].size();
+    }
   }
   std::cout << "done reading target data" << std::endl;
   
   // set values: susceptibles, exposed, recovered
-  int nbrDays = diseaseStatus_all[0].size();
   int shift_days = 4; // shift from 27th February 2020 to 2nd March 2020
   nbrDays -= shift_days;
   susceptibles.resize(maxRun-initial_run, std::vector<std::vector<std::vector<double>>>(nbrDays, std::vector<std::vector<double>>(nbr_model_types)));
@@ -691,7 +703,7 @@ int main(int argc, char *argv[]) {
       integrate( 
         gridManagers_PDE, equations, varSetDesc_PDE, allNewSymptomaticCases,
         dt_inv, population_scale, gen_local, correction_step,
-        week_day_local, T, maxSteps, extrapolOrder, zero_covid, no_covid, greenZone,
+        week_day_local, T, t_0, maxSteps, extrapolOrder, zero_covid, no_covid, greenZone,
         x_PDE_all_runs[run-initial_run], x_ODE_all_runs[run-initial_run], all_abms[run-initial_run], param_abms, params_ODEs,
         run, initial_run, with_coupling_states,
         directType, verbosity
@@ -707,7 +719,7 @@ int main(int argc, char *argv[]) {
     std::vector<std::vector<double>> avg_result_days_ABM(nr_ABM_states,std::vector<double>(days, 0.0));
     for (int run=initial_run; run<maxRun; run++) {
       for (int state_ABM_idx = 0; state_ABM_idx < nr_ABM_states; state_ABM_idx++) {
-        std::string filename_result_ABM = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_ABM_0_" + std::to_string(run) + "_" + stateLabels_ABM.at(state_ABM_idx) + addOn + ".txt";
+        std::string filename_result_ABM = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_ABM_0_" + std::to_string(run) + "_" + stateLabels_ABM.at(state_ABM_idx) + ".txt";
         std::ifstream file(filename_result_ABM);
         if (!file) {
           throw std::runtime_error("Missing file: " + filename_result_ABM);
@@ -765,7 +777,7 @@ int main(int argc, char *argv[]) {
     std::vector<std::vector<double>> avg_result_days_PDE(nr_PDE_states,std::vector<double>(days, 0.0));
     for (int run=initial_run; run<maxRun; run++) {
       for (int state_PDE_idx = 0; state_PDE_idx < nr_PDE_states; state_PDE_idx++) {
-        std::string filename_result_PDE = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_PDE_0_" + std::to_string(run) + "_" + stateLabels_PDE.at(state_PDE_idx) + addOn + ".txt";
+        std::string filename_result_PDE = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_PDE_0_" + std::to_string(run) + "_" + stateLabels_PDE.at(state_PDE_idx) + ".txt";
         std::ifstream file(filename_result_PDE);
         if (!file) {
           throw std::runtime_error("Missing file: " + filename_result_PDE);
@@ -823,7 +835,7 @@ int main(int argc, char *argv[]) {
     std::vector<std::vector<double>> avg_result_days_ODE(nr_ODE_states,std::vector<double>(days, 0.0));
     for (int run=initial_run; run<maxRun; run++) {
       for (int state_ODE_idx = 0; state_ODE_idx < nr_ODE_states; state_ODE_idx++) {
-        std::string filename_result_ODE = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_ODE_0_" + std::to_string(run) + "_" + stateLabels_ODE.at(state_ODE_idx) + addOn + ".txt";
+        std::string filename_result_ODE = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/result_ODE_0_" + std::to_string(run) + "_" + stateLabels_ODE.at(state_ODE_idx) + ".txt";
         std::ifstream file(filename_result_ODE);
 
         if (!file) {
