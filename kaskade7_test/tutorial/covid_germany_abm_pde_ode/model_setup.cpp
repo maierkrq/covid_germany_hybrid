@@ -21,6 +21,13 @@ const int pde_idx = 0;
 const int abm_idx = 1; 
 const int ode_idx = 2; 
 
+// all federal states in correct order: 
+// {   "Schleswig-Holstein", "Hamburg", "Niedersachsen", "Bremen", "Nordrhein-Westfalen",
+//     "Hessen", "Rheinland-Pfalz", "Baden-Wuerttemberg", "Bayern", "Saarland",
+//     "Berlin", "Brandenburg", "Mecklenburg-Vorpommern", "Sachsen",
+//     "Sachsen-Anhalt", "Thueringen"
+// }; // data is given for Berlin and then Brandenburg
+
 const std::vector<int> stateIndices_PDE = {1,3,9,10}; // Berlin is number 10, can be moved to stateIndices_ABM or stateIndices_ODE
 const std::vector<int> stateIndices_ABM = {0,6,11,12,13,14,15}; 
 const std::vector<int> stateIndices_ODE = {2,4,5,7,8}; 
@@ -42,7 +49,7 @@ const std::vector<std::string> stateLabels_ABM = {"Schleswig-Holstein","Rheinlan
 const std::vector<std::string> stateLabels_ODE = {"Niedersachsen","Nordrhein-Westfalen","Hessen","Baden-Wuerttemberg","Bayern"};
 const std::vector<std::vector<std::string>> stateLabels_all_models = {stateLabels_PDE, stateLabels_ABM, stateLabels_ODE}; 
 
-static int const nbr_domains = stateLabels.size();
+static int const nbr_domains = stateLabels_all_models[0].size() + stateLabels_all_models[1].size() + stateLabels_all_models[2].size();
 
 std::vector<int> model_type_of_domain(nbr_domains, -1);
 std::vector<int> local_index(nbr_domains, -1);
