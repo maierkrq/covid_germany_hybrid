@@ -109,7 +109,7 @@ struct Initial_1Value {
 void delete_non_relevant_events(const std::vector<int>& no_coupling_abm_indices, ABModel& abm) {
   const std::unordered_set<int> no_coupling_set(no_coupling_abm_indices.begin(), no_coupling_abm_indices.end());
 
-  for (int nr_day=0; nr_day<3; nr_day++) {
+  for (int nr_day=0; nr_day<nbr_day_types; nr_day++) {
     auto& dayData = abm.eventData.at(nr_day);
     const auto& facilityLabels_allCategories_nr_day = abm.facilityLabels_allCategories.at(nr_day);
 
@@ -147,20 +147,55 @@ void delete_non_relevant_events(const std::vector<int>& no_coupling_abm_indices,
 
 int main(int argc, char *argv[]) {
   std::string config_file;
-  for (int i = 1; i < argc; ++i) {
-      std::string arg = argv[i];
+  for (int i = 1; i < argc; i++) {
+    std::string arg = argv[i];
 
-      if (arg == "--config" && i + 1 < argc) {
-          config_file = argv[++i];
-      }
+    if (arg == "--config" && i + 1 < argc) {
+      config_file = argv[i+1];
+      i++;
+    }
   }
 
   if (config_file.empty()) {
-      std::cerr << "Missing --config argument" << std::endl;
-      return 1;
+    std::cerr << "Missing --config argument" << std::endl;
+    return 1;
   }
 
   YAML::Node config = YAML::LoadFile(config_file);
+
+  for (int i = 0; i < stateLabels.size(); i++) {
+    int model_index = config[stateLabels[i]].as<int>();
+    if (model_index == -1) { // state not considered in any model
+      continue;
+    }
+    if (model_index < 0 || model_index > 2) {
+        std::cerr << "Invalid model type for " << stateLabels[i]
+                  << ": " << model_index << std::endl;
+        return 1;
+    }
+    else {
+      std::cout << "state " << stateLabels[i] << " is assigned to model type " << model_index << std::endl;
+    }
+
+    stateLabels_all_models.at(model_index).push_back(stateLabels[i]);
+    stateIndices_all_models.at(model_index).push_back(i);
+    if (model_index == ode_idx) {
+      areas_ODE.push_back(areas_ODEs.at(i));
+    }
+  } 
+  stateLabels_ABM = stateLabels_all_models[abm_idx];
+  stateLabels_PDE = stateLabels_all_models[pde_idx];
+  stateLabels_ODE = stateLabels_all_models[ode_idx];
+
+  stateIndices_ABM = stateIndices_all_models[abm_idx];
+  stateIndices_PDE = stateIndices_all_models[pde_idx];
+  stateIndices_ODE = stateIndices_all_models[ode_idx];
+  
+  nr_ABM_states = stateLabels_ABM.size();
+  nr_PDE_states = stateLabels_PDE.size();
+  nr_ODE_states = stateLabels_ODE.size();
+
+  nbr_domains = nr_ABM_states + nr_PDE_states + nr_ODE_states; 
 
   int num_threads = config["num_threads"].as<int>();
   std::cout << "number of threads " << num_threads << std::endl;
@@ -194,13 +229,13 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  std::cout << "set local_index of domain" << std::endl;
+  std::cout << "set local_index of bundesland" << std::endl;
   for (int model_type=0; model_type<nbr_model_types; model_type++) {
     for (int state_idx=0; state_idx<stateIndices_all_models[model_type].size(); state_idx++) {
-      int domain = stateIndices_all_models[model_type][state_idx];
-      std::cout << "domain " << domain << ", model_type " << model_type << ", state_idx " << state_idx << std::endl;
-      model_type_of_domain[domain] = model_type;
-      local_index[domain] = state_idx;
+      int bundesland = stateIndices_all_models[model_type][state_idx];
+      std::cout << "bundesland " << bundesland << ", model_type " << model_type << ", state_idx " << state_idx << std::endl;
+      model_type_of_domain[bundesland] = model_type;
+      local_index[bundesland] = state_idx;
     }
   }
 
@@ -233,17 +268,27 @@ int main(int argc, char *argv[]) {
   double population_scale = 4.0;
 
   std::vector<ABModel> all_abms;
-  all_abms.reserve(maxRun - initial_run);
-  for (int run = initial_run; run < maxRun; run++) {
+  if (nr_ABM_states > 0) {
+    all_abms.reserve(maxRun - initial_run);
+    for (int run = initial_run; run < maxRun; run++) {
+      all_abms.emplace_back(population_scale, with_restriction, dt_inv);
+      all_abms.back().readEventData();
+      all_abms.back().readFacilityCoordinates_allCategories();
+      all_abms.back().readFacilityCoordinates_home();
+      all_abms.back().set_initial_agent_ids();
+      all_abms.back().set_max_number_of_agents_per_facility();
+      all_abms.back().setLeavingNumberOfPeople();
+      all_abms.back().readActivityChangeData();
+    }
+  }
+  else {
+    all_abms.reserve(1);
     all_abms.emplace_back(population_scale, with_restriction, dt_inv);
-    all_abms.back().readEventData();
-    all_abms.back().readFacilityCoordinates_allCategories();
-    all_abms.back().readFacilityCoordinates_home();
     all_abms.back().set_initial_agent_ids();
-    all_abms.back().set_max_number_of_agents_per_facility();
     all_abms.back().setLeavingNumberOfPeople();
     all_abms.back().readActivityChangeData();
   }
+  std::cout << "done reading ABM data" << std::endl;
 
   population[pde_idx].resize(nr_PDE_states);
   for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) {
@@ -266,24 +311,25 @@ int main(int argc, char *argv[]) {
     std::cout << std::scientific << std::setprecision(8) << "population " << stateLabels_ODE.at(state_ODE_idx) << " " << population[ode_idx].at(state_ODE_idx) << std::endl;
   }
 
-  // check if we consider ABM federal states with no transitions into or out of the respective area
-  bool no_coupling_abm = false;
-  std::vector<int> no_coupling_abm_indices;
-  for (int state_ABM_idx=0; state_ABM_idx<nr_ABM_states; state_ABM_idx++) { // iterate over all ABM domains
-    if (!with_coupling_states[abm_idx].at(state_ABM_idx)) {
-      no_coupling_abm = true;
-      no_coupling_abm_indices.push_back(stateIndices_ABM.at(state_ABM_idx)); // 0,6, ..
-      std::cout << "ABM index excluded from coupling " << stateIndices_ABM.at(state_ABM_idx) << std::endl;
+  if (nr_ABM_states > 0) {
+    // check if we consider ABM federal states with no transitions into or out of the respective area
+    bool no_coupling_abm = false;
+    std::vector<int> no_coupling_abm_indices;
+    for (int state_ABM_idx=0; state_ABM_idx<nr_ABM_states; state_ABM_idx++) { // iterate over all ABM domains
+      if (!with_coupling_states[abm_idx].at(state_ABM_idx)) {
+        no_coupling_abm = true;
+        no_coupling_abm_indices.push_back(stateIndices_ABM.at(state_ABM_idx)); // 0,6, ..
+        std::cout << "ABM index excluded from coupling " << stateIndices_ABM.at(state_ABM_idx) << std::endl;
+      }
     }
-  }
-
-  if (no_coupling_abm) {
-    for (int run = initial_run; run < maxRun; run++) {
-      std::cout << "dayData size before " << all_abms[run].eventData.at(nr_day).size() << std::endl;
-      delete_non_relevant_events(no_coupling_abm_indices, all_abms[run]);
-      std::cout << "dayData size after  " << all_abms[run].eventData.at(nr_day).size() << std::endl;
+    if (no_coupling_abm) {
+      for (int run = initial_run; run < maxRun; run++) {
+        std::cout << "dayData size before " << all_abms[run].eventData.at(nr_day).size() << std::endl;
+        delete_non_relevant_events(no_coupling_abm_indices, all_abms[run]);
+        std::cout << "dayData size after  " << all_abms[run].eventData.at(nr_day).size() << std::endl;
+      }
+      std::cout << "done deleting non relevant events" << std::endl;
     }
-    std::cout << "done deleting non relevant events" << std::endl;
   }
 
   std::vector<std::vector<double>> V_PDE;
@@ -526,7 +572,7 @@ int main(int argc, char *argv[]) {
       std::cout << "nbr_cells_PDE " << stateLabels_PDE.at(state_PDE_idx) << " " << nbr_cells_PDE.at(state_PDE_idx) << "\n" << std::endl;
     }
 
-    for (int i = 0; i < nr_PDE_states; ++i) {
+    for (int i = 0; i < nr_PDE_states; i++) {
       if ((int)V_PDE[i].size() != nbr_points_PDE[i]) {
         std::cerr << "Mismatch V: " << stateLabels_PDE[i]
                   << " V=" << V_PDE[i].size()
@@ -547,6 +593,7 @@ int main(int argc, char *argv[]) {
     double area;
 
     // compute density equivalent of one individual (minDensityForTransition_PDE)
+    minDensityForTransition_PDE.resize(nr_PDE_states);
     std::vector<std::vector<double>> area_of_triangles_touching_grid_point(nr_PDE_states);
     for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) {
       int nbr_grid_points = nbr_points_PDE.at(state_PDE_idx);
@@ -572,6 +619,7 @@ int main(int argc, char *argv[]) {
 
     // compute distribution for initial values: normalized inverse of positive landscape
     double integral_of_inv_V;
+    normalized_inv_V_PDE.resize(nr_PDE_states);
     for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) {
       integral_of_inv_V = 0.0;
       for (auto const& cell: elements(x_PDE.at(state_PDE_idx).descriptions.gridView)) {
@@ -639,7 +687,7 @@ int main(int argc, char *argv[]) {
 
       std::vector<Equation> equations;
       for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) {
-        Equation Eq(sigma, gamma, eta, kappa, eta_c, phi_i, phi_sy, phi_h, phi_hc, beta_e_vec_pdes.at(state_PDE_idx), all_abms[run-initial_run].activityChangePercentage, D, landscape_scale, grad_V_PDE.at(state_PDE_idx), T_vec, xi, varSetDesc_PDE.at(state_PDE_idx));
+        Equation Eq(sigma, gamma, eta, kappa, eta_c, phi_i, phi_sy, phi_h, phi_hc, beta_e_vec_pdes.at(state_PDE_idx), all_abms[0].activityChangePercentage, D, landscape_scale, grad_V_PDE.at(state_PDE_idx), T_vec, xi, varSetDesc_PDE.at(state_PDE_idx));
         equations.push_back(Eq); 
       }
 

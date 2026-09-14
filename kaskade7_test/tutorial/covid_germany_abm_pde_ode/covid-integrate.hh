@@ -466,6 +466,7 @@ integrate(
         }
       }
     }
+    std::cout << "ABM step done" << std::endl;
 
     if (nr_PDE_states > 0) {
       // do one PDE step
@@ -972,9 +973,9 @@ integrate(
   std::vector<std::vector<double>> result_days_ODE(nr_ODE_states,std::vector<double>(days, 0.0));
 
   double norm = 0.0;
-  for (int day = 0; day < days; ++day) {
+  for (int day = 0; day < days; day++) {
     for (int state_ODE_idx=0; state_ODE_idx<nr_ODE_states; state_ODE_idx++) { // iterate over all ODE domains
-      for (int hour = 0; hour < dt_inv; ++hour) {
+      for (int hour = 0; hour < dt_inv; hour++) {
         result_days_ODE.at(state_ODE_idx)[day] += F_ODE.at(state_ODE_idx)[day*dt_inv+hour];
       }
       result_days_ODE.at(state_ODE_idx)[day] /= dt_inv;
@@ -993,9 +994,9 @@ integrate(
   } // end for day
   std::cout << "norm " << std::sqrt(norm) << std::endl;
 
-  for (int day = 0; day < days; ++day) {
+  for (int day = 0; day < days; day++) {
     for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) { // iterate over all PDE domains
-      for (int hour = 0; hour < dt_inv; ++hour) {
+      for (int hour = 0; hour < dt_inv; hour++) {
         result_days_PDE.at(state_PDE_idx)[day] += F_PDE.at(state_PDE_idx)[day*dt_inv+hour];
       }
       result_days_PDE.at(state_PDE_idx)[day] /= dt_inv;
@@ -1014,9 +1015,9 @@ integrate(
   } // end for day
   std::cout << "norm " << std::sqrt(norm) << std::endl;
 
-  for (int day = 0; day < days; ++day) {
+  for (int day = 0; day < days; day++) {
     for (int state_ABM_idx=0; state_ABM_idx<nr_ABM_states; state_ABM_idx++) { // iterate over all ABM domains
-      for (int hour = 0; hour < dt_inv; ++hour) {
+      for (int hour = 0; hour < dt_inv; hour++) {
         result_days_ABM.at(state_ABM_idx)[day] += nbr_symptomatic_agents.at(state_ABM_idx)[day*dt_inv+hour];
       }
       result_days_ABM.at(state_ABM_idx)[day] /= dt_inv;

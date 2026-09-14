@@ -112,9 +112,9 @@ public:
             population_scale_str = "4";
         }
         
-        jump_matrix.resize(3);
-        germany_jump_matrix_agent_IDs.resize(3);
-        for (int nr_day=0; nr_day<3; nr_day++) {
+        jump_matrix.resize(nbr_day_types);
+        germany_jump_matrix_agent_IDs.resize(nbr_day_types);
+        for (int nr_day=0; nr_day<nbr_day_types; nr_day++) {
             std::string filename = "../../work/input_data/global/germany_jump_matrix_agent_IDs_" + days_str[nr_day] + addOn + "_dt_inv_" + std::to_string(dt_inv) + ".bin";
             std::cout << filename << std::endl;
             std::ifstream file(filename, std::ios::binary);
@@ -165,14 +165,14 @@ public:
         int total_nr_days;
         int init_nr_day;
         if (nr_day_specific == -1) {
-            total_nr_days = 3;
+            total_nr_days = nbr_day_types;
             init_nr_day = 0;
         }
         else {
             total_nr_days = 1;
             init_nr_day = nr_day_specific;
         }
-        eventData.resize(3);
+        eventData.resize(nbr_day_types);
         const int cols = 5; // time in seconds, activity type, person id, facility index (corresponding to facility coordinates of that category), category index (corresponding to facility_categories)
         for (int nr_day=init_nr_day; nr_day<init_nr_day+total_nr_days; nr_day++) {
             std::cout << "trying to read file with nr_day " << nr_day << std::endl;
@@ -255,9 +255,8 @@ public:
             population_scale_str = "4";
         }
 
-        facilityCoordinates_home.resize(3);
-        for (int nr_day=0; nr_day<3; nr_day++) {
-            //input_data/germany_agent_ids_with_home_facility_coordinates_index_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin"; 
+        facilityCoordinates_home.resize(nbr_day_types);
+        for (int nr_day=0; nr_day<nbr_day_types; nr_day++) {
             std::string filename = "../../work/input_data/global/germany_agent_ids_with_home_facility_coordinates_index_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin"; 
             std::ifstream infile(filename, std::ios::binary);
 
@@ -297,9 +296,9 @@ public:
             population_scale_str = "4";
         }
 
-        facilityCoordinates_allCategories.resize(3);
-        facilityLabels_allCategories.resize(3);
-        for (int nr_day=0; nr_day<3; nr_day++) {
+        facilityCoordinates_allCategories.resize(nbr_day_types);
+        facilityLabels_allCategories.resize(nbr_day_types);
+        for (int nr_day=0; nr_day<nbr_day_types; nr_day++) {
             std::string filename = "../../work/input_data/global/germany_facility_coordinates_" + std::to_string(nr_day) + "_" + population_scale_str + "_labeled.bin";
             std::ifstream infile(filename, std::ios::binary);
             if (!infile) {
@@ -359,8 +358,8 @@ public:
             population_scale_str = "4";
         }
 
-        max_agents_per_facility_category.resize(3);
-        for (int nr_day=0; nr_day<3; nr_day++) {
+        max_agents_per_facility_category.resize(nbr_day_types);
+        for (int nr_day=0; nr_day<nbr_day_types; nr_day++) {
             std::string filename = "../../work/input_data/global/germany_max_agents_per_facility_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin";
             std::ifstream file(filename, std::ios::binary);
             if (!file) {
@@ -398,9 +397,11 @@ public:
             population_scale_str = "4";
         }
         
-        nbr_agents.resize(3, std::vector<int>(nr_ABM_states));
-        all_initial_agent_ids.resize(3, std::vector<std::vector<int>>(nr_ABM_states));
-        for (int nr_day = 0; nr_day < 3; nr_day++) {
+        nbr_agents.resize(nbr_day_types, std::vector<int>(nr_ABM_states));
+        all_initial_agent_ids.resize(nbr_day_types, std::vector<std::vector<int>>(nr_ABM_states));
+        population_pde_t_0.resize(nr_PDE_states);
+        population_ode_t_0.resize(nr_ODE_states);
+        for (int nr_day = 0; nr_day < nbr_day_types; nr_day++) {
             std::cout << "\n nr_day " << nr_day << std::endl;
             std::string filenameTotalNumbers = "../../work/input_data/global/germany_nbr_individuals_id_t_0_in_states_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin"; 
             std::ifstream fileTotalNumbers(filenameTotalNumbers, std::ios::binary); 
@@ -433,7 +434,6 @@ public:
                         }
                     }
                     std::cout << "total_nbr_individuals " << total_nbr_individuals << std::endl;
-                    
                 }
                 fileTotalNumbers.close();
             } else {
@@ -446,7 +446,6 @@ public:
                 int64_t bundesland_nr;
                 for (int agent_id=0; agent_id<nbr_trajectories; agent_id++) {
                     file.read(reinterpret_cast<char*>(&bundesland_nr), sizeof(int64_t));
-                    // if (ABMstate_nr >= 0) { // if ABMstate_nr == -1, then it's not in an ABM state but PDE or ODE state
                     if (model_type_of_domain[bundesland_nr] == abm_idx) {
                         all_initial_agent_ids[nr_day][local_index[bundesland_nr]].push_back(agent_id);
                     }
@@ -499,7 +498,7 @@ public:
     }    
 
     std::tuple< int, std::unordered_map<int, int>, std::unordered_map<int, int> > filter_event_data(const std::vector<int>& initial_agent_ids, std::vector<std::vector<int>>& filtered_event_data,
-                                                                                                    std::ranlux24_base& gen_local, int step, int nr_day, int verbosity, std::vector<std::vector<bool>> zero_covid_active, std::vector<bool> greenZone) {
+                                                                                                    std::ranlux24_base& gen_local, int step, int nr_day, int verbosity, std::vector<bool> zero_covid_active, std::vector<bool> greenZone) {
         double dt = 1.0/dt_inv;
 
         std::vector<int> day_shift_edu_lockdown_all(nbr_federal_states, dt * step + 1); // no lockdown. if with_restriction -> overwrite!
@@ -758,17 +757,14 @@ public:
                 if (zero_covid) {
                     int home_facility_id = facilityCoordinates_home_nr_day[agent_id];
                     int homeStateIdx = facilityLabels_allCategories_nr_day.at(0).at(home_facility_id);
-                    int model_type = model_type_of_domain[homeStateIdx];
-                    int stateIdxSpecificModelType = local_index[homeStateIdx];
-
-                    if (zero_covid_active[model_type][stateIdxSpecificModelType]) {
+                    if (zero_covid_active[homeStateIdx]) {
                         probability_notAtHome = -1.0; // always at home!
                     }
                 }
                 else if (no_covid) {
                     int home_facility_id = facilityCoordinates_home_nr_day[agent_id];
-                    int bundesland = facilityLabels_allCategories_nr_day.at(0).at(home_facility_id);      
-                    if (not greenZone[local_index[bundesland]]) { // red zone!
+                    int homeStateIdx = facilityLabels_allCategories_nr_day.at(0).at(home_facility_id);      
+                    if (not greenZone[homeStateIdx]) { // red zone!
                         probability_notAtHome = -1.0; // always at home!
                     }
                 }
@@ -1058,7 +1054,7 @@ public:
         return std::make_tuple(row_idx, agentID_location_commuting_start, agentID_location_commuting_end);
     }
     
-    std::tuple< std::vector<std::unordered_map<int, int>>, std::vector<int>, std::vector<std::vector<int>>, std::vector<std::vector<int>>, std::vector<std::vector<int>> > step(const std::vector<std::vector<int>>& event_data, int filtered_event_data_size, std::vector<std::vector<bool>> with_coupling_states, std::unordered_map<int, int>& agentID_location_commuting_start, std::unordered_map<int, int>& agentID_location_commuting_end, std::unordered_map<int, int> agentID_healthStatus, int& step, std::vector<double>& infection_rates, int& nr_day, double& population_scale, std::unordered_map<int, std::tuple<int,int,int>>& mystery_case_location, std::vector<std::vector<std::vector<double>>>& symptomatic_mystery_cases, std::ranlux24_base& gen_local, int& verbosity, int run, int correction_step) { 
+    std::tuple< std::vector<std::unordered_map<int, int>>, std::vector<int>, std::vector<std::vector<int>>, std::vector<std::vector<int>>, std::vector<int> > step(const std::vector<std::vector<int>>& event_data, int filtered_event_data_size, std::vector<bool> with_coupling_states, std::unordered_map<int, int>& agentID_location_commuting_start, std::unordered_map<int, int>& agentID_location_commuting_end, std::unordered_map<int, int> agentID_healthStatus, int& step, std::vector<double>& infection_rates, int& nr_day, double& population_scale, std::unordered_map<int,int>& mystery_case_location, std::vector<std::vector<double>>& symptomatic_mystery_cases, std::ranlux24_base& gen_local, int& verbosity, int run, int correction_step) { 
         double dt = 1.0/dt_inv;
         int corrected_step = step % dt_inv;
 
@@ -1176,6 +1172,7 @@ public:
             }
             containers.at(category_index).at(facility_index).push_back({agent_id, time_entering, time_leaving});
         }
+        std::cout << "after containers" << std::endl;
 
         // find out whether an agent leaves a container, for checking whether the health status changes or not!
         // deep copy health state map
@@ -1319,10 +1316,7 @@ public:
                             if (!is_aware_of_being_infected[infector]) { // mystery case!
                                 int home_facility_id = facilityCoordinates_home[nr_day][agent_id];
                                 int homeStateIdx = facilityLabels_allCategories_day.at(0).at(home_facility_id);
-                                int model_type = model_type_of_domain[homeStateIdx];
-                                int stateIdxSpecificModelType = local_index[homeStateIdx];
-
-                                mystery_case_location[agent_id] = {model_type, stateIdxSpecificModelType, homeStateIdx};
+                                mystery_case_location[agent_id] = homeStateIdx;
                             }
                             break;
                         }
@@ -1335,6 +1329,7 @@ public:
                 }
             }
         }
+        std::cout << "after health status change of susceptible" << std::endl;
 
         std::vector<int> ids;
         ids.reserve(agentID_healthStatus.size());
@@ -1364,10 +1359,8 @@ public:
                         
                         auto it = mystery_case_location.find(agent_id);
                         if (it != mystery_case_location.end()) { // found agent_id in mystery_case_location
-                            int model_type = std::get<0>(it->second);
-                            int stateIdxSpecificModelType = std::get<1>(it->second);
-                            int homeStateIdx = std::get<2>(it->second);
-                            symptomatic_mystery_cases[model_type][stateIdxSpecificModelType][step+1] += 1.0;
+                            int homeStateIdx = it->second;
+                            symptomatic_mystery_cases[homeStateIdx][step+1] += 1.0;
                         }                        
                     }
                     else {
@@ -1409,6 +1402,7 @@ public:
                 }
             }
         }
+        std::cout << "after health status change of everyone else" << std::endl;
 
         ///////////////
         // compute final location of agents and check if they are in PDE/ODE domain or not
@@ -1422,10 +1416,7 @@ public:
         int bundesland_nr;
         int stateIdxSpecificModelType = -1;
         int agent_id;
-        std::vector<std::vector<int>> cnt_new_symptomatic(nbr_model_types);
-        for (int model_type=0; model_type<nbr_model_types; model_type++) {
-            cnt_new_symptomatic[model_type].resize(stateIndices_all_models[model_type].size(), 0);
-        }
+        std::vector<int> cnt_new_symptomatic(nbr_federal_states,0);
 
         if ( filtered_event_data_size > 0 &&  // during the night there are sometimes timesteps without events
             ( (nr_ABM_states > 1)
@@ -1449,10 +1440,7 @@ public:
                     if (zero_covid && agentID_healthStatus[previous_agent_id] == 2 && agentID_healthStatus_next[previous_agent_id] == 3) {
                         int home_facility_id = facilityCoordinates_home[nr_day][previous_agent_id];
                         int homeStateIdx = facilityLabels_allCategories_day.at(0).at(home_facility_id);
-                        int model_type = model_type_of_domain[homeStateIdx];
-                        stateIdxSpecificModelType = local_index[homeStateIdx];
-
-                        cnt_new_symptomatic[model_type][stateIdxSpecificModelType]++;
+                        cnt_new_symptomatic[homeStateIdx]++;
                     }
                     int category_index = event_data[index_event_data][4];
                     int facility_index = event_data[index_event_data][3];
@@ -1485,10 +1473,10 @@ public:
                         stateIdxSpecificModelType = local_index[bundesland_nr]; 
                     }
 
-                    if (in_ODE && with_coupling_states[ode_idx].at(stateIdxSpecificModelType)) { // is inside the ODE domain and transmission into that ODE domain is allowed
+                    if (in_ODE && with_coupling_states[bundesland_nr]) { // is inside the ODE domain and transmission into that ODE domain is allowed
                         healthStatus_agents_in_ODE[stateIdxSpecificModelType][agentID_healthStatus_next[previous_agent_id]]++;
                     }                     
-                    else if (in_PDE && with_coupling_states[pde_idx].at(stateIdxSpecificModelType)) { // is inside the PDE domain and transmission into that PDE domain is allowed
+                    else if (in_PDE && with_coupling_states[bundesland_nr]) { // is inside the PDE domain and transmission into that PDE domain is allowed
                         healthStatus_agents_in_PDE[stateIdxSpecificModelType][agentID_healthStatus_next[previous_agent_id]]++;
                     }
                     else { // bleibt im ABM als agent
@@ -1517,7 +1505,7 @@ public:
 
         // ///////////////
         if ((verbosity == 2) && (step % (8*3) == 0) && (run == 0)) {
-            std::string filename_position = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/agents_position_0" + ".txt";
+            std::string filename_position = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/agents_position_0.txt";
             std::ofstream outfile_position;
             if (step == 0) { 
                 outfile_position.open(filename_position);  // Datei überschreiben im ersten Durchlauf
@@ -1533,7 +1521,7 @@ public:
 
 
             // save additionally the status of agents
-            std::string filename_healthStatus = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/agents_healthStatus_0" + ".txt";
+            std::string filename_healthStatus = "../../work/output/output_data_optim_" + std::to_string(correction_step) + "/agents_healthStatus_0.txt";
             std::ofstream outfile_healthStatus;
             if (step == 0) { 
                 outfile_healthStatus.open(filename_healthStatus);  // Datei überschreiben im ersten Durchlauf

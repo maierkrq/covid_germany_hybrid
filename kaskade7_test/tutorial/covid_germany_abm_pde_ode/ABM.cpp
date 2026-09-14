@@ -111,9 +111,9 @@ public:
             population_scale_str = "4";
         }
         
-        jump_matrix.resize(3);
-        germany_jump_matrix_agent_IDs.resize(3);
-        for (int nr_day=0; nr_day<3; nr_day++) {
+        jump_matrix.resize(nbr_day_types);
+        germany_jump_matrix_agent_IDs.resize(nbr_day_types);
+        for (int nr_day=0; nr_day<nbr_day_types; nr_day++) {
             std::string filename = "../../work/input_data/global/germany_jump_matrix_agent_IDs_" + days_str[nr_day] + addOn + "_dt_inv_" + std::to_string(dt_inv) + ".bin";
             std::cout << filename << std::endl;
             std::ifstream file(filename, std::ios::binary);
@@ -164,14 +164,14 @@ public:
         int total_nr_days;
         int init_nr_day;
         if (nr_day_specific == -1) {
-            total_nr_days = 3;
+            total_nr_days = nbr_day_types;
             init_nr_day = 0;
         }
         else {
             total_nr_days = 1;
             init_nr_day = nr_day_specific;
         }
-        eventData.resize(3);
+        eventData.resize(nbr_day_types);
         const int cols = 5; // time in seconds, activity type, person id, facility index (corresponding to facility coordinates of that category), category index (corresponding to facility_categories)
         for (int nr_day=init_nr_day; nr_day<init_nr_day+total_nr_days; nr_day++) {
             std::cout << "trying to read file with nr_day " << nr_day << std::endl;
@@ -254,8 +254,8 @@ public:
             population_scale_str = "4";
         }
 
-        facilityCoordinates_home.resize(3);
-        for (int nr_day=0; nr_day<3; nr_day++) {
+        facilityCoordinates_home.resize(nbr_day_types);
+        for (int nr_day=0; nr_day<nbr_day_types; nr_day++) {
             std::string filename = "../../work/input_data/global/germany_agent_ids_with_home_facility_coordinates_index_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin"; 
             std::ifstream infile(filename, std::ios::binary);
 
@@ -295,9 +295,9 @@ public:
             population_scale_str = "4";
         }
 
-        facilityCoordinates_allCategories.resize(3);
-        facilityLabels_allCategories.resize(3);
-        for (int nr_day=0; nr_day<3; nr_day++) {
+        facilityCoordinates_allCategories.resize(nbr_day_types);
+        facilityLabels_allCategories.resize(nbr_day_types);
+        for (int nr_day=0; nr_day<nbr_day_types; nr_day++) {
             std::string filename = "../../work/input_data/global/germany_facility_coordinates_" + std::to_string(nr_day) + "_" + population_scale_str + "_labeled.bin";
             std::ifstream infile(filename, std::ios::binary);
             if (!infile) {
@@ -357,8 +357,8 @@ public:
             population_scale_str = "4";
         }
 
-        max_agents_per_facility_category.resize(3);
-        for (int nr_day=0; nr_day<3; nr_day++) {
+        max_agents_per_facility_category.resize(nbr_day_types);
+        for (int nr_day=0; nr_day<nbr_day_types; nr_day++) {
             std::string filename = "../../work/input_data/global/germany_max_agents_per_facility_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin";
             std::ifstream file(filename, std::ios::binary);
             if (!file) {
@@ -396,9 +396,11 @@ public:
             population_scale_str = "4";
         }
         
-        nbr_agents.resize(3, std::vector<int>(nr_ABM_states));
-        all_initial_agent_ids.resize(3, std::vector<std::vector<int>>(nr_ABM_states));
-        for (int nr_day = 0; nr_day < 3; nr_day++) {
+        nbr_agents.resize(nbr_day_types, std::vector<int>(nr_ABM_states));
+        all_initial_agent_ids.resize(nbr_day_types, std::vector<std::vector<int>>(nr_ABM_states));
+        population_pde_t_0.resize(nr_PDE_states);
+        population_ode_t_0.resize(nr_ODE_states);
+        for (int nr_day = 0; nr_day < nbr_day_types; nr_day++) {
             std::cout << "\n nr_day " << nr_day << std::endl;
             std::string filenameTotalNumbers = "../../work/input_data/global/germany_nbr_individuals_id_t_0_in_states_" + std::to_string(nr_day) + "_" + population_scale_str + ".bin"; 
             std::ifstream fileTotalNumbers(filenameTotalNumbers, std::ios::binary); 
@@ -431,7 +433,6 @@ public:
                         }
                     }
                     std::cout << "total_nbr_individuals " << total_nbr_individuals << std::endl;
-                    
                 }
                 fileTotalNumbers.close();
             } else {
@@ -444,7 +445,6 @@ public:
                 int64_t bundesland_nr;
                 for (int agent_id=0; agent_id<nbr_trajectories; agent_id++) {
                     file.read(reinterpret_cast<char*>(&bundesland_nr), sizeof(int64_t));
-                    // if (ABMstate_nr >= 0 && nr_ABM_states > ABMstate_nr) { // if ABMstate_nr == -1, then it's not in an ABM state but PDE or ODE state
                     if (model_type_of_domain[bundesland_nr] == abm_idx) {
                         all_initial_agent_ids[nr_day][local_index[bundesland_nr]].push_back(agent_id);
                     }

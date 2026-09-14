@@ -225,18 +225,18 @@ std::tuple< std::vector<std::unordered_map<int, int>>, std::vector<int> >
 integrate(
                                                 std::vector<std::unique_ptr<GridManager<Grid>>>& gridManagers_PDE,
                                                 std::vector<Equation>& eq, std::vector<VariableSet>const& variableSet, 
-                                                std::vector<std::vector<std::vector<double>>> allNewSymptomaticCases,
+                                                std::vector<std::vector<double>> allNewSymptomaticCases,
                                                 int dt_inv, double population_scale,
                                                 std::ranlux24_base& gen_local, //& important here
                                                 int correction_step,
                                                 int week_day, double T, double t_0, int maxSteps, int extrapolOrder, 
-                                                bool zero_covid, bool no_covid, std::vector<bool> greenZone, 
+                                                bool zero_covid, bool no_covid, std::vector<bool> greenZone, std::vector<bool> zero_covid_active, 
                                                 std::vector<typename VariableSet::VariableSet>& x_PDE,
                                                 std::vector<std::vector<double>>& x_ODE,
                                                 ABModel& abm, std::vector<double> param_ABMs, 
                                                 std::vector<double> params_ODEs,
                                                 int run, int initial_run, 
-                                                std::vector<std::vector<bool>> with_coupling_states,
+                                                std::vector<bool> with_coupling_states,
                                                 DirectType directType,
                                                 int verbosity)
 { 
@@ -301,8 +301,9 @@ integrate(
   std::unordered_set<int> agent_IDs_in_ABM_set;
   for (int state_ABM_idx=0; state_ABM_idx<nr_ABM_states; state_ABM_idx++) {
     for (int i=0; i<initial_agent_ids[nr_day].at(state_ABM_idx).size(); i++) {
-      agent_IDs_in_ABM.push_back(initial_agent_ids[nr_day].at(state_ABM_idx)[i]); 
-      agent_IDs_in_ABM_set.insert(initial_agent_ids[nr_day].at(state_ABM_idx)[i]);
+      int agent_id = initial_agent_ids[nr_day].at(state_ABM_idx)[i];
+      agent_IDs_in_ABM.push_back(agent_id); 
+      agent_IDs_in_ABM_set.insert(agent_id);
     }
   }
   std::sort(agent_IDs_in_ABM.begin(), agent_IDs_in_ABM.end()); // sort by id
@@ -327,12 +328,8 @@ integrate(
     }
   }
 
-  std::vector<std::vector<std::vector<double>>> symptomatic_mystery_cases(nbr_model_types); 
-  for (int model_type=0; model_type<nbr_model_types; model_type++) {
-      symptomatic_mystery_cases[model_type].resize(stateIndices_all_models[model_type].size(), std::vector<double>(maxSteps+1,0.0));
-  }
-
-  std::unordered_map<int, std::tuple<int,int,int>> mystery_case_location;
+  std::vector<std::vector<double>> symptomatic_mystery_cases(nbr_federal_states, std::vector<double>(maxSteps+1,0.0)); 
+  std::unordered_map<int,int> mystery_case_location;
 
   double area;
   std::vector<std::vector<double>> corners;
@@ -340,7 +337,6 @@ integrate(
 
   std::vector<std::vector<int>> nbr_symptomatic_agents(nr_ABM_states, std::vector<int>(maxSteps+1,0));
   if (verbosity > 0 || zero_covid || no_covid) { 
-     
     // compute initial number of symptomatic people -> new symptomatic individuals
     for (int state_ABM_idx = 0; state_ABM_idx < nr_ABM_states; state_ABM_idx++) { // iterate over all ABM domains
       for (const auto& agent_ID_healthState: agentID_healthStatus_map.at(state_ABM_idx)) {
@@ -349,13 +345,15 @@ integrate(
           nbr_symptomatic_agents.at(state_ABM_idx)[0]++;
         }
       }
-      allNewSymptomaticCases[abm_idx].at(state_ABM_idx)[0] = nbr_symptomatic_agents.at(state_ABM_idx)[0];
+      int bundesland = stateIndices_ABM.at(state_ABM_idx);
+      allNewSymptomaticCases[bundesland][0] = nbr_symptomatic_agents.at(state_ABM_idx)[0];
     }
 
     // save ODE solution
     for (int state_ODE_idx=0; state_ODE_idx<nr_ODE_states; state_ODE_idx++) { // iterate over all ODE domains
       F_ODE.at(state_ODE_idx)[0] = x_ODE.at(state_ODE_idx)[3]; // total number of symptomatic people in ODE domain
-      allNewSymptomaticCases[ode_idx].at(state_ODE_idx)[0] = F_ODE.at(state_ODE_idx)[0]; //int(F_ODE.at(state_ODE_idx)[0]+0.5); // round to whole numbers
+      int bundesland = stateIndices_ODE.at(state_ODE_idx);
+      allNewSymptomaticCases[bundesland][0] = F_ODE.at(state_ODE_idx)[0]; //int(F_ODE.at(state_ODE_idx)[0]+0.5); // round to whole numbers
     }
     
     // save PDE solution
@@ -393,7 +391,8 @@ integrate(
           } // end for corner
         } // end for cell
         std::cout << "symptomatic in " << stateLabels_PDE.at(state_PDE_idx) << ": " << (F_PDE.at(state_PDE_idx)[0]) << std::endl;
-        allNewSymptomaticCases[pde_idx].at(state_PDE_idx)[0] = F_PDE.at(state_PDE_idx)[0]; //int(F_PDE.at(state_PDE_idx)[0]+0.5); // round to whole numbers
+        int bundesland = stateIndices_PDE.at(state_PDE_idx);
+        allNewSymptomaticCases[bundesland][0] = F_PDE.at(state_PDE_idx)[0]; //int(F_PDE.at(state_PDE_idx)[0]+0.5); // round to whole numbers
       } // verbosity
     } // end for PDE domains
   }
@@ -442,11 +441,7 @@ integrate(
 
   std::vector<std::vector<std::vector<int>>> cnt_jumping_persons_per_compartment(nbr_federal_states, std::vector<std::vector<int>>(nr_ABM_states,std::vector<int>(nbr_compartments)));
   const auto& activityChangePercentage = abm.activityChangePercentage;
-  std::vector<std::vector<int>> cnt_new_symptomatic;
-  std::vector<std::vector<bool>> zero_covid_active(nbr_model_types);
-  for (int model_type=0; model_type<nbr_model_types; model_type++) {
-    zero_covid_active[model_type].resize(stateIndices_all_models[model_type].size(), false);
-  }
+  std::vector<int> cnt_new_symptomatic;
 
   int max_jumps = 0; 
   int nbr_unique_agents = 0;
@@ -462,9 +457,11 @@ integrate(
 
     if (nr_ABM_states > 0) {
       // update event data for new agents
+      std::cout << "before filter_event_data, agent_IDs_in_ABM.size(): " << agent_IDs_in_ABM.size() << std::endl;
       std::tie(filtered_event_data_size, agentID_location_commuting_start, agentID_location_commuting_end) =
         abm.filter_event_data(agent_IDs_in_ABM, filtered_event_data, gen_local, 
                           steps, nr_day, verbosity, zero_covid_active, greenZone); 
+      std::cout << "after filter_event_data, agent_IDs_in_ABM.size(): " << agent_IDs_in_ABM.size() << std::endl;
 
       // flatten agentID_healthStatus_map for ABM step
       agentID_healthStatus_map_flatten.clear();
@@ -475,8 +472,10 @@ integrate(
       }
 
       // do one ABM step
+      std::cout << "before abm.step, agent_IDs_in_ABM.size(): " << agent_IDs_in_ABM.size() << std::endl;
       std::tie(agentID_healthStatus_map, agent_IDs_in_ABM, healthStatus_agents_in_PDE, healthStatus_agents_in_ODE, cnt_new_symptomatic) = abm.step(std::move(filtered_event_data), filtered_event_data_size, with_coupling_states, agentID_location_commuting_start, agentID_location_commuting_end, agentID_healthStatus_map_flatten, steps, param_ABMs, nr_day, population_scale, mystery_case_location, symptomatic_mystery_cases, gen_local, verbosity, run, correction_step); 
-
+      std::cout << "after abm.step, agent_IDs_in_ABM.size(): " << agent_IDs_in_ABM.size() << std::endl;
+      
       agent_IDs_in_ABM_set.clear();
       agent_IDs_in_ABM_set.reserve(agent_IDs_in_ABM.size());
       agent_IDs_in_ABM_set.insert(agent_IDs_in_ABM.begin(), agent_IDs_in_ABM.end());
@@ -489,9 +488,14 @@ integrate(
             nbr_symptomatic_agents.at(state_ABM_idx)[steps+1]++;
           }
         }
-        allNewSymptomaticCases[abm_idx].at(state_ABM_idx)[steps+1] = cnt_new_symptomatic[abm_idx].at(state_ABM_idx);
+      }
+
+      // save new number of symptomatic agents, only relevant for zero covid and no covid scenarios:
+      for (int bundesland = 0; bundesland < nbr_federal_states; bundesland++) {
+        allNewSymptomaticCases[bundesland][steps+1] = cnt_new_symptomatic[bundesland];
       }
     }
+    std::cout << "ABM step done" << std::endl;
 
     if (nr_PDE_states > 0) {
       // do one PDE step
@@ -535,6 +539,7 @@ integrate(
         n_PDE.at(state_PDE_idx)[steps+1] = total_nbr_PDE_state;
       }
     }
+    std::cout << "after PDE step" << std::endl;
 
     if (nr_ODE_states > 0) {
       double act_change_notAtHome = activityChangePercentage[int(t_0+steps*dt+0.1)][1]/100.0;
@@ -572,13 +577,13 @@ integrate(
 
         F_ODE.at(state_ODE_idx)[steps+1] = x[3]; // total number of symptomatic people in ODE domain
         n_ODE.at(state_ODE_idx)[steps+1] = x[0] + x[1] + x[2] + x[3] + x[4] + x[5] + x[6] + x[7]; // total number of people in ODE domain
-        allNewSymptomaticCases[ode_idx].at(state_ODE_idx)[steps+1] = dt * params_ODEs[1]*x[2]; 
+        int bundesland = stateIndices_ODE[state_ODE_idx];
+        allNewSymptomaticCases[bundesland][steps+1] = dt * params_ODEs[1]*x[2]; 
 
         if (no_covid) {
-          int bundesland = stateIndices_ODE[state_ODE_idx];
           double P_mystery = (x[2])/(x[2] + x[3]);
-          double mystery_infected = P_mystery * allNewSymptomaticCases[ode_idx][state_ODE_idx][steps+1];
-          symptomatic_mystery_cases[ode_idx][state_ODE_idx][steps+1] += mystery_infected;
+          double mystery_infected = P_mystery * allNewSymptomaticCases[bundesland][steps+1];
+          symptomatic_mystery_cases[bundesland][steps+1] += mystery_infected;
         }
       }
     }
@@ -641,7 +646,7 @@ integrate(
 
     sign = 1; // -1: from PDE (to ABM), 1: (from ABM) to PDE
     for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) { // iterate over all PDE domains
-      if (!with_coupling_states[pde_idx].at(state_PDE_idx)) {
+      if (!with_coupling_states[stateIndices_PDE.at(state_PDE_idx)]) {
         continue;
       }
 
@@ -657,7 +662,7 @@ integrate(
     std::vector<std::vector<double>> ODEcompartmentAddingPersons(nr_ODE_states, std::vector<double>(nbr_compartments,0.0));
     sign = 1; // -1: from ODE (to ABM), 1: (from ABM) to ODE
     for (int state_ODE_idx=0; state_ODE_idx<nr_ODE_states; state_ODE_idx++) { // iterate over all ODE domains
-      if (!with_coupling_states[ode_idx].at(state_ODE_idx)) { 
+      if (!with_coupling_states[stateIndices_ODE.at(state_ODE_idx)]) { 
         continue;
       }
 
@@ -683,13 +688,13 @@ integrate(
 
     int total_jumps_from_PDE_to_ABM = 0;
     for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) { // iterate over all PDE domains
-      if (!with_coupling_states[pde_idx].at(state_PDE_idx)) {
+      if (!with_coupling_states[stateIndices_PDE.at(state_PDE_idx)]) {
         continue;
       } 
       // PDE -> ABM
       int state_idx_from = stateIndices_PDE.at(state_PDE_idx);
       for (int state_ABM_idx=0; state_ABM_idx<nr_ABM_states; state_ABM_idx++) { 
-        if (!with_coupling_states[abm_idx].at(state_ABM_idx)) {
+        if (!with_coupling_states[stateIndices_ABM.at(state_ABM_idx)]) {
           continue;
         }
 
@@ -718,7 +723,7 @@ integrate(
         if (state_PDE_idx == state_PDE_into_idx) { // can not jump from and into the same state
           continue;
         }
-        if (!with_coupling_states[pde_idx].at(state_PDE_into_idx)) {
+        if (!with_coupling_states[stateIndices_PDE.at(state_PDE_into_idx)]) {
           continue;
         }  
 
@@ -743,7 +748,7 @@ integrate(
 
       // process jumps out of PDE into ODE
       for (int state_ODE_idx=0; state_ODE_idx<nr_ODE_states; state_ODE_idx++) {         
-        if (!with_coupling_states[ode_idx].at(state_ODE_idx)) {
+        if (!with_coupling_states[stateIndices_ODE.at(state_ODE_idx)]) {
           continue;
         }
         max_jumps = jump_matrix[nr_day][jump_timestep][stateIndices_PDE.at(state_PDE_idx)][stateIndices_ODE.at(state_ODE_idx)]; 
@@ -803,12 +808,12 @@ integrate(
             I_PDE.at(state_PDE_idx)[steps+1] += (area/3) * data_I.at(state_PDE_idx)[index+nbr_points_PDE.at(state_PDE_idx)*(steps+1)];
           } // end for corner
         } // end for cell
-        allNewSymptomaticCases[pde_idx].at(state_PDE_idx)[steps+1] = dt * params_ODEs[1] * I_PDE.at(state_PDE_idx)[steps+1]; 
+        int bundesland = stateIndices_PDE[state_PDE_idx];
+        allNewSymptomaticCases[bundesland][steps+1] = dt * params_ODEs[1] * I_PDE.at(state_PDE_idx)[steps+1]; 
         
         if (no_covid) {
-          int bundesland = stateIndices_PDE[state_PDE_idx];
-          double mystery_infected = allNewSymptomaticCases[pde_idx][state_PDE_idx][steps+1] * (I_PDE[state_PDE_idx][steps+1])/(I_PDE[state_PDE_idx][steps+1] + F_PDE[state_PDE_idx][steps+1]);
-          symptomatic_mystery_cases[pde_idx][state_PDE_idx][steps+1] += mystery_infected;
+          double mystery_infected = allNewSymptomaticCases[bundesland][steps+1] * (I_PDE[state_PDE_idx][steps+1])/(I_PDE[state_PDE_idx][steps+1] + F_PDE[state_PDE_idx][steps+1]);
+          symptomatic_mystery_cases[bundesland][steps+1] += mystery_infected;
         }
       } //verbosity
     } // end for state_PDE_idx
@@ -819,13 +824,13 @@ integrate(
     int total_jumps_from_ODE_to_ABM = 0;
     // compute number of jumps and perform jumps outgoing from ODE states (into ABM, PDE, ODE states)
     for (int state_ODE_idx=0; state_ODE_idx<nr_ODE_states; state_ODE_idx++) { // iterate over all ODE domains
-      if (!with_coupling_states[ode_idx].at(state_ODE_idx)) {
+      if (!with_coupling_states[stateIndices_ODE.at(state_ODE_idx)]) {
         continue;
       }
       // process jumps out of ODE (-> ABM)
       int state_idx_from = stateIndices_ODE.at(state_ODE_idx);
       for (int state_ABM_idx=0; state_ABM_idx<nr_ABM_states; state_ABM_idx++) { 
-        if (!with_coupling_states[abm_idx].at(state_ABM_idx)) {
+        if (!with_coupling_states[stateIndices_ABM.at(state_ABM_idx)]) {
           continue;
         }
 
@@ -855,7 +860,7 @@ integrate(
         if (state_ODE_idx == state_ODE_into_idx) { // can not jump from and into the same state
           continue;
         }
-        if (!with_coupling_states[ode_idx][state_ODE_into_idx]) {
+        if (!with_coupling_states[stateIndices_ODE.at(state_ODE_into_idx)]) {
           continue;
         }  
         max_jumps = jump_matrix[nr_day][jump_timestep][stateIndices_ODE.at(state_ODE_idx)][stateIndices_ODE[state_ODE_into_idx]]; 
@@ -870,7 +875,7 @@ integrate(
 
       // process jumps out of ODE into PDE
       for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) { 
-        if ((!with_coupling_states[pde_idx].at(state_PDE_idx))) {
+        if (!with_coupling_states[stateIndices_PDE.at(state_PDE_idx)]) {
           continue;
         }
         max_jumps = jump_matrix[nr_day][jump_timestep][stateIndices_ODE.at(state_ODE_idx)][stateIndices_PDE.at(state_PDE_idx)]; 
@@ -958,7 +963,7 @@ integrate(
 
       // alle susceptible agent IDs sammeln, shuffeln, die ersten 0.001% zu state nr 1 ändern
       for (int state_ABM_idx = 0; state_ABM_idx < nr_ABM_states; state_ABM_idx++) {
-        if (!with_coupling_states[abm_idx].at(state_ABM_idx)) {
+        if (!with_coupling_states[stateIndices_ABM.at(state_ABM_idx)]) {
           continue; // no disease import
         }
         std::vector<int> susceptible_agent_ids;
@@ -987,60 +992,61 @@ integrate(
 
       if (zero_covid) { 
         // compute sum of allNewSymptomaticCases over past 7 days
-        for (int model_type = 0; model_type < nbr_model_types; model_type++) {
-          for (int state_idx = 0; state_idx < stateIndices_all_models[model_type].size(); state_idx++) {
-            double seven_day_incidence = 0.0;
-            int initial_step = steps + 1 - 7 * dt_inv;
-            if (initial_step < 0) {
-              initial_step = 0;
+        for (int bundesland = 0; bundesland < nbr_federal_states; bundesland++) {
+          int model_type = model_type_of_domain[bundesland];
+          int state_idx = local_index[bundesland];
+
+          double seven_day_incidence = 0.0;
+          int initial_step = steps + 1 - 7 * dt_inv;
+          if (initial_step < 0) {
+            initial_step = 0;
+          }
+          for (int step_i = initial_step; step_i < steps + 1; step_i++) {
+            seven_day_incidence += allNewSymptomaticCases[bundesland][step_i];
+          }
+          if (seven_day_incidence >= 1.0) { // at least 1 individual over 7 days
+            with_coupling_states[bundesland] = false; // do not allow jumps!
+            zero_covid_active[bundesland] = true; // activate zero covid restrictions
+            if (model_type == pde_idx) {
+              eq.at(state_idx).setNoZeroCovidBool(true);
             }
-            for (int step_i = initial_step; step_i < steps + 1; step_i++) {
-              seven_day_incidence += allNewSymptomaticCases[model_type][state_idx][step_i];
-            }
-            if (seven_day_incidence >= 1.0) { // at least 1 individual over 7 days
-              with_coupling_states[model_type].at(state_idx) = false; // do not allow jumps!
-              zero_covid_active[model_type][state_idx] = true; // activate zero covid restrictions
-              if (model_type == pde_idx) {
-                eq.at(state_idx).setNoZeroCovidBool(true);
-              }
-            }
-            else { // seven_day_incidence < 1.0
-              with_coupling_states[model_type].at(state_idx) = true; // allow jumps!
-              zero_covid_active[model_type][state_idx] = false; // deactivate zero covid restrictions
-              if (model_type == pde_idx) {
-                eq.at(state_idx).setNoZeroCovidBool(false);
-              }
+          }
+          else { // seven_day_incidence < 1.0
+            with_coupling_states[bundesland] = true; // allow jumps!
+            zero_covid_active[bundesland] = false; // deactivate zero covid restrictions
+            if (model_type == pde_idx) {
+              eq.at(state_idx).setNoZeroCovidBool(false);
             }
           }
         }
       }
       if (no_covid) {
-        for (int model_type=0; model_type<nbr_model_types; model_type++) {
-          for (int state_idx=0; state_idx<stateIndices_all_models[model_type].size(); state_idx++) {
-            // compute symptomatic_mystery_cases over past 14 days
-            double two_week_mystery_cases = 0.0;
-            int initial_step = steps + 1 - 14 * dt_inv;
-            if (initial_step < 0) {
-              initial_step = 0;
-            }
-            for (int step_i = initial_step; step_i < steps + 1; step_i++) {
-              two_week_mystery_cases += symptomatic_mystery_cases[model_type][state_idx][step_i];
-            }
+        for (int bundesland = 0; bundesland < nbr_federal_states; bundesland++) {
+          int model_type = model_type_of_domain[bundesland];
+          int state_idx = local_index[bundesland];
 
-            int bundesland = stateIndices_all_models[model_type][state_idx];
-            if (two_week_mystery_cases >= 1.0) { 
-              greenZone[bundesland] = false; // turns into red zone or stays a red zone
-              with_coupling_states[model_type].at(state_idx) = false; // do not allow jumps!
-              if (model_type == pde_idx) {
-                eq.at(state_idx).setNoZeroCovidBool(true);
-              }
+          // compute symptomatic_mystery_cases over past 14 days
+          double two_week_mystery_cases = 0.0;
+          int initial_step = steps + 1 - 14 * dt_inv;
+          if (initial_step < 0) {
+            initial_step = 0;
+          }
+          for (int step_i = initial_step; step_i < steps + 1; step_i++) {
+            two_week_mystery_cases += symptomatic_mystery_cases[bundesland][step_i];
+          }
+
+          if (two_week_mystery_cases >= 1.0) { 
+            greenZone[bundesland] = false; // turns into red zone or stays a red zone
+            with_coupling_states[bundesland] = false; // do not allow jumps!
+            if (model_type == pde_idx) {
+              eq.at(state_idx).setNoZeroCovidBool(true);
             }
-            else { // 14 days red zone with less than one new mystery case
-              greenZone[bundesland] = true; // turns into green zone!
-              with_coupling_states[model_type].at(state_idx) = true; // allow jumps!
-              if (model_type == pde_idx) {
-                eq.at(state_idx).setNoZeroCovidBool(false);
-              }
+          }
+          else { // 14 days red zone with less than one new mystery case
+            greenZone[bundesland] = true; // turns into green zone!
+            with_coupling_states[bundesland] = true; // allow jumps!
+            if (model_type == pde_idx) {
+              eq.at(state_idx).setNoZeroCovidBool(false);
             }
           }
         }
@@ -1057,8 +1063,8 @@ integrate(
         #pragma omp critical
         {
           std::cout << "Thread " << omp_get_thread_num() << std::endl;
-          for (int bundesland=0; bundesland<nbr_domains; bundesland++) {
-            std::cout << "bundesland " << bundesland << " green " << (greenZone[bundesland]) << std::endl;
+          for (int bundesland=0; bundesland<nbr_federal_states; bundesland++) {
+            std::cout << "bundesland " << bundesland << ", green " << greenZone[bundesland] << std::endl;
           }
         }
       }
@@ -1066,10 +1072,8 @@ integrate(
         #pragma omp critical
         {
           std::cout << "Thread " << omp_get_thread_num() << std::endl;
-          for (int model_type = 0; model_type < nbr_model_types; model_type++) {
-            for (int state_idx = 0; state_idx < stateIndices_all_models[model_type].size(); state_idx++) {
-              std::cout << "bundesland " << stateIndices_all_models[model_type][state_idx] << ", active " << zero_covid_active[model_type][state_idx] << std::endl;
-            }
+          for (int bundesland=0; bundesland<nbr_federal_states; bundesland++) {
+            std::cout << "bundesland " << bundesland << ", active " << zero_covid_active[bundesland] << std::endl;
           }
         }
       }
@@ -1095,9 +1099,9 @@ integrate(
   std::vector<std::vector<double>> result_days_ODE(nr_ODE_states,std::vector<double>(days, 0.0));
 
   double norm = 0.0;
-  for (int day = 0; day < days; ++day) {
+  for (int day = 0; day < days; day++) {
     for (int state_ODE_idx=0; state_ODE_idx<nr_ODE_states; state_ODE_idx++) { // iterate over all ODE domains
-      for (int hour = 0; hour < dt_inv; ++hour) {
+      for (int hour = 0; hour < dt_inv; hour++) {
         result_days_ODE.at(state_ODE_idx)[day] += F_ODE.at(state_ODE_idx)[day*dt_inv+hour];
       }
       result_days_ODE.at(state_ODE_idx)[day] /= dt_inv;
@@ -1116,9 +1120,9 @@ integrate(
   } // end for day
   std::cout << "norm " << std::sqrt(norm) << std::endl;
 
-  for (int day = 0; day < days; ++day) {
+  for (int day = 0; day < days; day++) {
     for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) { // iterate over all PDE domains
-      for (int hour = 0; hour < dt_inv; ++hour) {
+      for (int hour = 0; hour < dt_inv; hour++) {
         result_days_PDE.at(state_PDE_idx)[day] += F_PDE.at(state_PDE_idx)[day*dt_inv+hour];
       }
       result_days_PDE.at(state_PDE_idx)[day] /= dt_inv;
@@ -1137,9 +1141,9 @@ integrate(
   } // end for day
   std::cout << "norm " << std::sqrt(norm) << std::endl;
 
-  for (int day = 0; day < days; ++day) {
+  for (int day = 0; day < days; day++) {
     for (int state_ABM_idx=0; state_ABM_idx<nr_ABM_states; state_ABM_idx++) { // iterate over all ABM domains
-      for (int hour = 0; hour < dt_inv; ++hour) {
+      for (int hour = 0; hour < dt_inv; hour++) {
         result_days_ABM.at(state_ABM_idx)[day] += nbr_symptomatic_agents.at(state_ABM_idx)[day*dt_inv+hour];
       }
       result_days_ABM.at(state_ABM_idx)[day] /= dt_inv;

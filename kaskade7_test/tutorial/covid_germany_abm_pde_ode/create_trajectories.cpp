@@ -640,7 +640,7 @@ int main(int argc, char *argv[]) {
     std::get<2>(trajectories[agent_idx][1]) = trajectory_partial_nr_state[agent_idx][1]; // state
   }
 
-  for (int steps=1; steps<maxSteps; ++steps) {
+  for (int steps=1; steps<maxSteps; steps++) {
     std::cout << "step " << steps << std::endl;
     std::tie(trajectory_partial, trajectory_partial_nr_state) = create_trajectories(nbr_trajectories, trajectory_partial_nr_state, eventData, facilityCoordinates_allCategories, facilityCoordinates_home, facilityLabels_allCategories,
       dt_inv, steps, nr_day, jump_matrix, jump_matrix_agent_IDs);

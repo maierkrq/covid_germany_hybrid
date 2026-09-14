@@ -2,3 +2,22 @@ verbosity: 0 # 0: less output, no file saving; 1: more output, file savings with
 num_threads: 1
 maxRun: 1 # initial run is 0
 nbr_simulation_days: 14
+
+# assign model types: 0 -> ABM, 1 -> PDE, 2 -> ODE, -1 -> not modeled at all
+# do not change the order of the states, as it is used in the model setup
+Schleswig-Holstein: 0
+Hamburg: 1
+Niedersachsen: 2
+Bremen: 1
+Nordrhein-Westfalen: 2
+Hessen: 2
+Rheinland-Pfalz: 0
+Baden-Wuerttemberg: 2
+Bayern: 2
+Saarland: 1
+Berlin: 1
+Brandenburg: 0
+Mecklenburg-Vorpommern: 0
+Sachsen: 0
+Sachsen-Anhalt: 0
+Thueringen: 0
