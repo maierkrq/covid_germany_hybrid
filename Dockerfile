@@ -117,7 +117,11 @@ RUN make kasklib || \
         exit 1; \
     }
 
-RUN make build-covid_germany_abm_pde_ode-tutorial
+RUN make FILE=${PROGRAM} build-covid_germany_abm_pde_ode-tutorial || \
+    { \
+        [ ! -f gccerr.txt ] || cat gccerr.txt; \
+        exit 1; \
+    }
 
 ########################################################################
 # runtime stage
@@ -168,4 +172,6 @@ WORKDIR ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode
 
 # work/output is a bind mount supplied at `docker run` time; the model
 # expects this subdirectory to already exist.
-CMD ["sh", "-c", "exec ./model --config \"${PROJECT_ROOT}/run-config.yaml\""]
+ENV CONFIG=${PROJECT_ROOT}/run-config.yaml
+ENV LOG_FILE=${KASKADE_ROOT}/work/output/run.log
+CMD ["sh", "-c", "exec ./model --config \"$CONFIG\" > \"$LOG_FILE\" 2>&1"]
