@@ -172,4 +172,6 @@ WORKDIR ${KASKADE_ROOT}/tutorial/covid_germany_abm_pde_ode
 
 # work/output is a bind mount supplied at `docker run` time; the model
 # expects this subdirectory to already exist.
-CMD ["sh", "-c", "exec ./model --config \"${PROJECT_ROOT}/run-config.yaml\""]
+ENV CONFIG=${PROJECT_ROOT}/run-config.yaml
+ENV LOG_DIR=${KASKADE_ROOT}/work/output
+CMD ["sh", "-c", "LOG_FILE=\"$LOG_DIR/run_$(date +'%Y-%m-%d_%H-%M-%S').log\"; exec ./model --config \"$CONFIG\" > \"$LOG_FILE\" 2>&1"]
