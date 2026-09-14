@@ -86,8 +86,8 @@ to the `the-episerve-consortium` org.
 If you changed code under `kaskade7_test/` (e.g. tweaking a parameter like
 `num_threads` in `covid.cpp`) without changing the Kaskade dependencies
 themselves, skip step 1 — `deps/` is unaffected and doesn't need
-redownloading. Just repeat steps 2–4 with a bumped tag (e.g. `v0.1.1` →
-`v0.1.2`), and commit/push the source change to git so the tag is traceable
+redownloading. Just repeat steps 2–4 with a bumped tag (e.g. `v0.1.2` →
+`v0.1.3`), and commit/push the source change to git so the tag is traceable
 back to the commit that produced it.
 
 ## For end users: running the model
