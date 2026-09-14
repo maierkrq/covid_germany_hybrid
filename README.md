@@ -49,13 +49,13 @@ on every build.
 
 By default, the `covid` program is compiled:
 ```bash
-docker build -t ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<tag> .
+docker build -t ghcr.io/the-episerve-consortium/kaskade-covid-germany:<tag> .
 ```
 
 To compile a different program, set the `PROGRAM` build argument. The available alternatives are `no_zero_covid` or `create_trajectories`:
 ```bash
 docker build \
-  --build-arg PROGRAM=no_zero_covid -t ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<tag> .
+  --build-arg PROGRAM=no_zero_covid -t ghcr.io/the-episerve-consortium/kaskade-covid-germany:<tag> .
 ```
 
 `PROGRAM` is only required at build time. The selected program is already included in the resulting image and does not need to be specified again with `docker run`.
@@ -69,13 +69,13 @@ network access to lakeFS needed at this step.
 docker run --rm \
   -v /local/path/to/input_data:/root/covid_germany_hybrid/kaskade7_test/work/input_data:ro \
   -v /local/path/to/output:/root/covid_germany_hybrid/kaskade7_test/work/output \
-  ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<tag>
+  ghcr.io/the-episerve-consortium/kaskade-covid-germany:<tag>
 ```
 
 ### 4. Push to the registry
 
 ```bash
-docker push ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<tag>
+docker push ghcr.io/the-episerve-consortium/kaskade-covid-germany:<tag>
 ```
 
 Requires `docker login ghcr.io` with an account/token that has write access
@@ -95,11 +95,11 @@ back to the commit that produced it.
 ### 1. Pull the image
 
 ```bash
-docker pull ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<tag>
+docker pull ghcr.io/the-episerve-consortium/kaskade-covid-germany:<tag>
 ```
 
 Available tags/versions:
-https://github.com/orgs/the-episerve-consortium/packages/container/package/kaskade-covid-berlin
+https://github.com/orgs/the-episerve-consortium/packages/container/package/kaskade-covid-germany
 
 ### 2. Get the model input data
 
@@ -123,7 +123,7 @@ above.
 docker run --rm \
   -v /local/path/to/input_data:/root/covid_germany_hybrid/kaskade7_test/work/input_data \
   -v /local/path/to/output:/root/covid_germany_hybrid/kaskade7_test/work/output \
-  ghcr.io/the-episerve-consortium/kaskade-covid-berlin:<tag>
+  ghcr.io/the-episerve-consortium/kaskade-covid-germany:<tag>
 ```
 
 - `input_data` mount: read-only is fine, e.g. add `:ro` to that `-v` flag.
