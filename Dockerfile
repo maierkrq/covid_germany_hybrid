@@ -133,10 +133,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ENV PROJECT_ROOT=/root/covid_germany_hybrid
 ENV KASKADE_ROOT=/root/covid_germany_hybrid/kaskade7_test
+ENV TZ=Europe/Berlin
 
 RUN apt-get update && apt-get install -y \
     libnuma1 \
     gnuplot-nox \
+    tzdata \
+    && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo $TZ > /etc/timezone \
     && rm -rf /var/lib/apt/lists/*
 
 # Runtime shared libraries only (.so*) - headers, static archives (.a) and the
