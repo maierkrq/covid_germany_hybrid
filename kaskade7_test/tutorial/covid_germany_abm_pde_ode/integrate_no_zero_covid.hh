@@ -768,8 +768,12 @@ integrate(
           processODECompartments(x_ODE.at(state_ODE_idx), PDEcompartmentJumpingIntoODEPersons.at(state_PDE_idx).at(state_ODE_idx)[0], sign);
         }
       }
-      
-      if ( verbosity>0 || zero_covid || no_covid) {
+    }
+
+    if ( verbosity>0 || zero_covid || no_covid) {
+      std::cout << "total_jumps_from_PDE_to_ABM " << total_jumps_from_PDE_to_ABM << std::endl;
+
+      for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) { // iterate over all PDE domains
         std::cout.flush();
         std::cout << "t= " << eq.at(state_PDE_idx).time()+dt << " dt = " << dt << '\n';
 
@@ -815,11 +819,8 @@ integrate(
           double mystery_infected = allNewSymptomaticCases[bundesland][steps+1] * (I_PDE[state_PDE_idx][steps+1])/(I_PDE[state_PDE_idx][steps+1] + F_PDE[state_PDE_idx][steps+1]);
           symptomatic_mystery_cases[bundesland][steps+1] += mystery_infected;
         }
-      } //verbosity
-    } // end for state_PDE_idx
-    if (verbosity > 0) {
-      std::cout << "total_jumps_from_PDE_to_ABM " << total_jumps_from_PDE_to_ABM << std::endl;
-    }
+      } // end for state_PDE_idx
+    } //verbosity 
 
     int total_jumps_from_ODE_to_ABM = 0;
     // compute number of jumps and perform jumps outgoing from ODE states (into ABM, PDE, ODE states)
