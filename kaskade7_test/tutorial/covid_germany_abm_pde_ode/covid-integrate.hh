@@ -731,8 +731,12 @@ integrate(
           processODECompartments(x_ODE.at(state_ODE_idx), PDEcompartmentJumpingIntoODEPersons.at(state_PDE_idx).at(state_ODE_idx)[0], sign);
         }
       }
-      
-      if ( verbosity>0 ) {
+    } // end for state_PDE_idx
+    
+    if ( verbosity>0 ) {
+      std::cout << "total_jumps_from_PDE_to_ABM " << total_jumps_from_PDE_to_ABM << std::endl;
+
+      for (int state_PDE_idx=0; state_PDE_idx<nr_PDE_states; state_PDE_idx++) { // iterate over all PDE domains
         std::cout.flush();
         std::cout << "t= " << eq.at(state_PDE_idx).time()+dt << " dt = " << dt << '\n';
 
@@ -770,11 +774,8 @@ integrate(
           } // end for corner
         } // end for cell
         std::cout << "symptomatic in " << stateLabels_PDE.at(state_PDE_idx) << ": " << (F_PDE.at(state_PDE_idx)[steps+1]) << std::endl;
-      } //verbosity
-    } // end for state_PDE_idx
-    if (verbosity > 0) {
-      std::cout << "total_jumps_from_PDE_to_ABM " << total_jumps_from_PDE_to_ABM << std::endl;
-    }
+      } // end for state_PDE_idx
+    } //verbosity 
 
     int total_jumps_from_ODE_to_ABM = 0;
     // compute number of jumps and perform jumps outgoing from ODE states (into ABM, PDE, ODE states)
